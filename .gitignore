@@ -13,6 +13,7 @@ dist/
 dist-ssr/
 build/
 out/
+local_html/
 *.local
 
 # Environment files
