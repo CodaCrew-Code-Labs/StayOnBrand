@@ -33,7 +33,7 @@
       description: 'Unlimited validation with team features and integrations',
       support: 'Priority support Mon-Fri',
       monthly: 5,
-      yearly: 50, // ~2 months free
+      yearly: 48, // ~2 months free
       features: [
         'Unlimited color checks',
         'Max 3 colors per check',
@@ -51,7 +51,7 @@
       description: 'Custom solutions for large teams and agencies',
       support: '24/7 dedicated support',
       monthly: 20,
-      yearly: 200, // ~2 months free
+      yearly: 192, // ~2 months free
       features: [
         'Everything in Pro',
         'Unlimited palettes',
