@@ -6,6 +6,64 @@
   const activeCardIndex = ref(2)
   let autoPlayInterval: ReturnType<typeof setInterval> | null = null
 
+  // Pricing toggle state
+  const isYearlyPricing = ref(false)
+
+  // Pricing plans data
+  const pricingPlans = {
+    starter: {
+      name: 'STARTER',
+      subtitle: 'Individual',
+      description: 'Perfect for getting started with brand color validation',
+      support: 'Email support',
+      monthly: 0,
+      yearly: 0,
+      features: [
+        '5 color checks per day',
+        'Max 2 Colors per check',
+        'Basic WCAG compliance',
+        '1 brand palette'
+      ],
+      cta: 'Get Started Free',
+      color: 'teal'
+    },
+    professional: {
+      name: 'PROFESSIONAL',
+      subtitle: 'Business',
+      description: 'Unlimited validation with team features and integrations',
+      support: 'Priority support Mon-Fri',
+      monthly: 5,
+      yearly: 50, // ~2 months free
+      features: [
+        'Unlimited color checks',
+        'Max 3 colors per check',
+        'Full WCAG 2.1 AA + AAA',
+        '10 brand palettes',
+        '2 Image validations per day'
+      ],
+      cta: 'Start Free Trial',
+      color: 'bright',
+      popular: true
+    },
+    enterprise: {
+      name: 'ENTERPRISE',
+      subtitle: 'Organization',
+      description: 'Custom solutions for large teams and agencies',
+      support: '24/7 dedicated support',
+      monthly: 20,
+      yearly: 200, // ~2 months free
+      features: [
+        'Everything in Pro',
+        'Unlimited palettes',
+        'Max 5 colors per check',
+        'Unlimited Image Validation',
+        'White-label reports'
+      ],
+      cta: 'Contact Sales',
+      color: 'red'
+    }
+  }
+
   // Scroll animation observer
   let scrollObserver: IntersectionObserver | null = null
 
@@ -293,6 +351,12 @@
               <span class="z-10 relative">PRICING</span>
             </RouterLink>
             <RouterLink
+              to="/affiliates"
+              class="group relative bg-brand-bg text-brand-black px-5 py-2 rounded-full border border-brand-black font-semibold text-xs tracking-wide shadow-[3px_3px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden hover:bg-brand-bright hidden md:flex"
+            >
+              <span class="z-10 relative">AFFILIATES</span>
+            </RouterLink>
+            <RouterLink
               to="/signup"
               class="group relative bg-brand-bright text-brand-black px-5 py-2 rounded-full border border-brand-black font-semibold text-xs tracking-wide shadow-[3px_3px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden"
             >
@@ -469,7 +533,7 @@
               <div class="text-[0.6rem] uppercase font-semibold tracking-wide opacity-80">
                 validate your brand color
               </div>
-              <div class="text-base font-semibold tracking-tight font-display">Completely Free</div>
+              <div class="text-base font-semibold tracking-tight font-display">FREE</div>
             </div>
           </RouterLink>
           <RouterLink
@@ -499,7 +563,7 @@
               <div class="text-[0.6rem] uppercase font-semibold tracking-wide opacity-80">
                 Wanna Do more ???
               </div>
-              <div class="text-base font-semibold tracking-tight font-display">Sign Up</div>
+              <div class="text-base font-semibold tracking-tight font-display">SIGN-UP</div>
             </div>
           </RouterLink>
         </div>
@@ -1629,6 +1693,678 @@
         </div>
       </div>
     </section>
+
+    <!-- === PRICING SECTION === -->
+    <section
+      class="relative w-full min-h-screen bg-brand-bg flex flex-col items-center justify-center py-24 px-4 overflow-hidden z-20"
+    >
+      <!-- Background Elements -->
+      <div class="absolute inset-0 pointer-events-none opacity-[0.15] bg-grid z-0"></div>
+      <div class="absolute inset-0 pointer-events-none bg-grid-lines z-0"></div>
+
+      <!-- Connecting Noodle -->
+      <svg
+        class="absolute -top-32 left-0 w-full h-[300px] pointer-events-none z-0"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M 50% 0 L 50% 150"
+          fill="none"
+          stroke="#2F7A72"
+          stroke-width="2"
+          class="opacity-20 noodle-path"
+        />
+        <circle r="4" fill="#2F7A72">
+          <animateMotion dur="4s" repeatCount="indefinite" path="M 50% 0 L 50% 150" />
+        </circle>
+      </svg>
+
+      <!-- Header -->
+      <div class="mb-16 text-center max-w-4xl z-10">
+        <button
+          class="group relative px-6 py-2 rounded-full bg-brand-black border border-brand-black/20 text-xs font-semibold tracking-wide backdrop-blur-sm overflow-hidden hover:border-brand-teal/50 transition-colors shadow-xl text-brand-bg mb-6 scroll-animate fade-down"
+        >
+          <div
+            class="hover-beam-light group-hover:opacity-100 transition-opacity opacity-0 border-transparent border-2 rounded-full absolute top-0 right-0 bottom-0 left-0"
+          ></div>
+          <div class="flex items-center gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="text-brand-bright"
+            >
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+            </svg>
+            <span>SIMPLE PRICING</span>
+          </div>
+        </button>
+        <h2
+          class="text-4xl md:text-6xl font-display font-semibold text-brand-black uppercase tracking-tight scroll-animate scale-in delay-200"
+        >
+          <span class="block">Choose Your</span>
+          <span class="block text-brand-teal">Perfect Plan</span>
+        </h2>
+        <p
+          class="text-brand-black/60 text-lg mt-6 max-w-2xl mx-auto scroll-animate fade-up delay-300"
+        >
+          Start free and scale as you grow. All plans include core accessibility features.
+        </p>
+
+        <!-- Pricing Toggle -->
+        <div class="mt-8 flex items-center justify-center gap-4 scroll-animate fade-up delay-400">
+          <span
+            :class="[
+              'text-sm font-semibold transition-colors',
+              !isYearlyPricing ? 'text-brand-black' : 'text-brand-black/40'
+            ]"
+          >
+            Monthly
+          </span>
+          <button
+            class="relative w-16 h-8 bg-brand-black rounded-full p-1 transition-colors shadow-[3px_3px_0px_0px_#2F7A72] hover:shadow-[2px_2px_0px_0px_#2F7A72] hover:translate-x-[1px] hover:translate-y-[1px]"
+            @click="isYearlyPricing = !isYearlyPricing"
+          >
+            <div
+              :class="[
+                'w-6 h-6 bg-brand-bright rounded-full transition-transform duration-300 ease-out',
+                isYearlyPricing ? 'translate-x-8' : 'translate-x-0'
+              ]"
+            ></div>
+          </button>
+          <span
+            :class="[
+              'text-sm font-semibold transition-colors',
+              isYearlyPricing ? 'text-brand-black' : 'text-brand-black/40'
+            ]"
+          >
+            Yearly
+          </span>
+          <span
+            v-if="isYearlyPricing"
+            class="ml-2 bg-brand-teal text-brand-bg text-xs font-bold px-3 py-1 rounded-full animate-pulse"
+          >
+            Save 20%
+          </span>
+        </div>
+      </div>
+
+      <!-- Pricing Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 w-full max-w-6xl z-10 px-4">
+        <!-- Basic Plan -->
+        <div
+          class="group relative bg-brand-bg rounded-3xl p-8 flex flex-col items-center text-center border-2 border-brand-black/10 shadow-xl scroll-animate fade-up delay-100 stat-card stat-card-light"
+        >
+          <!-- Character/Icon Area -->
+          <div class="relative w-32 h-32 mb-6 flex items-center justify-center">
+            <div class="absolute inset-0 bg-brand-teal/10 rounded-full"></div>
+            <div
+              class="relative z-10 w-24 h-24 bg-brand-black rounded-full flex items-center justify-center stat-badge"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-brand-bright stat-icon"
+              >
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Plan Name -->
+          <h3
+            class="text-2xl font-display font-bold text-brand-black uppercase tracking-wide stat-number"
+          >
+            STARTER
+          </h3>
+          <span class="text-brand-teal text-sm font-medium mb-4">Individual</span>
+
+          <!-- Description -->
+          <p class="text-brand-black/60 text-sm mb-2 stat-content">
+            Perfect for getting started with brand color validation
+          </p>
+          <p class="text-brand-black/50 text-xs mb-6">Email support</p>
+
+          <!-- Price -->
+          <div class="mb-6 stat-number relative">
+            <span class="text-brand-black/60 text-lg align-top">$</span>
+            <span
+              class="text-5xl font-display font-bold text-brand-black transition-all duration-300"
+            >
+              {{ isYearlyPricing ? pricingPlans.starter.yearly : pricingPlans.starter.monthly }}
+            </span>
+            <span class="text-brand-black/60 text-sm">{{
+              isYearlyPricing ? '/Year' : '/Month'
+            }}</span>
+          </div>
+
+          <!-- Features -->
+          <ul class="text-left w-full space-y-3 mb-8 stat-content">
+            <li
+              v-for="feature in pricingPlans.starter.features"
+              :key="feature"
+              class="flex items-center gap-2 text-sm text-brand-black/70"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                class="text-brand-teal flex-shrink-0"
+              >
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              {{ feature }}
+            </li>
+          </ul>
+
+          <!-- CTA Button -->
+          <RouterLink
+            to="/signup"
+            class="w-full py-3 rounded-full bg-brand-black text-brand-bg font-semibold text-sm uppercase tracking-wide shadow-[4px_4px_0px_0px_#2F7A72] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#2F7A72] transition-all btn-animate stat-footer"
+          >
+            {{ pricingPlans.starter.cta }}
+          </RouterLink>
+        </div>
+
+        <!-- Premium Plan (Featured) -->
+        <div
+          class="group relative bg-brand-black rounded-3xl p-8 flex flex-col items-center text-center border-2 border-brand-teal shadow-2xl md:-mt-4 md:mb-4 scroll-animate fade-up delay-200 stat-card stat-card-dark"
+        >
+          <!-- Popular Badge -->
+          <div
+            class="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand-red text-brand-bg px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wide shadow-lg"
+          >
+            Most Popular
+          </div>
+
+          <!-- Character/Icon Area -->
+          <div class="relative w-32 h-32 mb-6 flex items-center justify-center mt-4">
+            <div class="absolute inset-0 bg-brand-teal/20 rounded-full"></div>
+            <div
+              class="relative z-10 w-24 h-24 bg-brand-bright rounded-full flex items-center justify-center stat-badge"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-brand-black stat-icon"
+              >
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Plan Name -->
+          <h3
+            class="text-2xl font-display font-bold text-brand-bg uppercase tracking-wide stat-number"
+          >
+            PROFESSIONAL
+          </h3>
+          <span class="text-brand-bright text-sm font-medium mb-4">Business</span>
+
+          <!-- Description -->
+          <p class="text-brand-bg/70 text-sm mb-2 stat-content">
+            Unlimited validation with team features and integrations
+          </p>
+          <p class="text-brand-bg/50 text-xs mb-6">Priority support Mon-Fri</p>
+
+          <!-- Price -->
+          <div class="mb-6 stat-number relative">
+            <span class="text-brand-bg/60 text-lg align-top">$</span>
+            <span class="text-5xl font-display font-bold text-brand-bg transition-all duration-300">
+              {{
+                isYearlyPricing
+                  ? pricingPlans.professional.yearly
+                  : pricingPlans.professional.monthly
+              }}
+            </span>
+            <span class="text-brand-bg/60 text-sm">{{ isYearlyPricing ? '/Year' : '/Month' }}</span>
+            <span
+              v-if="isYearlyPricing"
+              class="absolute -top-2 -right-2 bg-brand-red text-brand-bg text-[10px] font-bold px-2 py-0.5 rounded-full"
+            >
+              -20%
+            </span>
+          </div>
+
+          <!-- Features -->
+          <ul class="text-left w-full space-y-3 mb-8 stat-content">
+            <li
+              v-for="feature in pricingPlans.professional.features"
+              :key="feature"
+              class="flex items-center gap-2 text-sm text-brand-bg/80"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                class="text-brand-bright shrink-0"
+              >
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              {{ feature }}
+            </li>
+          </ul>
+
+          <!-- CTA Button -->
+          <RouterLink
+            to="/signup"
+            class="w-full py-3 rounded-full bg-brand-bright text-brand-black font-semibold text-sm uppercase tracking-wide shadow-[4px_4px_0px_0px_#C92216] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#C92216] transition-all btn-animate stat-footer"
+          >
+            {{ pricingPlans.professional.cta }}
+          </RouterLink>
+        </div>
+
+        <!-- Enterprise Plan -->
+        <div
+          class="group relative bg-brand-bg rounded-3xl p-8 flex flex-col items-center text-center border-2 border-brand-black/10 shadow-xl scroll-animate fade-up delay-300 stat-card stat-card-light"
+        >
+          <!-- Character/Icon Area -->
+          <div class="relative w-32 h-32 mb-6 flex items-center justify-center">
+            <div class="absolute inset-0 bg-brand-red/10 rounded-full"></div>
+            <div
+              class="relative z-10 w-24 h-24 bg-brand-red rounded-full flex items-center justify-center stat-badge"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-brand-bg stat-icon"
+              >
+                <path
+                  d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Plan Name -->
+          <h3
+            class="text-2xl font-display font-bold text-brand-black uppercase tracking-wide stat-number"
+          >
+            ENTERPRISE
+          </h3>
+          <span class="text-brand-red text-sm font-medium mb-4">Organization</span>
+
+          <!-- Description -->
+          <p class="text-brand-black/60 text-sm mb-2 stat-content">
+            Custom Image Validation solutions for large teams and agencies
+          </p>
+          <p class="text-brand-black/50 text-xs mb-6">Priority support Mon-Fri</p>
+
+          <!-- Price -->
+          <div class="mb-6 stat-number relative">
+            <span class="text-brand-black/60 text-lg align-top">$</span>
+            <span
+              class="text-5xl font-display font-bold text-brand-black transition-all duration-300"
+            >
+              {{
+                isYearlyPricing ? pricingPlans.enterprise.yearly : pricingPlans.enterprise.monthly
+              }}
+            </span>
+            <span class="text-brand-black/60 text-sm">{{
+              isYearlyPricing ? '/Year' : '/Month'
+            }}</span>
+            <span
+              v-if="isYearlyPricing"
+              class="absolute -top-2 -right-2 bg-brand-teal text-brand-bg text-[10px] font-bold px-2 py-0.5 rounded-full"
+            >
+              -20%
+            </span>
+          </div>
+
+          <!-- Features -->
+          <ul class="text-left w-full space-y-3 mb-8 stat-content">
+            <li
+              v-for="feature in pricingPlans.enterprise.features"
+              :key="feature"
+              class="flex items-center gap-2 text-sm text-brand-black/70"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                class="text-brand-red shrink-0"
+              >
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              {{ feature }}
+            </li>
+          </ul>
+
+          <!-- CTA Button -->
+          <RouterLink
+            to="/signup"
+            class="w-full py-3 rounded-full bg-brand-black text-brand-bg font-semibold text-sm uppercase tracking-wide shadow-[4px_4px_0px_0px_#C92216] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#C92216] transition-all btn-animate stat-footer"
+          >
+            {{ pricingPlans.enterprise.cta }}
+          </RouterLink>
+        </div>
+      </div>
+    </section>
+
+    <!-- === CTA SECTION === -->
+    <section class="relative w-full bg-brand-black py-20 px-4 overflow-hidden z-20">
+      <!-- Background Pattern -->
+      <div class="absolute inset-0 opacity-5 pointer-events-none">
+        <div
+          class="absolute inset-0 bg-[radial-gradient(#f8f3e8_1px,transparent_1px)] [background-size:30px_30px]"
+        ></div>
+      </div>
+
+      <!-- Decorative Lines -->
+      <svg
+        class="absolute top-0 right-0 w-64 h-64 pointer-events-none opacity-20"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <line x1="100" y1="0" x2="60" y2="100" stroke="#f8f3e8" stroke-width="0.5" />
+        <line x1="100" y1="20" x2="80" y2="100" stroke="#f8f3e8" stroke-width="0.5" />
+        <line x1="100" y1="40" x2="95" y2="100" stroke="#f8f3e8" stroke-width="0.5" />
+      </svg>
+
+      <div class="max-w-6xl mx-auto relative z-10">
+        <div
+          class="relative bg-brand-red rounded-3xl p-8 md:p-12 lg:p-16 border border-brand-bg/10 shadow-2xl overflow-hidden scroll-animate fade-up"
+        >
+          <!-- Inner glow effect -->
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none"
+          ></div>
+
+          <!-- Content Grid -->
+          <div
+            class="relative flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12"
+          >
+            <!-- Text Content -->
+            <div class="flex-1 text-center lg:text-left">
+              <h2
+                class="text-4xl md:text-5xl lg:text-6xl font-display font-semibold text-brand-bg leading-tight tracking-tight mb-4"
+              >
+                Convinced already?
+              </h2>
+              <p class="text-brand-bg/80 text-lg md:text-xl max-w-xl mb-8">
+                Start validating your brand colors today with Stay on Brand!
+                <br class="hidden md:block" />
+                Ensure accessibility and consistency in minutes.
+              </p>
+
+              <!-- CTA Button -->
+              <RouterLink
+                to="/signup"
+                class="group inline-flex items-center gap-3 bg-brand-bright text-brand-black px-8 py-4 rounded-full font-semibold text-sm uppercase tracking-wide shadow-[5px_5px_0px_0px_#1A1A1A] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[3px_3px_0px_0px_#1A1A1A] transition-all btn-animate"
+              >
+                Get Started
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="group-hover:translate-x-1 transition-transform"
+                >
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </RouterLink>
+            </div>
+
+            <!-- Logo/Icon Area -->
+            <div class="relative flex-shrink-0">
+              <div class="relative w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48">
+                <!-- Glow effect behind -->
+                <div class="absolute inset-0 bg-brand-bright/20 rounded-3xl blur-2xl"></div>
+                <!-- Main logo container -->
+                <div
+                  class="relative w-full h-full bg-brand-bright rounded-3xl flex items-center justify-center shadow-2xl stat-card"
+                >
+                  <div class="text-brand-black">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="64"
+                      height="64"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="md:w-20 md:h-20 lg:w-24 lg:h-24 stat-icon"
+                    >
+                      <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+                      <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+                      <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
+                      <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+                      <path
+                        d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.555C21.965 6.012 17.461 2 12 2z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- === FOOTER SECTION === -->
+    <footer class="relative w-full bg-brand-bg py-8 px-4 md:px-12 z-20 overflow-hidden">
+      <!-- Background Grid (same as hero) -->
+      <div class="absolute inset-0 pointer-events-none opacity-[0.15] bg-grid z-0"></div>
+
+      <!-- Top border line -->
+      <div
+        class="absolute top-0 left-4 right-4 md:left-12 md:right-12 h-px bg-brand-black/10"
+      ></div>
+
+      <div class="max-w-screen-2xl mx-auto relative z-10">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+          <!-- Logo -->
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 flex items-center justify-center text-brand-teal">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+                <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+                <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
+                <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+                <path
+                  d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.555C21.965 6.012 17.461 2 12 2z"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Navigation Links -->
+          <nav class="flex flex-wrap items-center justify-center gap-6 md:gap-8">
+            <RouterLink
+              to="/contact"
+              class="text-brand-black/60 hover:text-brand-teal text-sm font-medium transition-colors underline-reveal"
+            >
+              Contact
+            </RouterLink>
+            <RouterLink
+              to="/privacy"
+              class="text-brand-black/60 hover:text-brand-teal text-sm font-medium transition-colors underline-reveal"
+            >
+              Privacy & Cookie Policy
+            </RouterLink>
+            <RouterLink
+              to="/terms"
+              class="text-brand-black/60 hover:text-brand-teal text-sm font-medium transition-colors underline-reveal"
+            >
+              Terms & Conditions
+            </RouterLink>
+          </nav>
+
+          <!-- Made with love -->
+          <div class="text-brand-black/50 text-sm">
+            Made with <span class="text-brand-red">♥</span> by
+            <a
+              href="https://twitter.com/this_is_mhd"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-brand-black/70 hover:text-brand-teal transition-colors font-medium"
+            >
+              Mhd Rahman
+            </a>
+          </div>
+        </div>
+
+        <!-- Bottom row with copyright -->
+        <div
+          class="mt-6 pt-6 border-t border-brand-black/10 flex flex-col md:flex-row items-center justify-between gap-4"
+        >
+          <p class="text-brand-black/40 text-xs">
+            © {{ new Date().getFullYear() }} Stay on Brand. All rights reserved.
+          </p>
+          <div class="flex items-center gap-4">
+            <a
+              href="#"
+              class="text-brand-black/40 hover:text-brand-red transition-colors"
+              aria-label="Twitter"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"
+                />
+              </svg>
+            </a>
+            <a
+              href="#"
+              class="text-brand-black/40 hover:text-brand-red transition-colors"
+              aria-label="Instagram"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+              </svg>
+            </a>
+            <a
+              href="#"
+              class="text-brand-black/40 hover:text-brand-teal transition-colors"
+              aria-label="LinkedIn"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                />
+                <rect width="4" height="12" x="2" y="9" />
+                <circle cx="4" cy="4" r="2" />
+              </svg>
+            </a>
+            <a
+              href="#"
+              class="text-brand-black/40 hover:text-brand-black transition-colors"
+              aria-label="GitHub"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
+                />
+                <path d="M9 18c-4.51 2-5-2-7-2" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
 
     <!-- Interactive Corner Sonar -->
     <div class="fixed bottom-6 left-6 z-50 group cursor-pointer md:block hidden">
