@@ -2248,7 +2248,7 @@
               to="/terms"
               class="text-brand-black/60 hover:text-brand-teal text-sm font-medium transition-colors underline-reveal"
             >
-              Terms & Conditions
+              Legal
             </RouterLink>
           </nav>
 

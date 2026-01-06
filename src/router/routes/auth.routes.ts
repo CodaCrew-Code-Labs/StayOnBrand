@@ -42,39 +42,12 @@ export const authRoutes: RouteRecordRaw[] = [
     }
   },
   {
-    path: '/verify-email',
-    name: 'VerifyEmail',
-    component: () => import('@/views/auth/VerifyEmailPage.vue'),
-    meta: {
-      layout: 'auth',
-      title: 'Verify Email'
-    }
-  },
-  {
-    path: '/check-email',
-    name: 'CheckEmail',
-    component: () => import('@/views/auth/CheckEmailPage.vue'),
-    meta: {
-      layout: 'auth',
-      title: 'Check Your Email'
-    }
-  },
-  {
     path: '/link-expired',
     name: 'LinkExpired',
     component: () => import('@/views/auth/LinkExpiredPage.vue'),
     meta: {
       layout: 'auth',
       title: 'Link Expired'
-    }
-  },
-  {
-    path: '/resend-verification',
-    name: 'ResendVerification',
-    component: () => import('@/views/auth/ResendVerificationPage.vue'),
-    meta: {
-      layout: 'auth',
-      title: 'Resend Verification'
     }
   }
 ]
