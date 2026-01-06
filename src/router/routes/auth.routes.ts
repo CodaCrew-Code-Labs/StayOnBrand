@@ -49,5 +49,15 @@ export const authRoutes: RouteRecordRaw[] = [
       layout: 'auth',
       title: 'Link Expired'
     }
+  },
+  {
+    path: '/auth/callback',
+    name: 'AuthCallback',
+    component: () => import('@/views/auth/AuthCallbackPage.vue'),
+    meta: {
+      layout: 'auth',
+      title: 'Authenticating...',
+      requiresGuest: true
+    }
   }
 ]
