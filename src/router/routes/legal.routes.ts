@@ -6,7 +6,7 @@ export const legalRoutes: RouteRecordRaw[] = [
     name: 'Terms',
     component: () => import('@/views/legal/TermsPage.vue'),
     meta: {
-      layout: 'legal',
+      layout: 'default',
       title: 'Terms of Service'
     }
   },

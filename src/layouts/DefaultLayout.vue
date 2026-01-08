@@ -4,13 +4,15 @@
 
   const route = useRoute()
 
-  // Check if we're on the home page - it has its own full-page layout with navigation
-  const isHomePage = computed(() => route.name === 'Home')
+  // Check if we're on pages that have their own full-page layout with navigation
+  const hasOwnLayout = computed(
+    () => route.name === 'Home' || route.name === 'Pricing' || route.name === 'Terms'
+  )
 </script>
 
 <template>
-  <!-- Home page renders directly without wrapper (has its own navigation) -->
-  <RouterView v-if="isHomePage" />
+  <!-- Pages with their own layout render directly without wrapper -->
+  <RouterView v-if="hasOwnLayout" />
 
   <!-- Other pages use the standard layout with header/footer -->
   <div v-else class="min-h-screen flex flex-col bg-brand-bg font-sans">

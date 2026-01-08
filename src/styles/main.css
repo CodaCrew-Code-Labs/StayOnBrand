@@ -12,6 +12,9 @@
   --color-brand-teal: #2f7a72;
   --color-brand-bright: #79dcaf;
   --color-brand-dark: #111111;
+  --color-brand-purple: #7a8cff;
+  --color-brand-gray: #888888;
+  --color-brand-card: #161616;
 
   /* Fonts */
   --font-sans: 'Manrope', sans-serif;
