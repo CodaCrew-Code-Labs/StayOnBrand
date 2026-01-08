@@ -1,12 +1,18 @@
 <script setup lang="ts">
   import { ref, onMounted } from 'vue'
-  import { RouterLink } from 'vue-router'
+  import { RouterLink, useRouter } from 'vue-router'
+  import { AuthService } from '@/services/auth'
+  import { useAuthStore } from '@/stores/auth.store'
+
+  const router = useRouter()
+  const authStore = useAuthStore()
 
   // Form state
   const email = ref('')
   const password = ref('')
   const rememberMe = ref(false)
   const isLoading = ref(false)
+  const error = ref('')
 
   // Animation state - check if coming from signup page (skip entry animation for smooth transition)
   const isVisible = ref(false)
@@ -27,16 +33,48 @@
     }
   })
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    if (!email.value || !password.value) return
+
     isLoading.value = true
-    // TODO: Implement login logic
-    setTimeout(() => {
+    error.value = ''
+
+    try {
+      const result = await AuthService.login(email.value, password.value, rememberMe.value)
+
+      // Store auth data
+      authStore.setToken(result.accessToken || result.token || '')
+      const userData = {
+        id: result.user?.id || 'user',
+        email: email.value
+      }
+      authStore.setUser(userData)
+
+      // Store user data in localStorage if remember me is enabled
+      if (rememberMe.value) {
+        localStorage.setItem('userData', JSON.stringify(userData))
+      }
+
+      // Navigate to dashboard
+      router.push('/dashboard')
+    } catch (err: unknown) {
+      error.value = (err as Error).message || 'Login failed'
+    } finally {
       isLoading.value = false
-    }, 1500)
+    }
   }
 
-  const handleGoogleLogin = () => {
-    // TODO: Implement Google OAuth
+  const handleGoogleLogin = async () => {
+    try {
+      error.value = ''
+      const url = await AuthService.getGoogleAuthUrl()
+      // Store auth flow type for callback page messaging
+      sessionStorage.setItem('authFlow', 'login')
+      window.location.href = url
+    } catch (err: unknown) {
+      console.error('Failed to get Google auth URL:', err)
+      error.value = (err as Error).message || 'Failed to connect with Google'
+    }
   }
 </script>
 
@@ -228,14 +266,35 @@
               <span class="text-xs font-medium text-brand-black/60">Remember me for 30 days</span>
             </div>
 
+            <!-- Error Message -->
+            <div v-if="error" class="p-3 bg-red-50 border border-red-200 rounded-lg">
+              <p class="text-sm text-red-600">{{ error }}</p>
+            </div>
+
             <!-- Sign In Button -->
             <div class="pt-2 border-beam-container rounded-full">
               <button
                 type="submit"
                 :disabled="isLoading"
                 class="w-full bg-brand-black hover:bg-brand-dark text-brand-bg font-bold py-3.5 rounded-full transition-all duration-300 flex items-center justify-center gap-2 btn-beam relative z-10 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                :class="{ 'animate-pulse': isLoading }"
               >
-                <span v-if="isLoading">Signing in...</span>
+                <span v-if="isLoading" class="flex items-center gap-2">
+                  <svg
+                    class="w-5 h-5 animate-spin"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                    />
+                  </svg>
+                  Signing in...
+                </span>
                 <template v-else>
                   Sign in
                   <svg

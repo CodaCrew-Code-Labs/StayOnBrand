@@ -1,12 +1,74 @@
 <script setup lang="ts">
-  import { ref, onMounted } from 'vue'
-  import { RouterLink } from 'vue-router'
+  import { ref, computed, onMounted } from 'vue'
+  import { RouterLink, useRouter } from 'vue-router'
+
+  import { AuthService } from '@/services/auth'
+
+  const router = useRouter()
 
   // Form state
   const email = ref('')
   const password = ref('')
   const username = ref('')
   const isLoading = ref(false)
+  const showPassword = ref(false)
+  const isPasswordTransitioning = ref(false)
+  const errorMessage = ref('')
+
+  const togglePasswordVisibility = () => {
+    isPasswordTransitioning.value = true
+    showPassword.value = !showPassword.value
+    setTimeout(() => {
+      isPasswordTransitioning.value = false
+    }, 400)
+  }
+
+  // Password validation rules
+  const passwordRules = computed(() => [
+    {
+      id: 'length',
+      label: 'At least 8 characters',
+      met: password.value.length >= 8
+    },
+    {
+      id: 'uppercase',
+      label: 'One uppercase letter',
+      met: /[A-Z]/.test(password.value)
+    },
+    {
+      id: 'number',
+      label: 'One number',
+      met: /[0-9]/.test(password.value)
+    },
+    {
+      id: 'special',
+      label: 'One special symbol',
+      met: /[!@#$%^&*(),.?":{}|<>_\-+=[\]\\/`~;']/.test(password.value)
+    }
+  ])
+
+  const allPasswordRulesMet = computed(() => passwordRules.value.every(rule => rule.met))
+
+  // Toast notification state
+  const toast = ref({
+    show: false,
+    message: '',
+    type: 'error' as 'error' | 'success' | 'warning'
+  })
+
+  let toastTimeout: ReturnType<typeof setTimeout> | null = null
+
+  const showToast = (message: string, type: 'error' | 'success' | 'warning' = 'error') => {
+    if (toastTimeout) clearTimeout(toastTimeout)
+    toast.value = { show: true, message, type }
+    toastTimeout = setTimeout(() => {
+      toast.value.show = false
+    }, 4000)
+  }
+
+  const dismissToast = () => {
+    toast.value.show = false
+  }
 
   // Animation state - check if coming from login page (skip entry animation for smooth transition)
   const isVisible = ref(false)
@@ -27,33 +89,107 @@
     }
   })
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    console.log('=== SIGNUP FORM SUBMISSION START ===')
+    errorMessage.value = '' // Clear any previous errors
+
+    // Decode HTML entities if present
+    const decodeHtml = (str: string) => {
+      const textarea = document.createElement('textarea')
+      textarea.innerHTML = str
+      return textarea.value
+    }
+
+    const cleanEmail = decodeHtml(email.value.trim())
+    const cleanPassword = decodeHtml(password.value)
+    const cleanUsername = decodeHtml(username.value.trim())
+
+    // Validate email
+    if (!cleanEmail) {
+      showToast('Please enter your email address', 'error')
+      return
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(cleanEmail)) {
+      showToast('Please enter a valid email address', 'error')
+      return
+    }
+
+    // Validate password rules
+    if (!allPasswordRulesMet.value) {
+      const unmetRules = passwordRules.value.filter(rule => !rule.met)
+      showToast(
+        `Password requires: ${unmetRules.map(r => r.label.toLowerCase()).join(', ')}`,
+        'error'
+      )
+      return
+    }
+
+    // Validate username
+    if (!cleanUsername) {
+      showToast('Please choose a username', 'error')
+      return
+    }
+
+    if (cleanUsername.length < 3) {
+      showToast('Username must be at least 3 characters', 'error')
+      return
+    }
+
+    console.log('Form data:', {
+      email: cleanEmail,
+      password: cleanPassword,
+      username: cleanUsername
+    })
+    console.log('API URL being used:', `http://localhost:${import.meta.env.VITE_AUTH_PORT || 3001}`)
+
     isLoading.value = true
-    // TODO: Implement signup logic
-    setTimeout(() => {
+    try {
+      console.log('Calling AuthService.signup...')
+      const result = await AuthService.signup(cleanEmail, cleanPassword, cleanUsername)
+      console.log('Signup successful:', result)
+      showToast('Account created successfully! Now login', 'success')
+      // Redirect to login page after showing toast
+      setTimeout(() => {
+        router.push('/login')
+      }, 2000)
+    } catch (error: unknown) {
+      console.error('Signup failed:', error)
+      console.error('Error message:', (error as Error).message)
+      console.error('Full error object:', error)
+
+      // Extract detailed error message
+      let errorMsg = 'Signup failed. Please try again.'
+      if ((error as Error).message && (error as Error).message !== 'Signup failed') {
+        errorMsg = (error as Error).message
+      } else if (
+        (error as { response?: { data?: { message?: string } } }).response?.data?.message
+      ) {
+        errorMsg = (error as { response: { data: { message: string } } }).response.data.message
+      } else if ((error as { response?: { data?: { error?: string } } }).response?.data?.error) {
+        errorMsg = (error as { response: { data: { error: string } } }).response.data.error
+      }
+
+      errorMessage.value = errorMsg
+    } finally {
       isLoading.value = false
-    }, 1500)
+      console.log('=== SIGNUP FORM SUBMISSION END ===')
+    }
   }
 
-  const handleGoogleSignup = () => {
-    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
-    const redirectUri = `${window.location.origin}/auth/callback`
-    const scope = 'openid email profile'
-
-    console.log('Redirect URI being sent:', redirectUri)
-    console.log('Client ID:', clientId)
-
-    const googleAuthUrl =
-      `https://accounts.google.com/o/oauth2/v2/auth?` +
-      `client_id=${clientId}&` +
-      `redirect_uri=${encodeURIComponent(redirectUri)}&` +
-      `response_type=code&` +
-      `scope=${encodeURIComponent(scope)}&` +
-      `access_type=offline&` +
-      `prompt=consent`
-
-    console.log('Full Google Auth URL:', googleAuthUrl)
-    window.location.href = googleAuthUrl
+  const handleGoogleSignup = async () => {
+    errorMessage.value = '' // Clear errors on any button click
+    try {
+      const url = await AuthService.getGoogleAuthUrl()
+      console.log('Google Auth URL from backend:', url)
+      // Store auth flow type for callback page messaging
+      sessionStorage.setItem('authFlow', 'signup')
+      window.location.href = url
+    } catch (error: unknown) {
+      console.error('Failed to get Google auth URL:', error)
+      showToast((error as Error).message || 'Failed to initiate Google sign up', 'error')
+    }
   }
 </script>
 
@@ -61,6 +197,91 @@
   <div
     class="min-h-screen flex flex-col relative selection:bg-brand-teal selection:text-white bg-brand-dark overflow-x-hidden"
   >
+    <!-- Modern Toast Notification -->
+    <Transition name="toast">
+      <div
+        v-if="toast.show"
+        class="toast-container fixed top-6 left-0 right-0 flex justify-center z-50"
+        @click="dismissToast"
+      >
+        <div
+          class="toast-content flex items-center gap-3 px-5 py-3.5 rounded-2xl shadow-2xl backdrop-blur-xl border cursor-pointer"
+          :class="{
+            'bg-red-500/80 border-red-400/60 text-white': toast.type === 'error',
+            'bg-green-500/80 border-green-400/60 text-white': toast.type === 'success',
+            'bg-yellow-500/80 border-yellow-400/60 text-white': toast.type === 'warning'
+          }"
+        >
+          <!-- Icon -->
+          <div
+            class="toast-icon flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center"
+            :class="{
+              'bg-red-600/40': toast.type === 'error',
+              'bg-green-600/40': toast.type === 'success',
+              'bg-yellow-600/40': toast.type === 'warning'
+            }"
+          >
+            <!-- Error Icon -->
+            <svg
+              v-if="toast.type === 'error'"
+              class="w-4 h-4 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+            <!-- Success Icon -->
+            <svg
+              v-if="toast.type === 'success'"
+              class="w-4 h-4 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+            <!-- Warning Icon -->
+            <svg
+              v-if="toast.type === 'warning'"
+              class="w-4 h-4 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+              />
+            </svg>
+          </div>
+          <!-- Message -->
+          <span class="toast-message text-sm font-medium">{{ toast.message }}</span>
+          <!-- Progress bar -->
+          <div
+            class="toast-progress absolute bottom-0 left-0 h-0.5 rounded-full"
+            :class="{
+              'bg-red-300': toast.type === 'error',
+              'bg-green-300': toast.type === 'success',
+              'bg-yellow-300': toast.type === 'warning'
+            }"
+          ></div>
+        </div>
+      </div>
+    </Transition>
+
     <!-- Ambient Background Lighting -->
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
       <!-- Top Left Glow -->
@@ -256,7 +477,6 @@
                   type="email"
                   class="w-full px-4 py-3 rounded-lg outline-none text-sm font-medium placeholder:text-brand-black/30 bg-transparent"
                   placeholder="name@company.com"
-                  required
                 />
                 <svg
                   class="absolute right-4 top-1/2 -translate-y-1/2 text-brand-black/40 w-[18px] h-[18px]"
@@ -285,28 +505,88 @@
               <div
                 class="relative custom-input rounded-lg border border-brand-black/10 transition-colors bg-white"
               >
-                <input
-                  id="password"
-                  v-model="password"
-                  type="password"
-                  class="w-full px-4 py-3 rounded-lg outline-none text-sm font-medium placeholder:text-brand-black/30 bg-transparent"
-                  placeholder="At least 8 characters"
-                  required
-                  minlength="8"
-                />
-                <svg
-                  class="absolute right-4 top-1/2 -translate-y-1/2 text-brand-black/40 w-[18px] h-[18px]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.5"
-                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                <div class="password-input-wrapper">
+                  <input
+                    id="password"
+                    v-model="password"
+                    :type="showPassword ? 'text' : 'password'"
+                    class="w-full px-4 py-3 pr-20 rounded-lg outline-none text-sm font-medium placeholder:text-brand-black/30 bg-transparent"
+                    :class="{ 'password-transitioning': isPasswordTransitioning }"
+                    placeholder="At least 8 characters"
                   />
-                </svg>
+                </div>
+                <!-- Toggle Password Visibility Button -->
+                <button
+                  type="button"
+                  class="password-toggle absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-md hover:bg-brand-black/5 transition-colors group"
+                  @click="togglePasswordVisibility"
+                >
+                  <div class="eye-icon-container" :class="{ showing: showPassword }">
+                    <!-- Eye Open Icon -->
+                    <svg
+                      class="eye-icon eye-open w-[18px] h-[18px] text-brand-black/40 group-hover:text-brand-teal transition-colors"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                      />
+                    </svg>
+                    <!-- Eye Closed Icon -->
+                    <svg
+                      class="eye-icon eye-closed w-[18px] h-[18px] text-brand-black/40 group-hover:text-brand-teal transition-colors"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
+                      />
+                    </svg>
+                  </div>
+                </button>
+              </div>
+
+              <!-- Password Rules -->
+              <div class="grid grid-cols-2 gap-x-4 gap-y-1.5 mt-2">
+                <div
+                  v-for="rule in passwordRules"
+                  :key="rule.id"
+                  class="password-rule flex items-center gap-2 text-xs transition-all duration-300"
+                  :class="rule.met ? 'rule-met' : 'rule-unmet'"
+                >
+                  <div class="rule-icon-wrapper">
+                    <svg
+                      v-if="rule.met"
+                      class="rule-icon w-3.5 h-3.5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2.5"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                    <div v-else class="rule-dot w-1.5 h-1.5 rounded-full bg-current"></div>
+                  </div>
+                  <span class="rule-text">{{ rule.label }}</span>
+                </div>
               </div>
             </div>
 
@@ -327,7 +607,6 @@
                   type="text"
                   class="w-full px-4 py-3 rounded-lg outline-none text-sm font-medium placeholder:text-brand-black/30 bg-transparent"
                   placeholder="Choose a username"
-                  required
                 />
                 <svg
                   class="absolute right-4 top-1/2 -translate-y-1/2 text-brand-black/40 w-[18px] h-[18px]"
@@ -350,9 +629,23 @@
               <button
                 type="submit"
                 :disabled="isLoading"
-                class="w-full bg-brand-black hover:bg-brand-dark text-brand-bg font-bold py-3.5 rounded-full transition-all duration-300 flex items-center justify-center gap-2 btn-beam relative z-10 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                class="w-full bg-brand-black hover:bg-brand-dark text-brand-bg font-bold py-3.5 rounded-full transition-all duration-300 flex items-center justify-center gap-2 btn-beam relative z-10 shadow-lg hover:shadow-xl disabled:cursor-not-allowed"
+                :class="{ 'loading-button': isLoading }"
+                @click="errorMessage = ''"
               >
-                <span v-if="isLoading">Creating account...</span>
+                <template v-if="isLoading">
+                  <div class="loading-spinner">
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-ring"></div>
+                  </div>
+                  <span class="loading-text">Creating account</span>
+                  <span class="loading-dots">
+                    <span class="dot">.</span>
+                    <span class="dot">.</span>
+                    <span class="dot">.</span>
+                  </span>
+                </template>
                 <template v-else>
                   Sign up
                   <svg
@@ -370,6 +663,11 @@
                   </svg>
                 </template>
               </button>
+            </div>
+
+            <!-- Error Message -->
+            <div v-if="errorMessage" class="text-red-500 text-sm text-center mt-3 px-2">
+              {{ errorMessage }}
             </div>
 
             <!-- Divider -->
@@ -626,5 +924,433 @@
     opacity: 1;
     transform: translateY(0);
     transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Loading Button Styles */
+  .loading-button {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+    background-size: 200% 200%;
+    animation: gradient-shift 2s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* Spinner Styles */
+  .loading-spinner {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+  }
+
+  .spinner-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  }
+
+  .spinner-ring:nth-child(1) {
+    border-top-color: #2f7a72;
+    animation-delay: -0.45s;
+  }
+
+  .spinner-ring:nth-child(2) {
+    border-top-color: #79dcaf;
+    animation-delay: -0.3s;
+  }
+
+  .spinner-ring:nth-child(3) {
+    border-top-color: #ffffff;
+    animation-delay: -0.15s;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Loading Text Animation */
+  .loading-text {
+    animation: pulse-text 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse-text {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+
+  /* Loading Dots Animation */
+  .loading-dots {
+    display: inline-flex;
+    margin-left: 2px;
+  }
+
+  .loading-dots .dot {
+    animation: bounce-dot 1.4s ease-in-out infinite;
+    opacity: 0;
+  }
+
+  .loading-dots .dot:nth-child(1) {
+    animation-delay: 0s;
+  }
+
+  .loading-dots .dot:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .loading-dots .dot:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes bounce-dot {
+    0%,
+    60%,
+    100% {
+      opacity: 0;
+      transform: translateY(0);
+    }
+    30% {
+      opacity: 1;
+      transform: translateY(-2px);
+    }
+  }
+
+  /* Password Rules Styles */
+  .password-rule {
+    position: relative;
+  }
+
+  .rule-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    position: relative;
+  }
+
+  /* Unmet rule state */
+  .rule-unmet {
+    color: rgba(0, 0, 0, 0.35);
+  }
+
+  .rule-unmet .rule-text {
+    opacity: 0.6;
+  }
+
+  /* Met rule state with animations */
+  .rule-met {
+    color: #2f7a72;
+  }
+
+  .rule-met .rule-text {
+    opacity: 1;
+    font-weight: 500;
+  }
+
+  .rule-met .rule-icon {
+    animation: check-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+
+  .rule-met .rule-icon-wrapper::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #2f7a72;
+    opacity: 0;
+    animation: ripple-out 0.6s ease-out forwards;
+  }
+
+  @keyframes check-pop {
+    0% {
+      transform: scale(0) rotate(-45deg);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.3) rotate(0deg);
+    }
+    100% {
+      transform: scale(1) rotate(0deg);
+      opacity: 1;
+    }
+  }
+
+  @keyframes ripple-out {
+    0% {
+      transform: scale(0.5);
+      opacity: 0.4;
+    }
+    100% {
+      transform: scale(2.5);
+      opacity: 0;
+    }
+  }
+
+  /* Shimmer effect on met text */
+  .rule-met .rule-text {
+    background: linear-gradient(90deg, #2f7a72 0%, #79dcaf 50%, #2f7a72 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 1.5s ease-in-out forwards;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: 200% center;
+    }
+    100% {
+      background-position: 0% center;
+    }
+  }
+
+  /* Password Visibility Toggle Styles */
+  .password-input-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .password-transitioning {
+    animation: password-morph 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes password-morph {
+    0% {
+      filter: blur(0px);
+      opacity: 1;
+    }
+    30% {
+      filter: blur(4px);
+      opacity: 0.7;
+      transform: scale(0.98);
+    }
+    70% {
+      filter: blur(4px);
+      opacity: 0.7;
+      transform: scale(0.98);
+    }
+    100% {
+      filter: blur(0px);
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .password-toggle {
+    z-index: 10;
+  }
+
+  .eye-icon-container {
+    position: relative;
+    width: 18px;
+    height: 18px;
+  }
+
+  .eye-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Default state: eye-closed visible, eye-open hidden */
+  .eye-closed {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  .eye-open {
+    opacity: 0;
+    transform: scale(0.5) rotate(-90deg);
+  }
+
+  /* Showing state: eye-open visible, eye-closed hidden */
+  .eye-icon-container.showing .eye-open {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  .eye-icon-container.showing .eye-closed {
+    opacity: 0;
+    transform: scale(0.5) rotate(90deg);
+  }
+
+  /* Click ripple effect on toggle button */
+  .password-toggle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(47, 122, 114, 0.2);
+    transform: translate(-50%, -50%);
+    transition:
+      width 0.3s,
+      height 0.3s,
+      opacity 0.3s;
+    opacity: 0;
+  }
+
+  .password-toggle:active::after {
+    width: 40px;
+    height: 40px;
+    opacity: 1;
+    transition:
+      width 0s,
+      height 0s,
+      opacity 0s;
+  }
+
+  /* Toast Notification Styles */
+  .toast-container {
+    perspective: 1000px;
+  }
+
+  .toast-content {
+    position: relative;
+    overflow: hidden;
+    transform-origin: top center;
+  }
+
+  /* Toast icon animation */
+  .toast-icon {
+    animation: icon-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s both;
+  }
+
+  @keyframes icon-pop {
+    0% {
+      transform: scale(0) rotate(-180deg);
+    }
+    100% {
+      transform: scale(1) rotate(0deg);
+    }
+  }
+
+  /* Toast message animation */
+  .toast-message {
+    animation: message-slide 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+  }
+
+  @keyframes message-slide {
+    0% {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* Toast progress bar */
+  .toast-progress {
+    animation: progress-shrink 4s linear forwards;
+  }
+
+  @keyframes progress-shrink {
+    0% {
+      width: 100%;
+    }
+    100% {
+      width: 0%;
+    }
+  }
+
+  /* Toast enter/leave transitions */
+  .toast-enter-active {
+    animation: toast-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .toast-leave-active {
+    animation: toast-out 0.4s cubic-bezier(0.4, 0, 1, 1) forwards;
+  }
+
+  @keyframes toast-in {
+    0% {
+      opacity: 0;
+      transform: translateY(-30px) scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes toast-out {
+    0% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-20px) scale(0.95);
+    }
+  }
+
+  /* Glow effect behind toast based on type */
+  .toast-content::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Shimmer effect on toast */
+  .toast-content::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: toast-shimmer 2s ease-in-out 0.5s;
+  }
+
+  @keyframes toast-shimmer {
+    0% {
+      left: -100%;
+    }
+    100% {
+      left: 100%;
+    }
   }
 </style>

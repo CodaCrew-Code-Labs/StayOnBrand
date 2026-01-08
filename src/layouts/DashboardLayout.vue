@@ -1,8 +1,12 @@
 <script setup lang="ts">
   import { ref } from 'vue'
-  import { RouterLink, RouterView, useRoute } from 'vue-router'
+  import { RouterLink, RouterView, useRoute, useRouter } from 'vue-router'
+  import { useAuthStore } from '@/stores/auth.store'
+  import { AuthService } from '@/services/auth'
 
   const route = useRoute()
+  const router = useRouter()
+  const authStore = useAuthStore()
   const sidebarOpen = ref(false)
 
   const navigation = [
@@ -13,6 +17,12 @@
   ]
 
   const isActive = (path: string) => route.path === path
+
+  const handleSignOut = () => {
+    AuthService.logout()
+    authStore.logout()
+    router.push('/login')
+  }
 </script>
 
 <template>
@@ -45,12 +55,12 @@
 
         <!-- User Menu -->
         <div class="p-4 border-t border-gray-200">
-          <RouterLink
-            to="/login"
+          <button
             class="block w-full px-4 py-2 text-center text-gray-600 hover:text-gray-900"
+            @click="handleSignOut"
           >
             Sign Out
-          </RouterLink>
+          </button>
         </div>
       </div>
     </aside>

@@ -1,10 +1,14 @@
 import type { RouteRecordRaw } from 'vue-router'
 
+const createLazyComponent = (importFn: () => Promise<{ default: unknown }>) => {
+  return () => importFn().catch(() => import('@/views/error/NotFoundPage.vue'))
+}
+
 export const authRoutes: RouteRecordRaw[] = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import('@/views/auth/LoginPage.vue'),
+    component: createLazyComponent(() => import('@/views/auth/LoginPage.vue')),
     meta: {
       layout: 'auth',
       title: 'Login',
@@ -14,7 +18,7 @@ export const authRoutes: RouteRecordRaw[] = [
   {
     path: '/signup',
     name: 'Signup',
-    component: () => import('@/views/auth/SignupPage.vue'),
+    component: createLazyComponent(() => import('@/views/auth/SignupPage.vue')),
     meta: {
       layout: 'auth',
       title: 'Sign Up',
@@ -24,7 +28,7 @@ export const authRoutes: RouteRecordRaw[] = [
   {
     path: '/forgot-password',
     name: 'ForgotPassword',
-    component: () => import('@/views/auth/ForgotPasswordPage.vue'),
+    component: createLazyComponent(() => import('@/views/auth/ForgotPasswordPage.vue')),
     meta: {
       layout: 'auth',
       title: 'Forgot Password',
@@ -34,7 +38,7 @@ export const authRoutes: RouteRecordRaw[] = [
   {
     path: '/reset-password',
     name: 'ResetPassword',
-    component: () => import('@/views/auth/ResetPasswordPage.vue'),
+    component: createLazyComponent(() => import('@/views/auth/ResetPasswordPage.vue')),
     meta: {
       layout: 'auth',
       title: 'Reset Password',
@@ -44,7 +48,7 @@ export const authRoutes: RouteRecordRaw[] = [
   {
     path: '/link-expired',
     name: 'LinkExpired',
-    component: () => import('@/views/auth/LinkExpiredPage.vue'),
+    component: createLazyComponent(() => import('@/views/auth/LinkExpiredPage.vue')),
     meta: {
       layout: 'auth',
       title: 'Link Expired'
@@ -53,7 +57,7 @@ export const authRoutes: RouteRecordRaw[] = [
   {
     path: '/auth/callback',
     name: 'AuthCallback',
-    component: () => import('@/views/auth/AuthCallbackPage.vue'),
+    component: createLazyComponent(() => import('@/views/auth/AuthCallbackPage.vue')),
     meta: {
       layout: 'auth',
       title: 'Authenticating...',

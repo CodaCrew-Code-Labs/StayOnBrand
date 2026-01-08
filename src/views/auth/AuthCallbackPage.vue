@@ -1,103 +1,115 @@
 <template>
   <div class="min-h-screen flex items-center justify-center bg-brand-bg">
     <div class="text-center">
-      <div
-        class="w-16 h-16 mx-auto mb-4 rounded-full bg-brand-teal flex items-center justify-center animate-spin"
-      >
-        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-          />
-        </svg>
+      <!-- Loading State -->
+      <div v-if="!errorMessage">
+        <div
+          class="w-16 h-16 mx-auto mb-4 rounded-full bg-brand-teal flex items-center justify-center animate-spin"
+        >
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+            />
+          </svg>
+        </div>
+        <h2 class="text-xl font-bold text-brand-black mb-2">
+          {{ isSignup ? 'Creating your profile...' : 'Signing you in...' }}
+        </h2>
+        <p class="text-brand-black/60">
+          {{
+            isSignup
+              ? 'Please wait while we set up your account.'
+              : 'Please wait while we sign you in.'
+          }}
+        </p>
       </div>
-      <h2 class="text-xl font-bold text-brand-black mb-2">Authenticating...</h2>
-      <p class="text-brand-black/60">Please wait while we sign you in.</p>
+
+      <!-- Error State -->
+      <div v-else>
+        <div
+          class="w-16 h-16 mx-auto mb-4 rounded-full bg-red-500 flex items-center justify-center"
+        >
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </div>
+        <h2 class="text-xl font-bold text-brand-black mb-2">Authentication Failed</h2>
+        <p class="text-brand-black/60 mb-4">{{ errorMessage }}</p>
+        <RouterLink
+          to="/login"
+          class="inline-block px-6 py-2 bg-brand-teal text-white rounded-full hover:bg-brand-teal/90 transition-colors"
+        >
+          Back to Login
+        </RouterLink>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { onMounted } from 'vue'
-  import { useRouter } from 'vue-router'
+  import { ref, onMounted } from 'vue'
+  import { RouterLink, useRouter } from 'vue-router'
+  import { AuthService } from '@/services/auth'
+  import { useAuthStore } from '@/stores/auth.store'
 
   const router = useRouter()
+  const authStore = useAuthStore()
+  const errorMessage = ref('')
+  const isSignup = ref(false)
 
-  onMounted(() => {
-    // Extract authorization code from URL
+  // Check if this is a signup or login flow
+  const authFlow = sessionStorage.getItem('authFlow')
+  isSignup.value = authFlow === 'signup'
+
+  onMounted(async () => {
     const urlParams = new URLSearchParams(window.location.search)
     const code = urlParams.get('code')
     const error = urlParams.get('error')
+    const errorDescription = urlParams.get('error_description')
+
+    console.log('OAuth callback received:', { code: !!code, error, errorDescription })
 
     if (error) {
-      console.error('OAuth error:', error)
-      router.push('/login?error=oauth_failed')
+      console.error('OAuth error:', error, errorDescription)
+      errorMessage.value = errorDescription || 'Authentication failed. Please try again.'
       return
     }
 
-    if (code) {
-      console.log('Google OAuth successful! Authorization code:', code)
-      console.log('Full URL params:', Object.fromEntries(urlParams))
-
-      // TODO: Step 1 - Exchange authorization code for tokens
-      // Send POST request to Google token endpoint:
-      // URL: https://oauth2.googleapis.com/token
-      // Body: {
-      //   client_id: VITE_GOOGLE_CLIENT_ID,
-      //   client_secret: GOOGLE_CLIENT_SECRET, // This should be done on backend for security
-      //   code: code,
-      //   grant_type: 'authorization_code',
-      //   redirect_uri: window.location.origin + '/auth/callback'
-      // }
-      // Response will contain: access_token, id_token, refresh_token
-
-      // TODO: Step 2 - Verify and decode the ID token
-      // Option A: Use Google's tokeninfo endpoint to verify:
-      // GET https://oauth2.googleapis.com/tokeninfo?id_token={id_token}
-      // Option B: Decode JWT locally (less secure, requires validation)
-      // This will give you: email, name, picture, email_verified, etc.
-
-      // TODO: Step 3 - Extract user information
-      // From the verified token, extract:
-      // - email (primary identifier)
-      // - name (display name)
-      // - picture (profile image URL)
-      // - email_verified (boolean)
-      // - sub (Google user ID)
-
-      // TODO: Step 4 - Check if user exists in database
-      // Send request to your backend API:
-      // GET /api/auth/check-user?email={email}
-      // Response: { exists: boolean, user?: UserData }
-
-      // TODO: Step 5 - Handle user flow based on existence
-      // If user exists:
-      //   - Update last_login timestamp
-      //   - Generate JWT token for your app
-      //   - Store in auth store
-      //   - Redirect to /dashboard
-      // If user doesn't exist:
-      //   - Create new user record with Google data
-      //   - Generate JWT token for your app
-      //   - Store in auth store
-      //   - Redirect to /dashboard or /onboarding
-
-      // TODO: Step 6 - Error handling
-      // Handle cases like:
-      //   - Invalid/expired authorization code
-      //   - Network errors
-      //   - Database errors
-      //   - Email not verified by Google
-
-      // Temporary redirect (remove when implementing above)
-      setTimeout(() => {
-        router.push('/dashboard')
-      }, 2000)
-    } else {
+    if (!code) {
       console.error('No authorization code received')
-      router.push('/login?error=no_code')
+      errorMessage.value = 'No authorization code received. Please try again.'
+      return
+    }
+
+    try {
+      // Exchange code for tokens via backend (Cognito handles everything)
+      const tokens = await AuthService.exchangeGoogleCode(code)
+      console.log('Authentication successful:', tokens)
+
+      // Store auth data
+      authStore.setToken(tokens.accessToken || tokens.idToken || '')
+      authStore.setUser({
+        id: tokens.user?.id || tokens.sub || 'google-user',
+        email: tokens.user?.email || tokens.email || ''
+      })
+
+      // Clean up auth flow indicator
+      sessionStorage.removeItem('authFlow')
+
+      // Redirect to dashboard
+      router.push('/dashboard')
+    } catch (err: unknown) {
+      console.error('Token exchange failed:', err)
+      errorMessage.value =
+        (err as Error).message || 'Failed to complete authentication. Please try again.'
     }
   })
 </script>
