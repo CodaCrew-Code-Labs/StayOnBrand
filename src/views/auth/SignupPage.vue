@@ -1,10 +1,11 @@
 <script setup lang="ts">
   import { ref, computed, onMounted } from 'vue'
   import { RouterLink, useRouter } from 'vue-router'
-
   import { AuthService } from '@/services/auth'
+  import { useAuthStore } from '@/stores/auth.store'
 
   const router = useRouter()
+  const authStore = useAuthStore()
 
   // Form state
   const email = ref('')
@@ -332,7 +333,10 @@
       class="relative z-20 w-full max-w-7xl mx-auto px-6 py-6 flex items-center justify-between"
       :class="{ 'reveal-visible': isVisible }"
     >
-      <RouterLink to="/" class="flex items-center gap-2 group">
+      <RouterLink
+        :to="authStore.isAuthenticated ? '/dashboard' : '/'"
+        class="flex items-center gap-2 group"
+      >
         <div
           class="w-8 h-8 bg-brand-bg rounded-full flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300"
         >

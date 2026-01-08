@@ -13,6 +13,16 @@
   const rememberMe = ref(false)
   const isLoading = ref(false)
   const error = ref('')
+  const showPassword = ref(false)
+  const isPasswordTransitioning = ref(false)
+
+  const togglePasswordVisibility = () => {
+    isPasswordTransitioning.value = true
+    showPassword.value = !showPassword.value
+    setTimeout(() => {
+      isPasswordTransitioning.value = false
+    }, 400)
+  }
 
   // Animation state - check if coming from signup page (skip entry animation for smooth transition)
   const isVisible = ref(false)
@@ -132,7 +142,10 @@
       class="relative z-20 w-full max-w-7xl mx-auto px-6 py-6 flex items-center justify-between"
       :class="{ 'reveal-visible': isVisible }"
     >
-      <RouterLink to="/" class="flex items-center gap-2 group">
+      <RouterLink
+        :to="authStore.isAuthenticated ? '/dashboard' : '/'"
+        class="flex items-center gap-2 group"
+      >
         <div
           class="w-8 h-8 bg-brand-bg rounded-full flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300"
         >
@@ -231,27 +244,60 @@
               <div
                 class="relative custom-input rounded-lg border border-brand-black/10 transition-colors bg-white"
               >
-                <input
-                  id="login-password"
-                  v-model="password"
-                  type="password"
-                  class="w-full px-4 py-3 rounded-lg outline-none text-sm font-medium placeholder:text-brand-black/30 bg-transparent"
-                  placeholder="Enter your password"
-                  required
-                />
-                <svg
-                  class="absolute right-4 top-1/2 -translate-y-1/2 text-brand-black/40 w-[18px] h-[18px]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.5"
-                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                <div class="password-input-wrapper">
+                  <input
+                    id="login-password"
+                    v-model="password"
+                    :type="showPassword ? 'text' : 'password'"
+                    class="w-full px-4 py-3 pr-20 rounded-lg outline-none text-sm font-medium placeholder:text-brand-black/30 bg-transparent"
+                    :class="{ 'password-transitioning': isPasswordTransitioning }"
+                    placeholder="Enter your password"
+                    required
                   />
-                </svg>
+                </div>
+                <!-- Toggle Password Visibility Button -->
+                <button
+                  type="button"
+                  class="password-toggle absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-md hover:bg-brand-black/5 transition-colors group"
+                  @click="togglePasswordVisibility"
+                >
+                  <div class="eye-icon-container" :class="{ showing: showPassword }">
+                    <!-- Eye Open Icon -->
+                    <svg
+                      class="eye-icon eye-open w-[18px] h-[18px] text-brand-black/40 group-hover:text-brand-teal transition-colors"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                      />
+                    </svg>
+                    <!-- Eye Closed Icon -->
+                    <svg
+                      class="eye-icon eye-closed w-[18px] h-[18px] text-brand-black/40 group-hover:text-brand-teal transition-colors"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
+                      />
+                    </svg>
+                  </div>
+                </button>
               </div>
             </div>
 
@@ -649,5 +695,104 @@
     opacity: 1;
     transform: translateY(0);
     transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Password Visibility Toggle Styles */
+  .password-input-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .password-transitioning {
+    animation: password-morph 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes password-morph {
+    0% {
+      filter: blur(0px);
+      opacity: 1;
+    }
+    30% {
+      filter: blur(4px);
+      opacity: 0.7;
+      transform: scale(0.98);
+    }
+    70% {
+      filter: blur(4px);
+      opacity: 0.7;
+      transform: scale(0.98);
+    }
+    100% {
+      filter: blur(0px);
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .password-toggle {
+    z-index: 10;
+  }
+
+  .eye-icon-container {
+    position: relative;
+    width: 18px;
+    height: 18px;
+  }
+
+  .eye-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Default state: eye-closed visible, eye-open hidden */
+  .eye-closed {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  .eye-open {
+    opacity: 0;
+    transform: scale(0.5) rotate(-90deg);
+  }
+
+  /* Showing state: eye-open visible, eye-closed hidden */
+  .eye-icon-container.showing .eye-open {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  .eye-icon-container.showing .eye-closed {
+    opacity: 0;
+    transform: scale(0.5) rotate(90deg);
+  }
+
+  /* Click ripple effect on toggle button */
+  .password-toggle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(47, 122, 114, 0.2);
+    transform: translate(-50%, -50%);
+    transition:
+      width 0.3s,
+      height 0.3s,
+      opacity 0.3s;
+    opacity: 0;
+  }
+
+  .password-toggle:active::after {
+    width: 40px;
+    height: 40px;
+    opacity: 1;
+    transition:
+      width 0s,
+      height 0s,
+      opacity 0s;
   }
 </style>

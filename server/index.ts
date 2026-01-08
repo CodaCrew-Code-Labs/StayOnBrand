@@ -173,6 +173,79 @@ app.get('/auth/google/callback', async (req, res) => {
   }
 })
 
+// Forgot password - sends reset email
+app.post('/auth/forgot-password', csrfProtection, async (req, res) => {
+  console.log('=== FORGOT PASSWORD ENDPOINT HIT ===')
+  console.log('Request body:', req.body)
+
+  if (!authManager) {
+    console.error('Auth manager not initialized')
+    return res.status(500).json({ error: 'Auth manager not initialized' })
+  }
+  try {
+    const { email } = req.body
+    console.log('Original email:', email)
+
+    // Clean email like in signup
+    let cleanEmail = email.toString().trim()
+    if (cleanEmail.startsWith('mailto:')) {
+      cleanEmail = cleanEmail.replace('mailto:', '')
+    }
+    console.log('Cleaned email:', cleanEmail)
+
+    console.log('Calling authManager.forgotPassword...')
+    await authManager.forgotPassword(cleanEmail)
+    console.log('Forgot password email sent successfully')
+    res.json({ message: 'Password reset email sent' })
+  } catch (error: unknown) {
+    console.error('Forgot password error:', {
+      message: (error as Error).message,
+      stack: (error as Error).stack
+    })
+    res.status(400).json({ error: (error as Error).message })
+  }
+})
+
+// Reset password - confirms new password with code
+app.post('/auth/reset-password', csrfProtection, async (req, res) => {
+  console.log('=== RESET PASSWORD ENDPOINT HIT ===')
+  console.log('Request body:', { ...req.body, newPassword: '***' })
+
+  if (!authManager) {
+    console.error('Auth manager not initialized')
+    return res.status(500).json({ error: 'Auth manager not initialized' })
+  }
+  try {
+    const { email, code, newPassword } = req.body
+    console.log('Original email:', email)
+    console.log('Original code:', `"${code}"`)
+
+    // Clean email like in signup
+    let cleanEmail = email.toString().trim()
+    if (cleanEmail.startsWith('mailto:')) {
+      cleanEmail = cleanEmail.replace('mailto:', '')
+    }
+
+    // Clean code - remove any whitespace
+    const cleanCode = code.toString().trim()
+
+    console.log('Cleaned email:', cleanEmail)
+    console.log('Cleaned code:', `"${cleanCode}"`)
+    console.log('Code length:', cleanCode.length)
+
+    console.log('Calling authManager.confirmForgotPassword...')
+    await authManager.confirmForgotPassword(cleanEmail, cleanCode, newPassword)
+    console.log('Password reset successful')
+    res.json({ message: 'Password reset successful' })
+  } catch (error: unknown) {
+    console.error('Reset password error:', {
+      message: (error as Error).message,
+      stack: (error as Error).stack
+    })
+    res.status(400).json({ error: (error as Error).message })
+  }
+})
+
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`)
 })

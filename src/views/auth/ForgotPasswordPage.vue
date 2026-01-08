@@ -1,6 +1,11 @@
 <script setup lang="ts">
   import { ref, onMounted } from 'vue'
-  import { RouterLink } from 'vue-router'
+  import { RouterLink, useRouter } from 'vue-router'
+  import { AuthService } from '@/services/auth'
+  import { useAuthStore } from '@/stores/auth.store'
+
+  const router = useRouter()
+  const authStore = useAuthStore()
 
   // Form state
   const email = ref('')
@@ -9,6 +14,45 @@
 
   // Animation state
   const isVisible = ref(false)
+
+  // Toast notification state
+  const toast = ref({
+    show: false,
+    message: '',
+    type: 'error' as 'error' | 'success' | 'warning'
+  })
+
+  let toastTimeout: ReturnType<typeof setTimeout> | null = null
+
+  const showToast = (message: string, type: 'error' | 'success' | 'warning' = 'error') => {
+    if (toastTimeout) clearTimeout(toastTimeout)
+    toast.value = { show: true, message, type }
+    toastTimeout = setTimeout(() => {
+      toast.value.show = false
+    }, 4000)
+  }
+
+  const dismissToast = () => {
+    toast.value.show = false
+  }
+
+  const getCleanErrorMessage = (error: Error) => {
+    const message = error.message.toLowerCase()
+
+    if (message.includes('user does not exist')) {
+      return 'Email address not found. Please check your email or sign up for a new account'
+    }
+    if (message.includes('invalid code')) {
+      return 'Invalid or expired reset code'
+    }
+    if (message.includes('network operation failed')) {
+      return 'Request failed. Please try again'
+    }
+
+    // Extract the actual error after the colon if it exists
+    const parts = error.message.split(': ')
+    return parts.length > 1 ? parts[parts.length - 1] : error.message
+  }
 
   onMounted(() => {
     setTimeout(() => {
@@ -57,14 +101,31 @@
     })
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!email.value) return
+
+    console.log('=== FORGOT PASSWORD FORM SUBMIT ===')
+    console.log('Email:', email.value)
+
     isLoading.value = true
-    // TODO: Implement forgot password logic
-    setTimeout(() => {
+
+    try {
+      console.log('Calling AuthService.forgotPassword...')
+      const result = await AuthService.forgotPassword(email.value)
+      console.log('Forgot password success:', result)
+
       isLoading.value = false
-      isSubmitted.value = true
-    }, 1500)
+      showToast('Reset code sent to your email!', 'success')
+
+      // Navigate to reset password page with email
+      setTimeout(() => {
+        router.push(`/reset-password?email=${encodeURIComponent(email.value)}`)
+      }, 1500)
+    } catch (error) {
+      console.error('Forgot password failed:', error)
+      isLoading.value = false
+      showToast(getCleanErrorMessage(error as Error), 'error')
+    }
   }
 
   // Troubleshooting tips data
@@ -103,6 +164,90 @@
   <div
     class="min-h-screen flex flex-col relative selection:bg-brand-teal selection:text-white bg-brand-bg text-brand-black overflow-x-hidden"
   >
+    <!-- Modern Toast Notification -->
+    <Transition name="toast">
+      <div
+        v-if="toast.show"
+        class="toast-container fixed bottom-6 left-0 right-0 flex justify-center z-50"
+        @click="dismissToast"
+      >
+        <div
+          class="toast-content flex items-center gap-3 px-5 py-3.5 rounded-2xl shadow-2xl backdrop-blur-xl border cursor-pointer"
+          :class="{
+            'bg-red-500/80 border-red-400/60 text-white': toast.type === 'error',
+            'bg-green-500/80 border-green-400/60 text-white': toast.type === 'success',
+            'bg-yellow-500/80 border-yellow-400/60 text-white': toast.type === 'warning'
+          }"
+        >
+          <!-- Icon -->
+          <div
+            class="toast-icon flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center"
+            :class="{
+              'bg-red-600/40': toast.type === 'error',
+              'bg-green-600/40': toast.type === 'success',
+              'bg-yellow-600/40': toast.type === 'warning'
+            }"
+          >
+            <!-- Error Icon -->
+            <svg
+              v-if="toast.type === 'error'"
+              class="w-4 h-4 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+            <!-- Success Icon -->
+            <svg
+              v-if="toast.type === 'success'"
+              class="w-4 h-4 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+            <!-- Warning Icon -->
+            <svg
+              v-if="toast.type === 'warning'"
+              class="w-4 h-4 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+              />
+            </svg>
+          </div>
+          <!-- Message -->
+          <span class="toast-message text-sm font-medium">{{ toast.message }}</span>
+          <!-- Progress bar -->
+          <div
+            class="toast-progress absolute bottom-0 left-0 h-0.5 rounded-full"
+            :class="{
+              'bg-red-300': toast.type === 'error',
+              'bg-green-300': toast.type === 'success',
+              'bg-yellow-300': toast.type === 'warning'
+            }"
+          ></div>
+        </div>
+      </div>
+    </Transition>
     <!-- Background Grid -->
     <div class="fixed inset-0 pointer-events-none z-0">
       <div class="absolute inset-0 bg-grid opacity-30"></div>
@@ -144,7 +289,10 @@
         class="max-w-7xl mx-auto flex justify-between items-center bg-white/80 backdrop-blur-md border border-brand-black rounded-full px-6 py-3 shadow-hard-sm"
         :class="{ 'reveal-visible': isVisible }"
       >
-        <RouterLink to="/" class="flex items-center gap-2 group cursor-pointer">
+        <RouterLink
+          :to="authStore.isAuthenticated ? '/dashboard' : '/'"
+          class="flex items-center gap-2 group cursor-pointer"
+        >
           <div
             class="w-8 h-8 flex items-center justify-center bg-brand-teal border border-brand-black rounded-full shadow-hard-sm"
           >
@@ -256,9 +404,21 @@
                 :disabled="isLoading"
                 class="bg-brand-black text-white px-6 py-3 rounded-lg font-bold tracking-wide hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 whitespace-nowrap overflow-hidden relative disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <span v-if="isLoading" class="relative z-10">Sending...</span>
+                <span v-if="isLoading" class="flex items-center gap-2">
+                  <div class="loading-spinner">
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-ring"></div>
+                  </div>
+                  <span class="loading-text">Sending</span>
+                  <span class="loading-dots">
+                    <span class="dot">.</span>
+                    <span class="dot">.</span>
+                    <span class="dot">.</span>
+                  </span>
+                </span>
                 <template v-else>
-                  <span class="relative z-10">Send Link</span>
+                  <span class="relative z-10">Send Code</span>
                   <svg
                     class="relative z-10 w-4 h-4"
                     fill="none"
@@ -743,5 +903,179 @@
   .illustration-card:has(~ .illustration-card:hover) {
     filter: brightness(0.95);
     transform: scale(0.98);
+  }
+
+  /* Toast Notification Styles */
+  .toast-container {
+    perspective: 1000px;
+  }
+
+  .toast-content {
+    position: relative;
+    overflow: hidden;
+    transform-origin: top center;
+  }
+
+  .toast-icon {
+    animation: icon-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s both;
+  }
+
+  @keyframes icon-pop {
+    0% {
+      transform: scale(0) rotate(-180deg);
+    }
+    100% {
+      transform: scale(1) rotate(0deg);
+    }
+  }
+
+  .toast-message {
+    animation: message-slide 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+  }
+
+  @keyframes message-slide {
+    0% {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .toast-progress {
+    animation: progress-shrink 4s linear forwards;
+  }
+
+  @keyframes progress-shrink {
+    0% {
+      width: 100%;
+    }
+    100% {
+      width: 0%;
+    }
+  }
+
+  .toast-enter-active {
+    animation: toast-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .toast-leave-active {
+    animation: toast-out 0.4s cubic-bezier(0.4, 0, 1, 1) forwards;
+  }
+
+  @keyframes toast-in {
+    0% {
+      opacity: 0;
+      transform: translateY(-30px) scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes toast-out {
+    0% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-20px) scale(0.95);
+    }
+  }
+
+  /* Loading Spinner Styles */
+  .loading-spinner {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+  }
+
+  .spinner-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  }
+
+  .spinner-ring:nth-child(1) {
+    border-top-color: #2f7a72;
+    animation-delay: -0.45s;
+  }
+
+  .spinner-ring:nth-child(2) {
+    border-top-color: #79dcaf;
+    animation-delay: -0.3s;
+  }
+
+  .spinner-ring:nth-child(3) {
+    border-top-color: #ffffff;
+    animation-delay: -0.15s;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Loading Text Animation */
+  .loading-text {
+    animation: pulse-text 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse-text {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+
+  /* Loading Dots Animation */
+  .loading-dots {
+    display: inline-flex;
+    margin-left: 2px;
+  }
+
+  .loading-dots .dot {
+    animation: bounce-dot 1.4s ease-in-out infinite;
+    opacity: 0;
+  }
+
+  .loading-dots .dot:nth-child(1) {
+    animation-delay: 0s;
+  }
+
+  .loading-dots .dot:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .loading-dots .dot:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes bounce-dot {
+    0%,
+    60%,
+    100% {
+      opacity: 0;
+      transform: translateY(0);
+    }
+    30% {
+      opacity: 1;
+      transform: translateY(-2px);
+    }
   }
 </style>

@@ -1,14 +1,61 @@
 <script setup lang="ts">
   import { ref, onMounted, computed } from 'vue'
-  import { RouterLink } from 'vue-router'
+  import { RouterLink, useRoute, useRouter } from 'vue-router'
+  import { AuthService } from '@/services/auth'
+  import { useAuthStore } from '@/stores/auth.store'
+
+  const route = useRoute()
+  const router = useRouter()
+  const authStore = useAuthStore()
 
   // Form state
+  const email = ref('')
+  const code = ref('')
   const newPassword = ref('')
   const confirmPassword = ref('')
   const isLoading = ref(false)
   const isSuccess = ref(false)
   const showNewPassword = ref(false)
   const showConfirmPassword = ref(false)
+
+  // Toast notification state
+  const toast = ref({
+    show: false,
+    message: '',
+    type: 'error' as 'error' | 'success' | 'warning'
+  })
+
+  let toastTimeout: ReturnType<typeof setTimeout> | null = null
+
+  const showToast = (message: string, type: 'error' | 'success' | 'warning' = 'error') => {
+    if (toastTimeout) clearTimeout(toastTimeout)
+    toast.value = { show: true, message, type }
+    toastTimeout = setTimeout(() => {
+      toast.value.show = false
+    }, 4000)
+  }
+
+  const dismissToast = () => {
+    toast.value.show = false
+  }
+
+  const getCleanErrorMessage = (error: Error) => {
+    const message = error.message.toLowerCase()
+
+    if (message.includes('user does not exist')) {
+      return 'Email address not found. Please check your email or sign up for a new account'
+    }
+    if (message.includes('invalid code')) {
+      return 'Invalid or expired reset code'
+    }
+    if (message.includes('network operation failed')) {
+      return 'Request failed. Please try again'
+    }
+
+    // Extract the actual error after the colon if it exists
+    const parts = error.message.split(': ')
+    return parts.length > 1 ? parts[parts.length - 1] : error.message
+  }
 
   // Animation state
   const isVisible = ref(false)
@@ -35,6 +82,11 @@
   })
 
   onMounted(() => {
+    // Get email from query params if available
+    if (route.query.email) {
+      email.value = route.query.email as string
+    }
+
     setTimeout(() => {
       isVisible.value = true
     }, 100)
@@ -63,14 +115,44 @@
     })
   }
 
-  const handleSubmit = () => {
-    if (!newPassword.value || !confirmPassword.value || !passwordsMatch.value) return
+  const handleSubmit = async () => {
+    if (
+      !email.value ||
+      !code.value ||
+      !newPassword.value ||
+      !confirmPassword.value ||
+      !passwordsMatch.value
+    )
+      return
+
+    console.log('=== RESET PASSWORD FORM SUBMIT ===')
+    console.log('Email:', email.value)
+    console.log('Code:', code.value)
+    console.log('Has new password:', !!newPassword.value)
+
     isLoading.value = true
-    // TODO: Implement reset password logic
-    setTimeout(() => {
+
+    try {
+      console.log('Calling AuthService.resetPassword...')
+      const cleanCode = code.value.trim()
+      console.log('Original code:', `"${code.value}"`)
+      console.log('Cleaned code:', `"${cleanCode}"`)
+
+      const result = await AuthService.resetPassword(email.value, cleanCode, newPassword.value)
+      console.log('Reset password success:', result)
+
       isLoading.value = false
-      isSuccess.value = true
-    }, 1500)
+      showToast('Password updated successfully! Redirecting to login...', 'success')
+
+      // Navigate to login page after showing toast
+      setTimeout(() => {
+        router.push('/login')
+      }, 2000)
+    } catch (error) {
+      console.error('Reset password failed:', error)
+      isLoading.value = false
+      showToast(getCleanErrorMessage(error as Error), 'error')
+    }
   }
 </script>
 
@@ -78,6 +160,90 @@
   <div
     class="min-h-screen flex flex-col relative selection:bg-brand-teal selection:text-white bg-brand-bg text-brand-black overflow-x-hidden"
   >
+    <!-- Modern Toast Notification -->
+    <Transition name="toast">
+      <div
+        v-if="toast.show"
+        class="toast-container fixed bottom-6 left-0 right-0 flex justify-center z-50"
+        @click="dismissToast"
+      >
+        <div
+          class="toast-content flex items-center gap-3 px-5 py-3.5 rounded-2xl shadow-2xl backdrop-blur-xl border cursor-pointer"
+          :class="{
+            'bg-red-500/80 border-red-400/60 text-white': toast.type === 'error',
+            'bg-green-500/80 border-green-400/60 text-white': toast.type === 'success',
+            'bg-yellow-500/80 border-yellow-400/60 text-white': toast.type === 'warning'
+          }"
+        >
+          <!-- Icon -->
+          <div
+            class="toast-icon flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center"
+            :class="{
+              'bg-red-600/40': toast.type === 'error',
+              'bg-green-600/40': toast.type === 'success',
+              'bg-yellow-600/40': toast.type === 'warning'
+            }"
+          >
+            <!-- Error Icon -->
+            <svg
+              v-if="toast.type === 'error'"
+              class="w-4 h-4 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+            <!-- Success Icon -->
+            <svg
+              v-if="toast.type === 'success'"
+              class="w-4 h-4 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+            <!-- Warning Icon -->
+            <svg
+              v-if="toast.type === 'warning'"
+              class="w-4 h-4 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+              />
+            </svg>
+          </div>
+          <!-- Message -->
+          <span class="toast-message text-sm font-medium">{{ toast.message }}</span>
+          <!-- Progress bar -->
+          <div
+            class="toast-progress absolute bottom-0 left-0 h-0.5 rounded-full"
+            :class="{
+              'bg-red-300': toast.type === 'error',
+              'bg-green-300': toast.type === 'success',
+              'bg-yellow-300': toast.type === 'warning'
+            }"
+          ></div>
+        </div>
+      </div>
+    </Transition>
     <!-- Background Grid -->
     <div class="fixed inset-0 pointer-events-none z-0">
       <div class="absolute inset-0 bg-grid opacity-30"></div>
@@ -123,7 +289,10 @@
         class="max-w-7xl mx-auto flex justify-between items-center bg-white/80 backdrop-blur-md border border-brand-black rounded-full px-6 py-3 shadow-hard-sm"
         :class="{ 'reveal-visible': isVisible }"
       >
-        <RouterLink to="/" class="flex items-center gap-2 group cursor-pointer">
+        <RouterLink
+          :to="authStore.isAuthenticated ? '/dashboard' : '/'"
+          class="flex items-center gap-2 group cursor-pointer"
+        >
           <div
             class="w-8 h-8 flex items-center justify-center bg-brand-teal border border-brand-black rounded-full shadow-hard-sm"
           >
@@ -235,6 +404,67 @@
             ></div>
 
             <form class="space-y-5" @submit.prevent="handleSubmit">
+              <!-- Email Address -->
+              <div class="text-left">
+                <label
+                  class="block text-xs font-bold text-brand-black/60 uppercase tracking-wide mb-2"
+                >
+                  Email Address
+                </label>
+                <div class="relative">
+                  <div
+                    class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-brand-black/40"
+                  >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      />
+                    </svg>
+                  </div>
+                  <input
+                    v-model="email"
+                    type="email"
+                    placeholder="name@example.com"
+                    class="w-full pl-12 pr-4 py-3.5 bg-brand-black/5 rounded-xl border border-brand-black/10 focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/20 focus:bg-white transition-all text-brand-black placeholder:text-brand-black/40 font-medium"
+                    required
+                  />
+                </div>
+              </div>
+
+              <!-- Reset Code -->
+              <div class="text-left">
+                <label
+                  class="block text-xs font-bold text-brand-black/60 uppercase tracking-wide mb-2"
+                >
+                  Reset Code
+                </label>
+                <div class="relative">
+                  <div
+                    class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-brand-black/40"
+                  >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                        d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"
+                      />
+                    </svg>
+                  </div>
+                  <input
+                    v-model="code"
+                    type="text"
+                    placeholder="Enter 6-digit code from email"
+                    class="w-full pl-12 pr-4 py-3.5 bg-brand-black/5 rounded-xl border border-brand-black/10 focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/20 focus:bg-white transition-all text-brand-black placeholder:text-brand-black/40 font-medium"
+                    maxlength="6"
+                    required
+                  />
+                </div>
+              </div>
+
               <!-- New Password -->
               <div class="text-left">
                 <label
@@ -446,10 +676,32 @@
               <!-- Submit Button -->
               <button
                 type="submit"
-                :disabled="isLoading || !passwordsMatch || !newPassword || !confirmPassword"
+                :disabled="
+                  isLoading ||
+                  !passwordsMatch ||
+                  !newPassword ||
+                  !confirmPassword ||
+                  !email ||
+                  !code
+                "
                 class="w-full bg-brand-black text-white py-4 rounded-xl font-bold tracking-wide hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 overflow-hidden relative disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 mt-6"
+                :class="{ 'tech-loading': isLoading }"
               >
-                <span v-if="isLoading" class="relative z-10">Updating Password...</span>
+                <span v-if="isLoading" class="flex items-center gap-3">
+                  <div class="tech-loader">
+                    <div class="tech-circle"></div>
+                    <div class="tech-circle"></div>
+                    <div class="tech-circle"></div>
+                    <div class="tech-pulse"></div>
+                  </div>
+                  <span class="tech-text">Processing</span>
+                  <div class="tech-bars">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                  </div>
+                </span>
                 <template v-else>
                   <span class="relative z-10">Change Password</span>
                   <svg
@@ -546,7 +798,7 @@
           <!-- Success State -->
           <div
             v-else
-            class="reveal-element w-full max-w-md bg-white border border-brand-black rounded-2xl shadow-hard p-8 text-center"
+            class="reveal-element w-full max-w-2xl bg-white border border-brand-black rounded-2xl shadow-hard p-8 text-center"
           >
             <div
               class="w-20 h-20 mx-auto mb-6 rounded-full bg-brand-bright border-2 border-brand-black flex items-center justify-center shadow-hard animate-bounce-slow"
@@ -565,16 +817,22 @@
                 />
               </svg>
             </div>
-            <h3 class="text-2xl font-bold text-brand-black mb-3">Password Updated!</h3>
-            <p class="text-brand-black/60 mb-6">
-              Your password has been changed successfully. You can now sign in with your new
-              password.
+            <h3 class="text-3xl font-bold text-brand-black mb-4">🎉 Password Reset Complete!</h3>
+            <p class="text-lg text-brand-black/70 mb-6 max-w-md mx-auto leading-relaxed">
+              Boom! Your password has been successfully updated. You're all set to dive back into
+              your brand management journey.
             </p>
+            <div class="bg-brand-bright/20 border border-brand-black/10 rounded-xl p-4 mb-6">
+              <p class="text-sm text-brand-black/60 font-medium">
+                💡 <strong>Pro tip:</strong> Consider using a password manager to keep your
+                credentials secure and easily accessible.
+              </p>
+            </div>
             <RouterLink
               to="/login"
-              class="inline-flex items-center gap-2 bg-brand-black text-white px-6 py-3 rounded-xl font-bold hover:scale-[1.02] active:scale-[0.98] transition-all"
+              class="inline-flex items-center gap-2 bg-brand-black text-white px-8 py-4 rounded-xl font-bold hover:scale-[1.02] active:scale-[0.98] transition-all shadow-hard"
             >
-              <span>Continue to Sign In</span>
+              <span>Sign In with New Password</span>
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   stroke-linecap="round"
@@ -794,5 +1052,235 @@
   .illustration-card:hover {
     transform: scale(1.05) rotate(0deg) translateY(-5px);
     box-shadow: 6px 6px 0px 0px #1a1a1a;
+  }
+
+  /* Toast Notification Styles */
+  .toast-container {
+    perspective: 1000px;
+  }
+
+  .toast-content {
+    position: relative;
+    overflow: hidden;
+    transform-origin: top center;
+  }
+
+  .toast-icon {
+    animation: icon-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s both;
+  }
+
+  @keyframes icon-pop {
+    0% {
+      transform: scale(0) rotate(-180deg);
+    }
+    100% {
+      transform: scale(1) rotate(0deg);
+    }
+  }
+
+  .toast-message {
+    animation: message-slide 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+  }
+
+  @keyframes message-slide {
+    0% {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .toast-progress {
+    animation: progress-shrink 4s linear forwards;
+  }
+
+  @keyframes progress-shrink {
+    0% {
+      width: 100%;
+    }
+    100% {
+      width: 0%;
+    }
+  }
+
+  .toast-enter-active {
+    animation: toast-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .toast-leave-active {
+    animation: toast-out 0.4s cubic-bezier(0.4, 0, 1, 1) forwards;
+  }
+
+  @keyframes toast-in {
+    0% {
+      opacity: 0;
+      transform: translateY(-30px) scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes toast-out {
+    0% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-20px) scale(0.95);
+    }
+  }
+
+  /* Tech Loading Animation */
+  .tech-loading {
+    background: linear-gradient(
+      45deg,
+      #1a1a1a 0%,
+      #2d2d2d 25%,
+      #1a1a1a 50%,
+      #2d2d2d 75%,
+      #1a1a1a 100%
+    );
+    background-size: 400% 400%;
+    animation: tech-gradient 2s ease infinite;
+  }
+
+  @keyframes tech-gradient {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  .tech-loader {
+    position: relative;
+    width: 24px;
+    height: 24px;
+  }
+
+  .tech-circle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #2f7a72;
+    animation: tech-orbit 2s linear infinite;
+  }
+
+  .tech-circle:nth-child(1) {
+    animation-delay: 0s;
+    background: #2f7a72;
+  }
+
+  .tech-circle:nth-child(2) {
+    animation-delay: -0.6s;
+    background: #79dcaf;
+  }
+
+  .tech-circle:nth-child(3) {
+    animation-delay: -1.2s;
+    background: #ffffff;
+  }
+
+  .tech-pulse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    background: #79dcaf;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: tech-pulse 1s ease-in-out infinite;
+  }
+
+  @keyframes tech-orbit {
+    0% {
+      transform: rotate(0deg) translateX(10px) rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg) translateX(10px) rotate(-360deg);
+    }
+  }
+
+  @keyframes tech-pulse {
+    0%,
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.5);
+      opacity: 0.5;
+    }
+  }
+
+  .tech-text {
+    animation: tech-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes tech-glow {
+    0%,
+    100% {
+      text-shadow: 0 0 5px rgba(121, 220, 175, 0.5);
+    }
+    50% {
+      text-shadow:
+        0 0 10px rgba(121, 220, 175, 0.8),
+        0 0 15px rgba(47, 122, 114, 0.6);
+    }
+  }
+
+  .tech-bars {
+    display: flex;
+    gap: 2px;
+    align-items: end;
+  }
+
+  .tech-bars .bar {
+    width: 3px;
+    background: #79dcaf;
+    border-radius: 1px;
+    animation: tech-bars 1.2s ease-in-out infinite;
+  }
+
+  .tech-bars .bar:nth-child(1) {
+    height: 8px;
+    animation-delay: 0s;
+  }
+
+  .tech-bars .bar:nth-child(2) {
+    height: 12px;
+    animation-delay: 0.1s;
+  }
+
+  .tech-bars .bar:nth-child(3) {
+    height: 6px;
+    animation-delay: 0.2s;
+  }
+
+  .tech-bars .bar:nth-child(4) {
+    height: 10px;
+    animation-delay: 0.3s;
+  }
+
+  @keyframes tech-bars {
+    0%,
+    100% {
+      transform: scaleY(1);
+      opacity: 0.7;
+    }
+    50% {
+      transform: scaleY(1.5);
+      opacity: 1;
+    }
   }
 </style>

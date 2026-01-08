@@ -197,6 +197,72 @@ export class AuthService {
     return result
   }
 
+  static async forgotPassword(email: string): Promise<{ message: string }> {
+    console.log('=== FORGOT PASSWORD REQUEST ===')
+    console.log('Email:', email)
+
+    const csrfToken = await this.getCsrfToken()
+    console.log('CSRF token obtained:', !!csrfToken)
+
+    const response = await fetch(`${API_URL}/auth/forgot-password`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(csrfToken && { 'X-CSRF-Token': csrfToken })
+      },
+      body: JSON.stringify({ email })
+    })
+
+    console.log('Response status:', response.status)
+    console.log('Response ok:', response.ok)
+
+    if (!response.ok) {
+      const error = await response.json()
+      console.error('Forgot password error:', error)
+      throw new Error(error.error || 'Failed to send reset email')
+    }
+
+    const result = await response.json()
+    console.log('Forgot password success:', result)
+    return result
+  }
+
+  static async resetPassword(
+    email: string,
+    code: string,
+    newPassword: string
+  ): Promise<{ message: string }> {
+    console.log('=== RESET PASSWORD REQUEST ===')
+    console.log('Email:', email)
+    console.log('Code:', code)
+    console.log('Has new password:', !!newPassword)
+
+    const csrfToken = await this.getCsrfToken()
+    console.log('CSRF token obtained:', !!csrfToken)
+
+    const response = await fetch(`${API_URL}/auth/reset-password`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(csrfToken && { 'X-CSRF-Token': csrfToken })
+      },
+      body: JSON.stringify({ email, code, newPassword })
+    })
+
+    console.log('Response status:', response.status)
+    console.log('Response ok:', response.ok)
+
+    if (!response.ok) {
+      const error = await response.json()
+      console.error('Reset password error:', error)
+      throw new Error(error.error || 'Failed to reset password')
+    }
+
+    const result = await response.json()
+    console.log('Reset password success:', result)
+    return result
+  }
+
   static logout(): void {
     // Clear any stored tokens/session data
     localStorage.removeItem('accessToken')
