@@ -299,7 +299,7 @@
             <circle cx="12" cy="12" r="10" />
             <polyline points="12 6 12 12 16 14" />
           </svg>
-          Last Updated: January 1, 2026
+          Last Updated: January 08, 2026
         </div>
       </div>
     </section>
@@ -430,10 +430,16 @@
                   class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
                 >
                   <p>
-                    These Terms and Conditions govern your access to and use of our services. By
-                    accessing, using, or interacting with this platform, you acknowledge that you
-                    have read, understood, and agree to be bound by these Terms and our Privacy
-                    Policy.
+                    These
+                    <RouterLink
+                      to="/terms-and-conditions"
+                      class="text-brand-teal hover:text-brand-teal/80 underline decoration-brand-teal/30 underline-offset-4 hover:decoration-brand-teal transition-all duration-300 font-semibold"
+                    >
+                      Terms and Conditions
+                    </RouterLink>
+                    govern your access to and use of our services. By accessing, using, or
+                    interacting with this platform, you acknowledge that you have read, understood,
+                    and agree to be bound by these Terms and our Privacy Policy.
                   </p>
                   <p>
                     If you do not agree with any part of these Terms, you must discontinue use of
@@ -532,8 +538,15 @@
                     Cookies and similar technologies are used on this website to ensure proper
                     functionality, improve performance, and support security. Some cookies are
                     essential for the operation of the Services, while others help us understand how
-                    the Services are used so we can improve them. Cookies do not give us access to
-                    your device or personal information beyond what you choose to share.
+                    the Services are used so we can improve them. As per the
+                    <RouterLink
+                      to="/cookie-policy"
+                      class="text-brand-teal hover:text-brand-teal/80 underline decoration-brand-teal/30 underline-offset-4 hover:decoration-brand-teal transition-all duration-300 font-semibold"
+                    >
+                      cookie policy
+                    </RouterLink>
+                    it do not give us access to your device or personal information beyond what you
+                    choose to share.
                   </p>
                   <p>
                     We use cookies responsibly and transparently, in accordance with applicable
@@ -607,10 +620,16 @@
                   class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
                 >
                   <p>
-                    Use of our Services is subject to reasonable and lawful conduct. By accessing or
-                    using the Services, you agree to use them responsibly, in compliance with
-                    applicable laws, and in accordance with our Acceptable Use Policy. You are
-                    responsible for all activity carried out through your access to the Services.
+                    <RouterLink
+                      to="/aup"
+                      class="text-brand-teal hover:text-brand-teal/80 underline decoration-brand-teal/30 underline-offset-4 hover:decoration-brand-teal transition-all duration-300 font-semibold"
+                    >
+                      Use of our Services
+                    </RouterLink>
+                    is subject to reasonable and lawful conduct. By accessing or using the Services,
+                    you agree to use them responsibly, in compliance with applicable laws, and in
+                    accordance with our Acceptable Use Policy. You are responsible for all activity
+                    carried out through your access to the Services.
                   </p>
                   <p>
                     We reserve the right to monitor, restrict, suspend, or terminate access to the
@@ -655,11 +674,18 @@
                   class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
                 >
                   <p>
-                    All purchases made through our Services are subject to our Refund Policy.
-                    Refunds are not guaranteed and are handled in accordance with the terms outlined
-                    in that policy. By purchasing a paid plan, subscription, or one-time product,
-                    you acknowledge that access to a digital service may begin immediately and that
-                    refunds may be limited or unavailable except where required by applicable law.
+                    All purchases made through our Services are subject to our
+                    <RouterLink
+                      to="/refund-policy"
+                      class="text-brand-red hover:text-brand-red/80 underline decoration-brand-red/30 underline-offset-4 hover:decoration-brand-red transition-all duration-300 font-semibold"
+                    >
+                      Refund Policy
+                    </RouterLink>
+                    . Refunds are not guaranteed and are handled in accordance with the terms
+                    outlined in that policy. By purchasing a paid plan, subscription, or one-time
+                    product, you acknowledge that access to a digital service may begin immediately
+                    and that refunds may be limited or unavailable except where required by
+                    applicable law.
                   </p>
                   <p>
                     We encourage users to contact us first if they experience billing issues,
@@ -672,7 +698,7 @@
                       <span class="text-brand-bright font-semibold">Contact Support:</span> For
                       refund-related questions or billing concerns, reach out to us at
                       <a
-                        href="mailto:support@stayonbrand.com"
+                        href="mailto:legal@stayonbrand.com"
                         class="text-brand-bright hover:underline"
                         >legal@stayonbrand.in</a
                       >
@@ -714,11 +740,16 @@
                   class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
                 >
                   <p>
-                    Lifetime deals provide one-time access to the Services for as long as the
-                    Services remain available. “Lifetime” refers to the lifetime of the Services,
-                    not the lifetime of any individual user, device, company, or legal entity.
-                    Access is provided subject to technical, financial, and operational
-                    considerations.
+                    <RouterLink
+                      to="/ltd-disclosure"
+                      class="text-brand-teal hover:text-brand-teal/80 underline decoration-brand-teal/30 underline-offset-4 hover:decoration-brand-teal transition-all duration-300 font-semibold"
+                    >
+                      Lifetime deals
+                    </RouterLink>
+                    provide one-time access to the Services for as long as the Services remain
+                    available. “Lifetime” refers to the lifetime of the Services, not the lifetime
+                    of any individual user, device, company, or legal entity. Access is provided
+                    subject to technical, financial, and operational considerations.
                   </p>
                   <p>
                     Lifetime deals are offered transparently and responsibly. Usage is subject to
@@ -818,7 +849,7 @@
               >Terms</RouterLink
             >
             <a
-              href="mailto:support@stayonbrand.com"
+              href="mailto:legal@stayonbrand.com"
               class="text-brand-black/60 hover:text-brand-black transition-colors duration-300 font-medium"
               >Contact</a
             >

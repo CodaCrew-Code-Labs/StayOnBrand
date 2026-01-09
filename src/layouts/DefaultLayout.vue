@@ -11,7 +11,10 @@
       route.name === 'Pricing' ||
       route.name === 'Terms' ||
       route.name === 'Privacy' ||
-      route.name === 'RefundPolicy'
+      route.name === 'RefundPolicy' ||
+      route.name === 'LifetimeDealDisclosure' ||
+      route.name === 'AcceptableUsePolicy' ||
+      route.name === 'TermsAndConditions'
   )
 </script>
 

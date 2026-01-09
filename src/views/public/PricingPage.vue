@@ -953,15 +953,15 @@
                       One-time payment
                     </div>
                     <div class="flex items-baseline justify-center gap-3 mb-2">
-                      <span class="text-brand-bg/40 text-xl line-through font-medium">$1,250</span>
+                      <span class="text-brand-bg/40 text-xl line-through font-medium">$750</span>
                       <span class="text-5xl font-display font-bold text-brand-bright tracking-tight"
-                        >$1,000</span
+                        >$450</span
                       >
                     </div>
                     <div
                       class="text-brand-black text-xs font-bold bg-brand-bright px-4 py-1.5 rounded-full mb-6 inline-block"
                     >
-                      Save 20%
+                      Save 40%
                     </div>
 
                     <RouterLink
@@ -1026,7 +1026,7 @@
                 <span
                   v-if="isYearlyBilling"
                   class="text-[10px] font-bold text-brand-teal bg-brand-teal/10 px-2 py-0.5 rounded-full tracking-tight"
-                  >25% OFF</span
+                  >20% OFF</span
                 >
               </div>
 
@@ -1275,7 +1275,7 @@
                 View FAQ
               </RouterLink>
               <a
-                href="mailto:hello@stayonbrand.com"
+                href="mailto:support@stayonbrand.com"
                 class="group flex items-center justify-center gap-2 bg-transparent text-brand-bg px-8 py-3 rounded-full font-semibold text-sm border border-brand-bg/30 hover:border-brand-bright hover:text-brand-bright transition-all"
               >
                 <svg

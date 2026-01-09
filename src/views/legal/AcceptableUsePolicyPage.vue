@@ -7,18 +7,13 @@
 
   // Navigation sections
   const sections = [
-    { id: 'who-we-are', title: 'Who We Are', number: '01' },
-    { id: 'what-are-cookies', title: 'What Are Cookies?', number: '02' },
-    { id: 'how-we-use', title: 'How We Use Cookies', number: '03' },
-    { id: 'cookies-we-dont-use', title: "Cookies We Don't Use", number: '04' },
-    { id: 'cookie-consent', title: 'Cookie Consent', number: '05' },
-    { id: 'control-cookies', title: 'Control Cookies', number: '06' },
-    { id: 'changes', title: 'Policy Changes', number: '07' },
-    { id: 'contact', title: 'Contact Us', number: '08' }
+    { id: 'use-of-services', title: 'Use of the Services', number: '01' },
+    { id: 'consequences', title: 'Consequences of Breach', number: '02' },
+    { id: 'contact', title: 'Contact Us', number: '03' }
   ]
 
   // Active section tracking
-  const activeSection = ref('who-we-are')
+  const activeSection = ref('use-of-services')
 
   // Animation state
   const isLoaded = ref(false)
@@ -222,7 +217,7 @@
           <span
             class="md:text-3xl text-brand-red block transform hover:rotate-0 transition-transform cursor-default text-2xl font-medium font-script rotate-[-3deg] wiggle-hover"
           >
-            #TransparentTracking
+            #UsageGuidelines
           </span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -257,16 +252,14 @@
                 stroke="currentColor"
                 stroke-width="2"
               >
-                <circle cx="12" cy="12" r="10" />
-                <circle cx="8" cy="9" r="1" fill="currentColor" />
-                <circle cx="15" cy="8" r="1" fill="currentColor" />
-                <circle cx="10" cy="14" r="1" fill="currentColor" />
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                <path d="m9 12 2 2 4-4" />
               </svg>
             </div>
             <h1
               class="md:text-7xl lg:text-8xl uppercase text-brand-black leading-[0.9] select-none text-5xl font-semibold tracking-tight font-display"
             >
-              Cookie
+              Acceptable Use
             </h1>
           </div>
           <div class="relative scroll-animate fade-up delay-200">
@@ -294,7 +287,8 @@
                 stroke="currentColor"
                 stroke-width="2"
               >
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14,2 14,8 20,8" />
               </svg>
             </div>
           </div>
@@ -304,9 +298,9 @@
         <p
           class="mt-8 text-brand-gray max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed scroll-animate fade-up delay-300"
         >
-          This Cookie Policy explains how cookies and similar technologies are used when you access
-          or use our services. This Policy should be read together with our Privacy Policy and Terms
-          of Service.
+          This Acceptable Use Policy is incorporated into and forms part of our Terms of Service. It
+          should be read alongside the Legal Terms. By accessing or using the Services, you agree to
+          comply with this Policy.
         </p>
 
         <!-- Last Updated Badge & Download Button -->
@@ -331,8 +325,8 @@
             Last Updated: January 08, 2026
           </div>
           <a
-            href="/StayOnBrand_Cookie_Policy.pdf"
-            download="StayOnBrand_Cookie_Policy.pdf"
+            href="/StayOnBrand_Acceptable_Use_Policy.pdf"
+            download="StayOnBrand_Acceptable_Use_Policy.pdf"
             class="group inline-flex items-center gap-2 bg-brand-red text-brand-bg px-5 py-2 rounded-full text-xs font-semibold border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0px_0px_#1A1A1A] transition-all duration-300"
           >
             <svg
@@ -372,10 +366,8 @@
                 <path d="m9 12 2 2 4-4" />
               </svg>
             </div>
-            <p class="text-sm font-semibold text-brand-black">Essential Only</p>
-            <p class="text-xs text-brand-gray mt-1">
-              We use cookies only as necessary for the service
-            </p>
+            <p class="text-sm font-semibold text-brand-black">Fair Use</p>
+            <p class="text-xs text-brand-gray mt-1">Use the Services responsibly and lawfully</p>
           </div>
           <div
             class="bg-brand-bg border border-brand-black rounded-2xl p-5 shadow-[4px_4px_0px_0px_#C92216] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#C92216] transition-all duration-300"
@@ -392,8 +384,8 @@
                 <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
               </svg>
             </div>
-            <p class="text-sm font-semibold text-brand-black">No Ad Tracking</p>
-            <p class="text-xs text-brand-gray mt-1">No cross-site behavioral advertising</p>
+            <p class="text-sm font-semibold text-brand-black">No Abuse</p>
+            <p class="text-xs text-brand-gray mt-1">No harmful, illegal, or disruptive behavior</p>
           </div>
           <div
             class="bg-brand-bg border border-brand-black rounded-2xl p-5 shadow-[4px_4px_0px_0px_#79dcaf] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#79dcaf] transition-all duration-300"
@@ -406,14 +398,14 @@
                 stroke="currentColor"
                 stroke-width="2"
               >
-                <circle cx="12" cy="12" r="3" />
-                <path
-                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
-                />
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14,2 14,8 20,8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
               </svg>
             </div>
-            <p class="text-sm font-semibold text-brand-black">Your Control</p>
-            <p class="text-xs text-brand-gray mt-1">Manage cookies through browser settings</p>
+            <p class="text-sm font-semibold text-brand-black">Clear Rules</p>
+            <p class="text-xs text-brand-gray mt-1">Know what's expected when using our platform</p>
           </div>
         </div>
       </div>
@@ -454,16 +446,15 @@
                           stroke="currentColor"
                           stroke-width="2"
                         >
-                          <circle cx="12" cy="12" r="10" />
-                          <circle cx="8" cy="9" r="1" fill="currentColor" />
-                          <circle cx="15" cy="8" r="1" fill="currentColor" />
-                          <circle cx="10" cy="14" r="1" fill="currentColor" />
-                          <circle cx="16" cy="13" r="1" fill="currentColor" />
+                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                          <polyline points="14,2 14,8 20,8" />
+                          <line x1="16" y1="13" x2="8" y2="13" />
+                          <line x1="16" y1="17" x2="8" y2="17" />
                         </svg>
                       </div>
                       <div>
-                        <p class="text-brand-bg font-bold text-lg">Cookie Policy</p>
-                        <p class="text-brand-bg/50 text-xs">Transparency First</p>
+                        <p class="text-brand-bg font-bold text-lg">Usage Policy</p>
+                        <p class="text-brand-bg/50 text-xs">Guidelines & Rules</p>
                       </div>
                     </div>
                   </div>
@@ -489,14 +480,14 @@
                     <div
                       class="bg-brand-bg/10 backdrop-blur rounded-xl p-3 border border-brand-bg/10"
                     >
-                      <p class="text-brand-bright text-2xl font-bold font-mono">8</p>
+                      <p class="text-brand-bright text-2xl font-bold font-mono">3</p>
                       <p class="text-brand-bg/60 text-xs">Sections</p>
                     </div>
                     <div
                       class="bg-brand-bg/10 backdrop-blur rounded-xl p-3 border border-brand-bg/10"
                     >
-                      <p class="text-brand-bright text-2xl font-bold font-mono">0</p>
-                      <p class="text-brand-bg/60 text-xs">Ad Trackers</p>
+                      <p class="text-brand-bright text-2xl font-bold font-mono">18</p>
+                      <p class="text-brand-bg/60 text-xs">Rules</p>
                     </div>
                   </div>
                 </div>
@@ -723,17 +714,17 @@
 
           <!-- Right Column: Content -->
           <div class="col-span-1 lg:col-span-8 space-y-12 md:space-y-16">
-            <!-- Section 1: Who We Are -->
-            <section id="who-we-are" class="scroll-mt-24 scroll-animate fade-up">
+            <!-- Who We Are Section -->
+            <section class="scroll-mt-24 scroll-animate fade-up">
               <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#2F7A72] hover:shadow-[8px_8px_0px_0px_#2F7A72] transition-shadow duration-300"
+                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#79dcaf] hover:shadow-[8px_8px_0px_0px_#79dcaf] transition-shadow duration-300"
               >
                 <div class="flex items-start gap-4 mb-6">
                   <div
-                    class="w-14 h-14 rounded-2xl bg-brand-teal flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
+                    class="w-14 h-14 rounded-2xl bg-brand-bright flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
                   >
                     <svg
-                      class="w-7 h-7 text-brand-bg"
+                      class="w-7 h-7 text-brand-black"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -746,7 +737,7 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 01</p>
+                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">ABOUT</p>
                     <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
                       Who We Are
                     </h2>
@@ -758,26 +749,26 @@
                   <p>
                     The Services are operated by an individual ("we," "us," or "our"). We are not
                     currently operating as a registered company or legal entity. References to "we,"
-                    "us," or "our" refer to the individual operator of the Services.
+                    "us," and "our" in this Policy refer to the individual operator of the Services.
                   </p>
-                  <div class="p-4 rounded-xl bg-brand-teal/10 border border-brand-teal/30">
-                    <p class="text-sm text-brand-black">
-                      <span class="text-brand-teal font-semibold">Note:</span> This section aligns
-                      with the Controller / Operator identification in the Privacy Policy.
-                    </p>
-                  </div>
+                  <p>
+                    This Policy applies to your use of the Services (as defined in the Legal Terms)
+                    and any content you submit, upload, transmit, generate, or otherwise make
+                    available through the Services, including forms, submissions, comments,
+                    messages, and other materials ("Content").
+                  </p>
                 </div>
               </div>
             </section>
 
-            <!-- Section 2: What Are Cookies -->
-            <section id="what-are-cookies" class="scroll-mt-24 scroll-animate fade-up">
+            <!-- Section 1: Use of the Services -->
+            <section id="use-of-services" class="scroll-mt-24 scroll-animate fade-up">
               <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#C92216] hover:shadow-[8px_8px_0px_0px_#C92216] transition-shadow duration-300"
+                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#2F7A72] hover:shadow-[8px_8px_0px_0px_#2F7A72] transition-shadow duration-300"
               >
                 <div class="flex items-start gap-4 mb-6">
                   <div
-                    class="w-14 h-14 rounded-2xl bg-brand-red flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
+                    class="w-14 h-14 rounded-2xl bg-brand-teal flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
                   >
                     <svg
                       class="w-7 h-7 text-brand-bg"
@@ -786,65 +777,16 @@
                       stroke="currentColor"
                       stroke-width="1.5"
                     >
-                      <circle cx="12" cy="12" r="10" />
-                      <circle cx="8" cy="9" r="1" fill="currentColor" />
-                      <circle cx="15" cy="8" r="1" fill="currentColor" />
-                      <circle cx="10" cy="14" r="1" fill="currentColor" />
-                      <circle cx="16" cy="13" r="1" fill="currentColor" />
-                      <circle cx="13" cy="17" r="1" fill="currentColor" />
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                      <polyline points="14,2 14,8 20,8" />
+                      <line x1="16" y1="13" x2="8" y2="13" />
+                      <line x1="16" y1="17" x2="8" y2="17" />
                     </svg>
                   </div>
                   <div>
-                    <p class="text-brand-red text-sm font-mono font-semibold mb-1">SECTION 02</p>
+                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 01</p>
                     <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
-                      What Are Cookies?
-                    </h2>
-                  </div>
-                </div>
-                <div
-                  class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
-                >
-                  <p>
-                    Cookies are small text files placed on your device when you access or use the
-                    Services. Similar technologies such as local storage, pixels, tags, SDKs, and
-                    identifiers may also be used. For simplicity, all such technologies are referred
-                    to as "cookies" in this Policy.
-                  </p>
-                  <div class="p-4 rounded-xl bg-brand-red/10 border border-brand-red/30">
-                    <p class="text-sm text-brand-black">
-                      <span class="text-brand-red font-semibold">Reference:</span> This aligns with
-                      the "Information Automatically Collected" section of the Privacy Policy.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <!-- Section 3: How We Use Cookies -->
-            <section id="how-we-use" class="scroll-mt-24 scroll-animate fade-up">
-              <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#79dcaf] hover:shadow-[8px_8px_0px_0px_#79dcaf] transition-shadow duration-300"
-              >
-                <div class="flex items-start gap-4 mb-6">
-                  <div
-                    class="w-14 h-14 rounded-2xl bg-brand-bright flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
-                  >
-                    <svg
-                      class="w-7 h-7 text-brand-black"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                    >
-                      <path
-                        d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"
-                      />
-                    </svg>
-                  </div>
-                  <div>
-                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 03</p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
-                      How We Use Cookies
+                      Use of the Services
                     </h2>
                   </div>
                 </div>
@@ -852,262 +794,145 @@
                   class="prose-content space-y-6 text-brand-black/80 leading-relaxed text-base md:text-lg"
                 >
                   <p>
-                    We use cookies only to the extent necessary to operate, secure, and improve the
-                    Services, consistent with the purposes described in the Privacy Policy.
+                    When you use the Services, you agree to comply with this Policy and all
+                    applicable laws and regulations, and you are solely responsible for your use of
+                    the Services. You acknowledge that you may not:
                   </p>
-
-                  <!-- Strictly Necessary -->
-                  <div class="p-5 rounded-xl bg-brand-bg border border-brand-black/20">
-                    <h4 class="font-semibold text-brand-black mb-3 flex items-center gap-2">
-                      <span
-                        class="w-6 h-6 rounded bg-brand-teal text-brand-bg flex items-center justify-center text-xs"
-                        >a</span
-                      >
-                      Strictly Necessary Cookies
-                    </h4>
-                    <p class="text-sm mb-3">
-                      These cookies are essential for the operation of the Services and cannot be
-                      disabled. They are used to:
-                    </p>
-                    <ul class="list-none space-y-2">
-                      <li class="flex items-start gap-3 text-sm">
-                        <span
-                          class="w-2 h-2 rounded-full bg-brand-teal flex-shrink-0 mt-1.5"
-                        ></span>
-                        <span>Enable core functionality</span>
-                      </li>
-                      <li class="flex items-start gap-3 text-sm">
-                        <span
-                          class="w-2 h-2 rounded-full bg-brand-teal flex-shrink-0 mt-1.5"
-                        ></span>
-                        <span>Maintain sessions</span>
-                      </li>
-                      <li class="flex items-start gap-3 text-sm">
-                        <span
-                          class="w-2 h-2 rounded-full bg-brand-teal flex-shrink-0 mt-1.5"
-                        ></span>
-                        <span>Support security, abuse prevention, and fraud detection</span>
-                      </li>
-                      <li class="flex items-start gap-3 text-sm">
-                        <span
-                          class="w-2 h-2 rounded-full bg-brand-teal flex-shrink-0 mt-1.5"
-                        ></span>
-                        <span>Ensure system integrity</span>
-                      </li>
-                    </ul>
-                    <p class="text-xs text-brand-gray mt-3">
-                      These cookies are processed based on legitimate interests or necessity for
-                      service delivery.
-                    </p>
-                  </div>
-
-                  <!-- Functional Cookies -->
-                  <div class="p-5 rounded-xl bg-brand-bg border border-brand-black/20">
-                    <h4 class="font-semibold text-brand-black mb-3 flex items-center gap-2">
-                      <span
-                        class="w-6 h-6 rounded bg-brand-red text-brand-bg flex items-center justify-center text-xs"
-                        >b</span
-                      >
-                      Functional Cookies
-                    </h4>
-                    <p class="text-sm mb-3">
-                      These cookies help remember user preferences and settings, such as:
-                    </p>
-                    <ul class="list-none space-y-2">
-                      <li class="flex items-start gap-3 text-sm">
-                        <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-1.5"></span>
-                        <span>Language or regional preferences</span>
-                      </li>
-                      <li class="flex items-start gap-3 text-sm">
-                        <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-1.5"></span>
-                        <span>Interface settings</span>
-                      </li>
-                      <li class="flex items-start gap-3 text-sm">
-                        <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-1.5"></span>
-                        <span>Login or session continuity (if applicable)</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <!-- Analytics Cookies -->
-                  <div class="p-5 rounded-xl bg-brand-bg border border-brand-black/20">
-                    <h4 class="font-semibold text-brand-black mb-3 flex items-center gap-2">
-                      <span
-                        class="w-6 h-6 rounded bg-brand-bright text-brand-black flex items-center justify-center text-xs"
-                        >c</span
-                      >
-                      Analytics & Performance Cookies
-                    </h4>
-                    <p class="text-sm mb-3">
-                      These cookies help us understand how the Services are used, including:
-                    </p>
-                    <ul class="list-none space-y-2">
-                      <li class="flex items-start gap-3 text-sm">
-                        <span
-                          class="w-2 h-2 rounded-full bg-brand-bright flex-shrink-0 mt-1.5"
-                        ></span>
-                        <span>Feature usage</span>
-                      </li>
-                      <li class="flex items-start gap-3 text-sm">
-                        <span
-                          class="w-2 h-2 rounded-full bg-brand-bright flex-shrink-0 mt-1.5"
-                        ></span>
-                        <span>Error reporting</span>
-                      </li>
-                      <li class="flex items-start gap-3 text-sm">
-                        <span
-                          class="w-2 h-2 rounded-full bg-brand-bright flex-shrink-0 mt-1.5"
-                        ></span>
-                        <span>Performance metrics</span>
-                      </li>
-                    </ul>
-                    <p class="text-xs text-brand-gray mt-3">
-                      Analytics data is used in aggregated or anonymized form where possible.
-                      Analytics cookies are used only with consent where required by law.
-                    </p>
-                  </div>
-
-                  <!-- Third-Party Cookies -->
-                  <div class="p-5 rounded-xl bg-brand-bg border border-brand-black/20">
-                    <h4 class="font-semibold text-brand-black mb-3 flex items-center gap-2">
-                      <span
-                        class="w-6 h-6 rounded bg-brand-teal text-brand-bg flex items-center justify-center text-xs"
-                        >d</span
-                      >
-                      Third-Party Cookies
-                    </h4>
-                    <p class="text-sm mb-3">
-                      Some cookies may be placed by third-party service providers that support the
-                      Services, such as:
-                    </p>
-                    <ul class="list-none space-y-2">
-                      <li class="flex items-start gap-3 text-sm">
-                        <span
-                          class="w-2 h-2 rounded-full bg-brand-teal flex-shrink-0 mt-1.5"
-                        ></span>
-                        <span>Analytics providers</span>
-                      </li>
-                      <li class="flex items-start gap-3 text-sm">
-                        <span
-                          class="w-2 h-2 rounded-full bg-brand-teal flex-shrink-0 mt-1.5"
-                        ></span>
-                        <span>Hosting or infrastructure services</span>
-                      </li>
-                      <li class="flex items-start gap-3 text-sm">
-                        <span
-                          class="w-2 h-2 rounded-full bg-brand-teal flex-shrink-0 mt-1.5"
-                        ></span>
-                        <span>Security or abuse-prevention tools</span>
-                      </li>
-                    </ul>
-                    <p class="text-xs text-brand-gray mt-3">
-                      These third parties process data according to their own privacy policies. We
-                      do not control third-party cookies directly.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <!-- Section 4: Cookies We Do Not Use -->
-            <section id="cookies-we-dont-use" class="scroll-mt-24 scroll-animate fade-up">
-              <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#2F7A72] hover:shadow-[8px_8px_0px_0px_#2F7A72] transition-shadow duration-300"
-              >
-                <div class="flex items-start gap-4 mb-6">
-                  <div
-                    class="w-14 h-14 rounded-2xl bg-brand-teal flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
-                  >
-                    <svg
-                      class="w-7 h-7 text-brand-bg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                    >
-                      <circle cx="12" cy="12" r="10" />
-                      <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 04</p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
-                      Cookies We Do Not Use
-                    </h2>
-                  </div>
-                </div>
-                <div
-                  class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
-                >
-                  <p>Unless explicitly stated otherwise:</p>
                   <ul class="list-none space-y-3 mt-4">
                     <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
                       <span
-                        class="w-6 h-6 rounded-full bg-brand-teal text-brand-bg flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5"
-                      >
-                        <svg
-                          class="w-4 h-4"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="3"
-                        >
-                          <path d="m9 12 2 2 4-4" />
-                        </svg>
-                      </span>
-                      <span>We do <strong>not</strong> sell personal data</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                      <span
-                        class="w-6 h-6 rounded-full bg-brand-teal text-brand-bg flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5"
-                      >
-                        <svg
-                          class="w-4 h-4"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="3"
-                        >
-                          <path d="m9 12 2 2 4-4" />
-                        </svg>
-                      </span>
-                      <span
-                        >We do <strong>not</strong> use cookies for cross-site behavioral
-                        advertising</span
+                        >Systematically retrieve data or other content from the Services to create
+                        or compile, directly or indirectly, a collection, compilation, database, or
+                        directory without our prior authorization.</span
                       >
                     </li>
                     <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
                       <span
-                        class="w-6 h-6 rounded-full bg-brand-teal text-brand-bg flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5"
+                        >Make any unauthorized use of the Services, including collecting usernames
+                        or email addresses of users for the purpose of sending unsolicited
+                        communications, creating accounts by automated means, or operating under
+                        false or misleading pretenses.</span
                       >
-                        <svg
-                          class="w-4 h-4"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="3"
-                        >
-                          <path d="m9 12 2 2 4-4" />
-                        </svg>
-                      </span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
                       <span
-                        >We do <strong>not</strong> knowingly use cookies to profile users for
-                        targeted advertising</span
+                        >Circumvent, disable, interfere with, or attempt to bypass any
+                        security-related features of the Services, including features that limit
+                        access, copying, or usage of Content.</span
+                      >
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
+                      <span>Engage in unauthorized framing of or linking to the Services.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
+                      <span
+                        >Trick, defraud, mislead, impersonate, or attempt to impersonate us or
+                        another user, including attempts to obtain sensitive information such as
+                        account credentials.</span
+                      >
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
+                      <span
+                        >Engage in or promote fraud, scams, phishing, deceptive practices, or any
+                        illegal, harmful, or misleading activity.</span
+                      >
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
+                      <span
+                        >Make improper use of the Services or support channels, including submitting
+                        false or abusive reports.</span
+                      >
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
+                      <span
+                        >Engage in any automated use of the Services, including scripts, bots,
+                        scrapers, crawlers, data mining tools, or similar technologies, except as
+                        permitted by standard search engine or browser usage.</span
+                      >
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
+                      <span
+                        >Interfere with, disrupt, overload, or create an undue burden on the
+                        Services or connected networks.</span
+                      >
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
+                      <span
+                        >Use any information obtained from the Services to harass, abuse, threaten,
+                        or harm another person.</span
+                      >
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
+                      <span
+                        >Use the Services to compete with us or for unauthorized commercial,
+                        revenue-generating, or resale purposes.</span
+                      >
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
+                      <span
+                        >Reverse engineer, decompile, disassemble, or attempt to derive the source
+                        code of any part of the Services, except where expressly permitted by
+                        law.</span
+                      >
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
+                      <span
+                        >Harass, intimidate, or threaten the operator of the Services or anyone
+                        involved in providing or supporting the Services.</span
+                      >
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
+                      <span
+                        >Remove or alter copyright, trademark, or other proprietary notices.</span
+                      >
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
+                      <span>Copy, modify, or adapt the Services' software or code.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
+                      <span
+                        >Upload, transmit, or attempt to upload or transmit malware, viruses,
+                        spyware, tracking mechanisms, or any content that disrupts, degrades, or
+                        interferes with the normal operation or security of the Services.</span
+                      >
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
+                      <span
+                        >Disparage, tarnish, or otherwise harm, in our sole discretion, us or the
+                        Services.</span
+                      >
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
+                      <span
+                        >Use the Services in a manner inconsistent with applicable laws or
+                        regulations.</span
                       >
                     </li>
                   </ul>
-                  <div class="mt-6 p-4 rounded-xl bg-brand-teal/10 border border-brand-teal/30">
-                    <p class="text-sm text-brand-black">
-                      If this changes, this Policy and the Privacy Policy will be updated
-                      accordingly.
-                    </p>
-                  </div>
                 </div>
               </div>
             </section>
 
-            <!-- Section 5: Cookie Consent -->
-            <section id="cookie-consent" class="scroll-mt-24 scroll-animate fade-up">
+            <!-- Section 2: Consequences of Breaching -->
+            <section id="consequences" class="scroll-mt-24 scroll-animate fade-up">
               <div
                 class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#C92216] hover:shadow-[8px_8px_0px_0px_#C92216] transition-shadow duration-300"
               >
@@ -1122,75 +947,17 @@
                       stroke="currentColor"
                       stroke-width="1.5"
                     >
-                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
-                      <path d="m9 12 2 2 4-4" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p class="text-brand-red text-sm font-mono font-semibold mb-1">SECTION 05</p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
-                      Cookie Consent (Where Required)
-                    </h2>
-                  </div>
-                </div>
-                <div
-                  class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
-                >
-                  <p>
-                    Depending on your location, we may request your consent before placing
-                    non-essential cookies (such as analytics cookies).
-                  </p>
-                  <p>Where consent is required:</p>
-                  <ul class="list-none space-y-2 mt-4">
-                    <li class="flex items-start gap-3">
-                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
-                      <span>Strictly necessary cookies are always active</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
-                      <span>Non-essential cookies are used only after consent</span>
-                    </li>
-                  </ul>
-                  <p class="mt-4">
-                    You may withdraw or modify your consent at any time through browser settings or
-                    cookie preference tools, where available.
-                  </p>
-                  <div class="mt-6 p-4 rounded-xl bg-brand-red/10 border border-brand-red/30">
-                    <p class="text-sm text-brand-black">
-                      <span class="text-brand-red font-semibold">Compliance:</span> This aligns with
-                      GDPR / ePrivacy / consent language in the Privacy Policy.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <!-- Section 6: How You Can Control Cookies -->
-            <section id="control-cookies" class="scroll-mt-24 scroll-animate fade-up">
-              <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#79dcaf] hover:shadow-[8px_8px_0px_0px_#79dcaf] transition-shadow duration-300"
-              >
-                <div class="flex items-start gap-4 mb-6">
-                  <div
-                    class="w-14 h-14 rounded-2xl bg-brand-bright flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
-                  >
-                    <svg
-                      class="w-7 h-7 text-brand-black"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                    >
-                      <circle cx="12" cy="12" r="3" />
                       <path
-                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+                        d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
                       />
+                      <line x1="12" y1="9" x2="12" y2="13" />
+                      <line x1="12" y1="17" x2="12.01" y2="17" />
                     </svg>
                   </div>
                   <div>
-                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 06</p>
+                    <p class="text-brand-red text-sm font-mono font-semibold mb-1">SECTION 02</p>
                     <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
-                      How You Can Control Cookies
+                      Consequences of Breaching This Policy
                     </h2>
                   </div>
                 </div>
@@ -1198,110 +965,74 @@
                   class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
                 >
                   <p>
-                    You can control or delete cookies through your browser or device settings. Most
-                    browsers allow you to:
+                    The consequences for violating this Policy may vary depending on the nature,
+                    severity, and frequency of the breach, as well as the user's prior conduct on
+                    the Services. The actions described below are non-exhaustive examples.
                   </p>
-                  <div class="space-y-3 mt-4">
+                  <div class="space-y-4 mt-6">
                     <div class="p-4 rounded-xl bg-brand-bg border border-brand-black/20">
-                      <h4 class="font-semibold text-brand-black mb-1 flex items-center gap-2">
+                      <h4 class="font-semibold text-brand-black mb-2 flex items-center gap-2">
                         <span
-                          class="w-6 h-6 rounded bg-brand-bright text-brand-black flex items-center justify-center text-xs"
+                          class="w-6 h-6 rounded bg-brand-teal text-brand-bg flex items-center justify-center text-xs"
                           >1</span
                         >
-                        Block Cookies
+                        Warnings
                       </h4>
-                      <p class="text-sm">Prevent cookies from being placed on your device</p>
+                      <p class="text-sm">
+                        We may, at our sole discretion, provide a warning in some cases; however, we
+                        are under no obligation to do so.
+                      </p>
                     </div>
                     <div class="p-4 rounded-xl bg-brand-bg border border-brand-black/20">
-                      <h4 class="font-semibold text-brand-black mb-1 flex items-center gap-2">
+                      <h4 class="font-semibold text-brand-black mb-2 flex items-center gap-2">
                         <span
-                          class="w-6 h-6 rounded bg-brand-bright text-brand-black flex items-center justify-center text-xs"
+                          class="w-6 h-6 rounded bg-brand-red text-brand-bg flex items-center justify-center text-xs"
                           >2</span
                         >
-                        Delete Existing Cookies
+                        Account Actions
                       </h4>
-                      <p class="text-sm">Remove cookies that have already been placed</p>
+                      <p class="text-sm">
+                        If a breach is serious, repeated, or otherwise unacceptable, we reserve the
+                        right, at our sole discretion and with or without notice, to suspend,
+                        restrict, or terminate your access to the Services, disable your account, or
+                        take any other action we consider appropriate.
+                      </p>
                     </div>
                     <div class="p-4 rounded-xl bg-brand-bg border border-brand-black/20">
-                      <h4 class="font-semibold text-brand-black mb-1 flex items-center gap-2">
+                      <h4 class="font-semibold text-brand-black mb-2 flex items-center gap-2">
                         <span
                           class="w-6 h-6 rounded bg-brand-bright text-brand-black flex items-center justify-center text-xs"
                           >3</span
                         >
-                        Receive Alerts
+                        Legal Cooperation
                       </h4>
-                      <p class="text-sm">Get notifications before cookies are placed</p>
+                      <p class="text-sm">
+                        Where we reasonably believe that a violation involves illegal activity, risk
+                        of harm to an individual, or a threat to public safety, we may cooperate
+                        with law enforcement or regulatory authorities as required by applicable
+                        law.
+                      </p>
                     </div>
                   </div>
-                  <div class="mt-6 p-4 rounded-xl bg-brand-bright/30 border border-brand-teal/30">
+                  <div class="mt-6 p-4 rounded-xl bg-brand-red/10 border border-brand-red/30">
                     <p class="text-sm text-brand-black">
-                      <span class="text-brand-teal font-semibold">Note:</span> Disabling certain
-                      cookies may affect functionality or availability of the Services.
+                      <span class="text-brand-red font-semibold">Note:</span> To the maximum extent
+                      permitted by applicable law, we disclaim liability for actions taken in good
+                      faith to investigate, prevent, or enforce violations of this Policy.
                     </p>
                   </div>
                 </div>
               </div>
             </section>
 
-            <!-- Section 7: Changes to This Cookie Policy -->
-            <section id="changes" class="scroll-mt-24 scroll-animate fade-up">
+            <!-- Section 3: Contact -->
+            <section id="contact" class="scroll-mt-24 scroll-animate fade-up">
               <div
                 class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#2F7A72] hover:shadow-[8px_8px_0px_0px_#2F7A72] transition-shadow duration-300"
               >
                 <div class="flex items-start gap-4 mb-6">
                   <div
                     class="w-14 h-14 rounded-2xl bg-brand-teal flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
-                  >
-                    <svg
-                      class="w-7 h-7 text-brand-bg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                    >
-                      <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
-                      <path d="M3 3v5h5" />
-                      <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
-                      <path d="M16 16h5v5" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 07</p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
-                      Changes to This Cookie Policy
-                    </h2>
-                  </div>
-                </div>
-                <div
-                  class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
-                >
-                  <p>
-                    We may update this Cookie Policy from time to time to reflect changes in
-                    technology, legal requirements, or how the Services operate. The "Last updated"
-                    date indicates when changes take effect.
-                  </p>
-                  <p>
-                    Continued use of the Services after updates constitutes acceptance of the
-                    revised Policy.
-                  </p>
-                  <div class="mt-6 p-4 rounded-xl bg-brand-teal/10 border border-brand-teal/30">
-                    <p class="text-sm text-brand-black">
-                      <span class="text-brand-teal font-semibold">Reference:</span> This aligns with
-                      the "Policy Updates" section of the Privacy Policy.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <!-- Section 8: Contact Us -->
-            <section id="contact" class="scroll-mt-24 scroll-animate fade-up">
-              <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#C92216] hover:shadow-[8px_8px_0px_0px_#C92216] transition-shadow duration-300"
-              >
-                <div class="flex items-start gap-4 mb-6">
-                  <div
-                    class="w-14 h-14 rounded-2xl bg-brand-red flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
                   >
                     <svg
                       class="w-7 h-7 text-brand-bg"
@@ -1315,9 +1046,9 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="text-brand-red text-sm font-mono font-semibold mb-1">SECTION 08</p>
+                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 03</p>
                     <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
-                      Contact Us
+                      How Can You Contact Us About This Policy?
                     </h2>
                   </div>
                 </div>
@@ -1325,15 +1056,15 @@
                   class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
                 >
                   <p>
-                    If you have questions about this Cookie Policy, you may contact the operator of
-                    the Services at:
+                    If you have questions or concerns specifically related to this Acceptable Use
+                    Policy, you may contact the operator of the Services by email at:
                   </p>
                   <div class="mt-6 space-y-4">
                     <div
                       class="flex items-center gap-4 p-4 rounded-xl bg-brand-bg border border-brand-black/20"
                     >
                       <div
-                        class="w-10 h-10 rounded-full bg-brand-red flex items-center justify-center flex-shrink-0"
+                        class="w-10 h-10 rounded-full bg-brand-teal flex items-center justify-center flex-shrink-0"
                       >
                         <svg
                           class="w-5 h-5 text-brand-bg"
@@ -1350,16 +1081,23 @@
                         <p class="text-xs text-brand-gray uppercase tracking-wide">Email</p>
                         <a
                           href="mailto:legal@stayonbrand.in"
-                          class="text-brand-black font-semibold hover:text-brand-red transition-colors"
+                          class="text-brand-black font-semibold hover:text-brand-teal transition-colors"
                           >legal@stayonbrand.in</a
                         >
                       </div>
                     </div>
                   </div>
                   <p class="mt-6">
-                    This contact method is intended for policy-related inquiries only. Responses are
-                    provided at our discretion.
+                    This contact method is intended for Policy-related inquiries only. We may not
+                    respond to all messages, and responses are provided at our discretion.
                   </p>
+                  <div class="mt-6 p-4 rounded-xl bg-brand-teal/10 border border-brand-teal/30">
+                    <p class="text-sm text-brand-black">
+                      <span class="text-brand-teal font-semibold">Report Violations:</span> If you
+                      believe a user is violating this Policy, you may report the issue using the
+                      contact email above.
+                    </p>
+                  </div>
                 </div>
               </div>
             </section>
@@ -1369,17 +1107,17 @@
               <div
                 class="bg-brand-black text-brand-bg rounded-3xl p-8 md:p-12 border border-brand-black shadow-[6px_6px_0px_0px_#C92216]"
               >
-                <p class="text-brand-bright font-script text-2xl mb-2">Transparent cookie usage</p>
+                <p class="text-brand-bright font-script text-2xl mb-2">Responsible usage matters</p>
                 <p class="text-brand-bg/80 text-base mb-8">
                   By using Stay On Brand, you acknowledge that you have read and understood this
-                  Cookie Policy.
+                  Acceptable Use Policy.
                 </p>
                 <div class="flex flex-col sm:flex-row items-center gap-4">
                   <RouterLink
-                    to="/privacy"
+                    to="/terms"
                     class="w-full sm:w-auto px-8 py-4 rounded-full border-2 border-brand-bg text-brand-bg font-semibold hover:bg-brand-bg hover:text-brand-black transition-all duration-300 text-center"
                   >
-                    View Privacy Policy
+                    View Terms of Service
                   </RouterLink>
                   <RouterLink
                     to="/signup"
@@ -1422,9 +1160,9 @@
               >Terms</RouterLink
             >
             <RouterLink
-              to="/cookie-policy"
+              to="/aup"
               class="text-brand-red hover:text-brand-red/80 transition-colors duration-300 font-semibold"
-              >Cookies</RouterLink
+              >AUP</RouterLink
             >
             <a
               href="mailto:legal@stayonbrand.in"
@@ -1451,10 +1189,10 @@
           stroke-width="2"
           class="text-brand-bg"
         >
-          <circle cx="12" cy="12" r="10" />
-          <circle cx="8" cy="9" r="1" fill="currentColor" />
-          <circle cx="15" cy="8" r="1" fill="currentColor" />
-          <circle cx="10" cy="14" r="1" fill="currentColor" />
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14,2 14,8 20,8" />
+          <line x1="16" y1="13" x2="8" y2="13" />
+          <line x1="16" y1="17" x2="8" y2="17" />
         </svg>
       </div>
     </div>
