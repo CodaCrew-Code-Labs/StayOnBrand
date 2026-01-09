@@ -7,23 +7,22 @@
 
   // Navigation sections
   const sections = [
-    { id: 'info-collect', title: 'Information We Collect', number: '01' },
-    { id: 'info-process', title: 'How We Process Info', number: '02' },
-    { id: 'info-share', title: 'Information Sharing', number: '03' },
-    { id: 'cookies', title: 'Cookies & Tracking', number: '04' },
-    { id: 'social-logins', title: 'Social Logins', number: '05' },
-    { id: 'international', title: 'International Transfers', number: '06' },
-    { id: 'retention', title: 'Data Retention', number: '07' },
-    { id: 'minors', title: "Children's Privacy", number: '08' },
-    { id: 'rights', title: 'Your Privacy Rights', number: '09' },
-    { id: 'dnt', title: 'Do-Not-Track', number: '10' },
-    { id: 'payments', title: 'Payment Handling', number: '11' },
-    { id: 'updates', title: 'Policy Updates', number: '12' },
-    { id: 'contact', title: 'Contact Us', number: '13' }
+    { id: 'who-we-are', title: 'Who We Are', number: '01' },
+    { id: 'general-policy', title: 'General Refund Policy', number: '02' },
+    { id: 'subscriptions', title: 'Subscriptions & Payments', number: '03' },
+    { id: 'one-time', title: 'One-Time Purchases', number: '04' },
+    { id: 'exceptions', title: 'Exceptions (Limited)', number: '05' },
+    { id: 'termination', title: 'Policy Violations', number: '06' },
+    { id: 'taxes', title: 'Taxes & Fees', number: '07' },
+    { id: 'pricing', title: 'Pricing Changes', number: '08' },
+    { id: 'refund-method', title: 'Refund Method', number: '09' },
+    { id: 'chargebacks', title: 'Chargebacks & Disputes', number: '10' },
+    { id: 'legal-rights', title: 'Legal Rights', number: '11' },
+    { id: 'contact', title: 'Contact', number: '12' }
   ]
 
   // Active section tracking
-  const activeSection = ref('info-collect')
+  const activeSection = ref('who-we-are')
 
   // Animation state
   const isLoaded = ref(false)
@@ -227,7 +226,7 @@
           <span
             class="md:text-3xl text-brand-red block transform hover:rotate-0 transition-transform cursor-default text-2xl font-medium font-script rotate-[-3deg] wiggle-hover"
           >
-            #YourDataMatters
+            #ClearPolicies
           </span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -262,15 +261,14 @@
                 stroke="currentColor"
                 stroke-width="2"
               >
-                <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
-                <circle cx="12" cy="16" r="1" />
-                <path d="m7 11V7a5 5 0 0 1 10 0v4" />
+                <rect width="20" height="14" x="2" y="5" rx="2" />
+                <line x1="2" y1="10" x2="22" y2="10" />
               </svg>
             </div>
             <h1
               class="md:text-7xl lg:text-8xl uppercase text-brand-black leading-[0.9] select-none text-5xl font-semibold tracking-tight font-display"
             >
-              Privacy
+              Refund
             </h1>
           </div>
           <div class="relative scroll-animate fade-up delay-200">
@@ -298,7 +296,7 @@
                 stroke="currentColor"
                 stroke-width="2"
               >
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
               </svg>
             </div>
           </div>
@@ -308,9 +306,9 @@
         <p
           class="mt-8 text-brand-gray max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed scroll-animate fade-up delay-300"
         >
-          This Privacy Notice explains how Stay On Brand collects, uses, and handles personal
-          information when you use our services. We are committed to protecting your data
-          responsibly.
+          This Refund Policy explains how refunds are handled for purchases made through the
+          Services. This Policy should be read together with our Terms of Service, Acceptable Use
+          Policy, and Privacy Policy.
         </p>
 
         <!-- Last Updated Badge & Download Button -->
@@ -335,8 +333,8 @@
             Last Updated: January 08, 2026
           </div>
           <a
-            href="/StayOnBrand_Privacy_Policy.pdf"
-            download="StayOnBrand_Privacy_Policy.pdf"
+            href="/StayOnBrand_Refund_Policy.pdf"
+            download="StayOnBrand_Refund_Policy.pdf"
             class="group inline-flex items-center gap-2 bg-brand-red text-brand-bg px-5 py-2 rounded-full text-xs font-semibold border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0px_0px_#1A1A1A] transition-all duration-300"
           >
             <svg
@@ -372,14 +370,12 @@
                 stroke="currentColor"
                 stroke-width="2"
               >
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
-                <path d="m9 12 2 2 4-4" />
+                <rect width="20" height="14" x="2" y="5" rx="2" />
+                <line x1="2" y1="10" x2="22" y2="10" />
               </svg>
             </div>
-            <p class="text-sm font-semibold text-brand-black">No Sensitive Data</p>
-            <p class="text-xs text-brand-gray mt-1">
-              We don't collect sensitive personal information
-            </p>
+            <p class="text-sm font-semibold text-brand-black">Digital Service</p>
+            <p class="text-xs text-brand-gray mt-1">All purchases are for digital service access</p>
           </div>
           <div
             class="bg-brand-bg border border-brand-black rounded-2xl p-5 shadow-[4px_4px_0px_0px_#C92216] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#C92216] transition-all duration-300"
@@ -393,11 +389,12 @@
                 stroke-width="2"
               >
                 <circle cx="12" cy="12" r="10" />
-                <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
+                <line x1="15" y1="9" x2="9" y2="15" />
+                <line x1="9" y1="9" x2="15" y2="15" />
               </svg>
             </div>
-            <p class="text-sm font-semibold text-brand-black">No Data Sales</p>
-            <p class="text-xs text-brand-gray mt-1">We never sell your personal information</p>
+            <p class="text-sm font-semibold text-brand-black">Final Purchases</p>
+            <p class="text-xs text-brand-gray mt-1">All purchases are final and non-refundable</p>
           </div>
           <div
             class="bg-brand-bg border border-brand-black rounded-2xl p-5 shadow-[4px_4px_0px_0px_#79dcaf] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#79dcaf] transition-all duration-300"
@@ -410,14 +407,12 @@
                 stroke="currentColor"
                 stroke-width="2"
               >
-                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                <circle cx="9" cy="7" r="4" />
-                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                <path d="m9 12 2 2 4-4" />
               </svg>
             </div>
-            <p class="text-sm font-semibold text-brand-black">Your Rights</p>
-            <p class="text-xs text-brand-gray mt-1">Access, correct, or delete your data anytime</p>
+            <p class="text-sm font-semibold text-brand-black">Exceptions Apply</p>
+            <p class="text-xs text-brand-gray mt-1">Limited exceptions for duplicate charges</p>
           </div>
         </div>
       </div>
@@ -458,13 +453,12 @@
                           stroke="currentColor"
                           stroke-width="2"
                         >
-                          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
-                          <path d="m9 12 2 2 4-4" />
+                          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                         </svg>
                       </div>
                       <div>
-                        <p class="text-brand-bg font-bold text-lg">Your Privacy</p>
-                        <p class="text-brand-bg/50 text-xs">Protected & Secure</p>
+                        <p class="text-brand-bg font-bold text-lg">Refund Policy</p>
+                        <p class="text-brand-bg/50 text-xs">Clear & Transparent</p>
                       </div>
                     </div>
                   </div>
@@ -490,14 +484,14 @@
                     <div
                       class="bg-brand-bg/10 backdrop-blur rounded-xl p-3 border border-brand-bg/10"
                     >
-                      <p class="text-brand-bright text-2xl font-bold font-mono">13</p>
+                      <p class="text-brand-bright text-2xl font-bold font-mono">12</p>
                       <p class="text-brand-bg/60 text-xs">Sections</p>
                     </div>
                     <div
                       class="bg-brand-bg/10 backdrop-blur rounded-xl p-3 border border-brand-bg/10"
                     >
                       <p class="text-brand-bright text-2xl font-bold font-mono">0</p>
-                      <p class="text-brand-bg/60 text-xs">Data Sold</p>
+                      <p class="text-brand-bg/60 text-xs">Hidden Fees</p>
                     </div>
                   </div>
                 </div>
@@ -620,7 +614,7 @@
                   </div>
 
                   <a
-                    href="mailto:codacrewcodelabs@gmail.com"
+                    href="mailto:legal@stayonbrand.in"
                     class="flex items-center justify-center gap-2 w-full bg-brand-bg text-brand-teal px-4 py-3 rounded-xl text-sm font-bold hover:bg-brand-bright hover:text-brand-black transition-all duration-200 shadow-md hover:shadow-lg"
                   >
                     <svg
@@ -672,7 +666,7 @@
                     </div>
                   </RouterLink>
                   <RouterLink
-                    to="/cookies"
+                    to="/privacy"
                     class="flex items-center gap-3 p-3 rounded-xl hover:bg-brand-bright/30 transition-all duration-200 group"
                   >
                     <div
@@ -685,15 +679,12 @@
                         stroke="currentColor"
                         stroke-width="2"
                       >
-                        <circle cx="12" cy="12" r="10" />
-                        <circle cx="8" cy="9" r="1.5" fill="currentColor" />
-                        <circle cx="15" cy="8" r="1" fill="currentColor" />
-                        <circle cx="10" cy="15" r="1.5" fill="currentColor" />
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
                       </svg>
                     </div>
                     <div class="flex-1 min-w-0">
-                      <p class="text-sm font-semibold text-brand-black truncate">Cookie Policy</p>
-                      <p class="text-xs text-brand-gray">How we use cookies</p>
+                      <p class="text-sm font-semibold text-brand-black truncate">Privacy Policy</p>
+                      <p class="text-xs text-brand-gray">How we handle data</p>
                     </div>
                   </RouterLink>
                   <RouterLink
@@ -727,350 +718,14 @@
 
           <!-- Right Column: Content -->
           <div class="col-span-1 lg:col-span-8 space-y-12 md:space-y-16">
-            <!-- Section 1: Information Collection -->
-            <section id="info-collect" class="scroll-mt-24 scroll-animate fade-up">
+            <!-- Section 1: Who We Are -->
+            <section id="who-we-are" class="scroll-mt-24 scroll-animate fade-up">
               <div
                 class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#2F7A72] hover:shadow-[8px_8px_0px_0px_#2F7A72] transition-shadow duration-300"
               >
                 <div class="flex items-start gap-4 mb-6">
                   <div
                     class="w-14 h-14 rounded-2xl bg-brand-teal flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
-                  >
-                    <svg
-                      class="w-7 h-7 text-brand-bg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                    >
-                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                      <polyline points="14,2 14,8 20,8" />
-                      <line x1="16" y1="13" x2="8" y2="13" />
-                      <line x1="16" y1="17" x2="8" y2="17" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 01</p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
-                      What Information Do We Collect?
-                    </h2>
-                  </div>
-                </div>
-                <div
-                  class="prose-content space-y-6 text-brand-black/80 leading-relaxed text-base md:text-lg"
-                >
-                  <div>
-                    <h3 class="text-lg font-semibold text-brand-black mb-2">
-                      Personal Information You Provide
-                    </h3>
-                    <p>
-                      We collect personal information that you voluntarily provide when you use the
-                      Services, such as when you create an account, contact us, request information,
-                      or otherwise interact with the product. The personal information collected may
-                      include basic contact details (such as an email address) and any other
-                      information you choose to share.
-                    </p>
-                  </div>
-                  <div class="p-4 rounded-xl bg-brand-bright/20 border border-brand-teal/30">
-                    <p class="text-sm text-brand-black font-semibold">
-                      <span class="text-brand-teal">Important:</span> We do not intentionally
-                      collect or process sensitive personal information.
-                    </p>
-                  </div>
-                  <div>
-                    <h3 class="text-lg font-semibold text-brand-black mb-2">
-                      Information Automatically Collected
-                    </h3>
-                    <p>
-                      When you visit or use the Services, certain information is automatically
-                      collected. This information does not directly identify you but may include
-                      technical and usage details such as:
-                    </p>
-                    <ul class="list-none space-y-2 mt-4">
-                      <li class="flex items-start gap-3">
-                        <span class="w-2 h-2 rounded-full bg-brand-teal flex-shrink-0 mt-2"></span>
-                        <span>IP address and browser type</span>
-                      </li>
-                      <li class="flex items-start gap-3">
-                        <span class="w-2 h-2 rounded-full bg-brand-teal flex-shrink-0 mt-2"></span>
-                        <span>Device characteristics and operating system</span>
-                      </li>
-                      <li class="flex items-start gap-3">
-                        <span class="w-2 h-2 rounded-full bg-brand-teal flex-shrink-0 mt-2"></span>
-                        <span>Language preferences and referring URLs</span>
-                      </li>
-                      <li class="flex items-start gap-3">
-                        <span class="w-2 h-2 rounded-full bg-brand-teal flex-shrink-0 mt-2"></span>
-                        <span>Approximate location (based on IP address)</span>
-                      </li>
-                      <li class="flex items-start gap-3">
-                        <span class="w-2 h-2 rounded-full bg-brand-teal flex-shrink-0 mt-2"></span>
-                        <span>Information about how you interact with the Services</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <!-- Section 2: How We Process -->
-            <section id="info-process" class="scroll-mt-24 scroll-animate fade-up">
-              <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#C92216] hover:shadow-[8px_8px_0px_0px_#C92216] transition-shadow duration-300"
-              >
-                <div class="flex items-start gap-4 mb-6">
-                  <div
-                    class="w-14 h-14 rounded-2xl bg-brand-red flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
-                  >
-                    <svg
-                      class="w-7 h-7 text-brand-bg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                    >
-                      <path
-                        d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"
-                      />
-                    </svg>
-                  </div>
-                  <div>
-                    <p class="text-brand-red text-sm font-mono font-semibold mb-1">SECTION 02</p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
-                      How Do We Process Your Information?
-                    </h2>
-                  </div>
-                </div>
-                <div
-                  class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
-                >
-                  <p>
-                    We process personal information only as necessary to operate, maintain, and
-                    improve the Services, communicate with users, and protect the Services from
-                    misuse.
-                  </p>
-                  <p>The purposes for processing may include:</p>
-                  <ul class="list-none space-y-3 mt-4">
-                    <li class="flex items-start gap-3">
-                      <span
-                        class="w-6 h-6 rounded-full bg-brand-teal text-brand-bg flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5"
-                        >1</span
-                      >
-                      <span
-                        ><strong>Providing and operating the Services</strong>, including account
-                        functionality and core features</span
-                      >
-                    </li>
-                    <li class="flex items-start gap-3">
-                      <span
-                        class="w-6 h-6 rounded-full bg-brand-red text-brand-bg flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5"
-                        >2</span
-                      >
-                      <span
-                        ><strong>Communicating with you</strong>, such as responding to inquiries or
-                        sending service-related messages</span
-                      >
-                    </li>
-                    <li class="flex items-start gap-3">
-                      <span
-                        class="w-6 h-6 rounded-full bg-brand-bright text-brand-black flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5"
-                        >3</span
-                      >
-                      <span
-                        ><strong>Improving and maintaining the Services</strong>, including
-                        understanding how the product is used and fixing issues</span
-                      >
-                    </li>
-                    <li class="flex items-start gap-3">
-                      <span
-                        class="w-6 h-6 rounded-full bg-brand-teal text-brand-bg flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5"
-                        >4</span
-                      >
-                      <span
-                        ><strong>Protecting the Services</strong>, including maintaining security
-                        and preventing misuse or abuse</span
-                      >
-                    </li>
-                    <li class="flex items-start gap-3">
-                      <span
-                        class="w-6 h-6 rounded-full bg-brand-red text-brand-bg flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5"
-                        >5</span
-                      >
-                      <span
-                        ><strong>Complying with applicable legal obligations</strong>, if and when
-                        required</span
-                      >
-                    </li>
-                  </ul>
-                  <div class="mt-6 p-4 rounded-xl bg-brand-red/10 border border-brand-red/30">
-                    <p class="text-sm text-brand-black">
-                      Where we rely on your consent for specific processing activities, this will be
-                      clearly disclosed, and you may withdraw your consent where applicable.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <!-- Section 3: Information Sharing -->
-            <section id="info-share" class="scroll-mt-24 scroll-animate fade-up">
-              <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#79dcaf] hover:shadow-[8px_8px_0px_0px_#79dcaf] transition-shadow duration-300"
-              >
-                <div class="flex items-start gap-4 mb-6">
-                  <div
-                    class="w-14 h-14 rounded-2xl bg-brand-bright flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
-                  >
-                    <svg
-                      class="w-7 h-7 text-brand-black"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                    >
-                      <circle cx="18" cy="5" r="3" />
-                      <circle cx="6" cy="12" r="3" />
-                      <circle cx="18" cy="19" r="3" />
-                      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
-                      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 03</p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
-                      When Do We Share Your Information?
-                    </h2>
-                  </div>
-                </div>
-                <div
-                  class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
-                >
-                  <div class="p-4 rounded-xl bg-brand-bright/30 border border-brand-teal/30 mb-6">
-                    <p class="text-sm text-brand-black font-semibold">
-                      <span class="text-brand-teal">Key Point:</span> We do
-                      <strong>not</strong> sell personal information and do
-                      <strong>not</strong> share it for advertising or promotional purposes.
-                    </p>
-                  </div>
-                  <p>Personal information may be shared in the following limited situations:</p>
-                  <div class="space-y-4 mt-4">
-                    <div class="p-4 rounded-xl bg-brand-bg border border-brand-black/20">
-                      <h4 class="font-semibold text-brand-black mb-2 flex items-center gap-2">
-                        <span
-                          class="w-6 h-6 rounded bg-brand-teal text-brand-bg flex items-center justify-center text-xs"
-                          >1</span
-                        >
-                        Service Providers
-                      </h4>
-                      <p class="text-sm">
-                        We may share personal information with third-party service providers that
-                        help operate the Services, such as website hosting, analytics, email
-                        delivery, or infrastructure providers. These providers are permitted to use
-                        personal information only to perform services on our behalf.
-                      </p>
-                    </div>
-                    <div class="p-4 rounded-xl bg-brand-bg border border-brand-black/20">
-                      <h4 class="font-semibold text-brand-black mb-2 flex items-center gap-2">
-                        <span
-                          class="w-6 h-6 rounded bg-brand-red text-brand-bg flex items-center justify-center text-xs"
-                          >2</span
-                        >
-                        Legal Requirements
-                      </h4>
-                      <p class="text-sm">
-                        Information may be disclosed if required to comply with applicable laws,
-                        regulations, or lawful requests from public authorities.
-                      </p>
-                    </div>
-                    <div class="p-4 rounded-xl bg-brand-bg border border-brand-black/20">
-                      <h4 class="font-semibold text-brand-black mb-2 flex items-center gap-2">
-                        <span
-                          class="w-6 h-6 rounded bg-brand-bright text-brand-black flex items-center justify-center text-xs"
-                          >3</span
-                        >
-                        Service Transition
-                      </h4>
-                      <p class="text-sm">
-                        If the Services are transferred, sold, or discontinued in the future,
-                        personal information may be transferred as part of that transition. If this
-                        occurs, reasonable notice will be provided where practicable.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <!-- Section 4: Cookies -->
-            <section id="cookies" class="scroll-mt-24 scroll-animate fade-up">
-              <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#2F7A72] hover:shadow-[8px_8px_0px_0px_#2F7A72] transition-shadow duration-300"
-              >
-                <div class="flex items-start gap-4 mb-6">
-                  <div
-                    class="w-14 h-14 rounded-2xl bg-brand-teal flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
-                  >
-                    <svg
-                      class="w-7 h-7 text-brand-bg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                    >
-                      <circle cx="12" cy="12" r="10" />
-                      <circle cx="8" cy="9" r="1" fill="currentColor" />
-                      <circle cx="15" cy="8" r="1" fill="currentColor" />
-                      <circle cx="10" cy="14" r="1" fill="currentColor" />
-                      <circle cx="16" cy="13" r="1" fill="currentColor" />
-                      <circle cx="13" cy="17" r="1" fill="currentColor" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 04</p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
-                      Cookies & Tracking Technologies
-                    </h2>
-                  </div>
-                </div>
-                <div
-                  class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
-                >
-                  <p>
-                    We may use cookies or similar technologies to collect limited information when
-                    you interact with the Services. These technologies help support essential site
-                    functions, remember preferences, maintain security, fix bugs, and understand
-                    general usage patterns.
-                  </p>
-                  <p>
-                    We may also use third-party analytics tools (such as privacy-focused or standard
-                    analytics providers) to help understand how the Services are used. These tools
-                    collect information in an aggregated or pseudonymous form and are used only to
-                    improve functionality and performance.
-                  </p>
-                  <div class="mt-6 p-4 rounded-xl bg-brand-teal/10 border border-brand-teal/30">
-                    <p class="text-sm text-brand-black">
-                      <span class="text-brand-teal font-semibold">Important:</span> We do
-                      <strong>not</strong> use cookies or tracking technologies for targeted
-                      advertising, behavioral profiling, or selling personal information.
-                    </p>
-                  </div>
-                  <p class="mt-4">
-                    You can control or disable cookies through your browser settings. If a separate
-                    Cookie Notice is provided, it will contain additional details about cookie usage
-                    and controls.
-                  </p>
-                </div>
-              </div>
-            </section>
-
-            <!-- Section 5: Social Logins -->
-            <section id="social-logins" class="scroll-mt-24 scroll-animate fade-up">
-              <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#C92216] hover:shadow-[8px_8px_0px_0px_#C92216] transition-shadow duration-300"
-              >
-                <div class="flex items-start gap-4 mb-6">
-                  <div
-                    class="w-14 h-14 rounded-2xl bg-brand-red flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
                   >
                     <svg
                       class="w-7 h-7 text-brand-bg"
@@ -1086,9 +741,9 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="text-brand-red text-sm font-mono font-semibold mb-1">SECTION 05</p>
+                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 01</p>
                     <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
-                      How Do We Handle Social Logins?
+                      Who We Are
                     </h2>
                   </div>
                 </div>
@@ -1096,139 +751,21 @@
                   class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
                 >
                   <p>
-                    If the Services offer social login functionality and you choose to register or
-                    sign in using a third-party account, we may receive certain basic profile
-                    information from that provider. The information received depends on the provider
-                    and your privacy settings, but typically includes your name and email address.
+                    The Services are operated by an individual ("we," "us," or "our"). We are not
+                    currently operating as a registered company or legal entity.
                   </p>
-                  <div class="p-4 rounded-xl bg-brand-red/10 border border-brand-red/30">
+                  <div class="p-4 rounded-xl bg-brand-teal/10 border border-brand-teal/30">
                     <p class="text-sm text-brand-black">
-                      <span class="text-brand-red font-semibold">Note:</span> We do
-                      <strong>not</strong> receive your account password from social login
-                      providers.
-                    </p>
-                  </div>
-                  <p>
-                    We use this information only to create or authenticate your account and to
-                    operate the Services as described in this Privacy Notice.
-                  </p>
-                  <p>
-                    We do not control how third-party social media providers collect or use your
-                    personal information. Their use of your information is governed by their own
-                    privacy policies.
-                  </p>
-                </div>
-              </div>
-            </section>
-
-            <!-- Section 6: International Transfers -->
-            <section id="international" class="scroll-mt-24 scroll-animate fade-up">
-              <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#79dcaf] hover:shadow-[8px_8px_0px_0px_#79dcaf] transition-shadow duration-300"
-              >
-                <div class="flex items-start gap-4 mb-6">
-                  <div
-                    class="w-14 h-14 rounded-2xl bg-brand-bright flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
-                  >
-                    <svg
-                      class="w-7 h-7 text-brand-black"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                    >
-                      <circle cx="12" cy="12" r="10" />
-                      <line x1="2" y1="12" x2="22" y2="12" />
-                      <path
-                        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
-                      />
-                    </svg>
-                  </div>
-                  <div>
-                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 06</p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
-                      International Data Transfers
-                    </h2>
-                  </div>
-                </div>
-                <div
-                  class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
-                >
-                  <p>
-                    The Services are operated from India, and our servers are currently located in
-                    India. If you access the Services from outside India, your personal information
-                    may be transferred to, stored in, and processed in India or in other countries
-                    where service providers are located.
-                  </p>
-                  <p>
-                    Data protection laws in these countries may differ from those in your place of
-                    residence. We take reasonable and appropriate steps to protect personal
-                    information in accordance with this Privacy Notice and applicable laws.
-                  </p>
-                  <div class="mt-6 p-4 rounded-xl bg-brand-bright/30 border border-brand-teal/30">
-                    <p class="text-sm text-brand-black">
-                      By using the Services, you acknowledge that your information may be
-                      transferred to and processed in jurisdictions outside your own.
+                      <span class="text-brand-teal font-semibold">Note:</span> References to "we,"
+                      "us," or "our" refer to the individual operator of the Services.
                     </p>
                   </div>
                 </div>
               </div>
             </section>
 
-            <!-- Section 7: Data Retention -->
-            <section id="retention" class="scroll-mt-24 scroll-animate fade-up">
-              <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#2F7A72] hover:shadow-[8px_8px_0px_0px_#2F7A72] transition-shadow duration-300"
-              >
-                <div class="flex items-start gap-4 mb-6">
-                  <div
-                    class="w-14 h-14 rounded-2xl bg-brand-teal flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
-                  >
-                    <svg
-                      class="w-7 h-7 text-brand-bg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                    >
-                      <circle cx="12" cy="12" r="10" />
-                      <polyline points="12 6 12 12 16 14" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 07</p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
-                      How Long Do We Keep Your Information?
-                    </h2>
-                  </div>
-                </div>
-                <div
-                  class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
-                >
-                  <p>
-                    We retain personal information for as long as needed to provide and maintain the
-                    Services, comply with applicable legal obligations (where required), resolve
-                    disputes, and enforce our agreements.
-                  </p>
-                  <p>
-                    When personal information is no longer needed for these purposes, we take
-                    reasonable steps to delete or anonymize it. In some cases, information may be
-                    retained for a limited period in backup or archival systems and will be isolated
-                    from active use until it is deleted in the normal course of system maintenance.
-                  </p>
-                  <div class="mt-6 p-4 rounded-xl bg-brand-teal/10 border border-brand-teal/30">
-                    <p class="text-sm text-brand-black">
-                      <span class="text-brand-teal font-semibold">Key Point:</span> We do not retain
-                      personal information longer than necessary for the purposes described in this
-                      Privacy Notice.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <!-- Section 8: Minors -->
-            <section id="minors" class="scroll-mt-24 scroll-animate fade-up">
+            <!-- Section 2: General Refund Policy -->
+            <section id="general-policy" class="scroll-mt-24 scroll-animate fade-up">
               <div
                 class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#C92216] hover:shadow-[8px_8px_0px_0px_#C92216] transition-shadow duration-300"
               >
@@ -1243,214 +780,60 @@
                       stroke="currentColor"
                       stroke-width="1.5"
                     >
-                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                      <circle cx="9" cy="7" r="4" />
-                      <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p class="text-brand-red text-sm font-mono font-semibold mb-1">SECTION 08</p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
-                      Children's Privacy
-                    </h2>
-                  </div>
-                </div>
-                <div
-                  class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
-                >
-                  <p>
-                    The Services are not directed to children under the age required by applicable
-                    law (generally under 13). We do not knowingly collect, solicit, or process
-                    personal information from children.
-                  </p>
-                  <p>
-                    If we become aware that personal information has been collected from a child
-                    without appropriate authorization, we will take reasonable steps to delete that
-                    information.
-                  </p>
-                  <div class="mt-6 p-4 rounded-xl bg-brand-red/10 border border-brand-red/30">
-                    <p class="text-sm text-brand-black">
-                      If you believe that a child has provided personal information through the
-                      Services, please contact us using the contact information provided below.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <!-- Section 9: Privacy Rights -->
-            <section id="rights" class="scroll-mt-24 scroll-animate fade-up">
-              <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#79dcaf] hover:shadow-[8px_8px_0px_0px_#79dcaf] transition-shadow duration-300"
-              >
-                <div class="flex items-start gap-4 mb-6">
-                  <div
-                    class="w-14 h-14 rounded-2xl bg-brand-bright flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
-                  >
-                    <svg
-                      class="w-7 h-7 text-brand-black"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                    >
-                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
-                      <path d="m9 12 2 2 4-4" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 09</p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
-                      Your Privacy Rights
-                    </h2>
-                  </div>
-                </div>
-                <div
-                  class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
-                >
-                  <p>
-                    Depending on your country, state, or region of residence, you may have rights to
-                    request access to, correction of, or deletion of your personal information.
-                    These rights vary based on applicable data protection laws.
-                  </p>
-                  <div class="space-y-4 mt-6">
-                    <div class="p-4 rounded-xl bg-brand-bg border border-brand-black/20">
-                      <h4 class="font-semibold text-brand-black mb-2">Withdrawing Consent</h4>
-                      <p class="text-sm">
-                        Where we rely on your consent to process personal information, you may
-                        withdraw that consent at any time by contacting us. Withdrawing consent will
-                        not affect processing that occurred before the withdrawal or processing that
-                        is otherwise permitted under applicable law.
-                      </p>
-                    </div>
-                    <div class="p-4 rounded-xl bg-brand-bg border border-brand-black/20">
-                      <h4 class="font-semibold text-brand-black mb-2">Account Information</h4>
-                      <p class="text-sm">
-                        If you have an account and would like to review, update, or request deletion
-                        of your information, you can contact us using the contact information
-                        provided below. Where applicable, we will take reasonable steps to
-                        deactivate or delete your information from active systems.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="mt-6 p-4 rounded-xl bg-brand-bright/30 border border-brand-teal/30">
-                    <p class="text-sm text-brand-black">
-                      In some cases, limited information may be retained for a reasonable period
-                      where necessary for security, system integrity, or compliance with legal
-                      obligations.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <!-- Section 10: DNT -->
-            <section id="dnt" class="scroll-mt-24 scroll-animate fade-up">
-              <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#2F7A72] hover:shadow-[8px_8px_0px_0px_#2F7A72] transition-shadow duration-300"
-              >
-                <div class="flex items-start gap-4 mb-6">
-                  <div
-                    class="w-14 h-14 rounded-2xl bg-brand-teal flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
-                  >
-                    <svg
-                      class="w-7 h-7 text-brand-bg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                    >
                       <circle cx="12" cy="12" r="10" />
-                      <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
+                      <line x1="15" y1="9" x2="9" y2="15" />
+                      <line x1="9" y1="9" x2="15" y2="15" />
                     </svg>
                   </div>
                   <div>
-                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 10</p>
+                    <p class="text-brand-red text-sm font-mono font-semibold mb-1">SECTION 02</p>
                     <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
-                      Do-Not-Track Features
+                      General Refund Policy
                     </h2>
                   </div>
                 </div>
                 <div
                   class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
                 >
-                  <p>
-                    Most web browsers and some mobile operating systems include a Do-Not-Track
-                    ("DNT") setting that allows users to signal a preference regarding the tracking
-                    of their online activities.
-                  </p>
-                  <p>
-                    There is currently no widely accepted standard for recognizing or responding to
-                    DNT signals. As a result, the Services do not respond to DNT browser signals or
-                    similar automated tracking preference mechanisms.
-                  </p>
-                  <div class="mt-6 p-4 rounded-xl bg-brand-teal/10 border border-brand-teal/30">
-                    <p class="text-sm text-brand-black">
-                      If an applicable standard for online tracking is adopted in the future that
-                      requires changes to this practice, we will update this Privacy Notice
-                      accordingly.
+                  <div class="p-4 rounded-xl bg-brand-red/10 border border-brand-red/30 mb-6">
+                    <p class="text-sm text-brand-black font-semibold">
+                      <span class="text-brand-red">Important:</span> Unless otherwise required by
+                      applicable law, <strong>all purchases are final and non-refundable</strong>.
                     </p>
                   </div>
+                  <p>
+                    By purchasing any paid plan, subscription, lifetime deal, or add-on, you
+                    acknowledge and agree that:
+                  </p>
+                  <ul class="list-none space-y-3 mt-4">
+                    <li class="flex items-start gap-3">
+                      <span
+                        class="w-6 h-6 rounded-full bg-brand-teal text-brand-bg flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5"
+                        >1</span
+                      >
+                      <span>You are purchasing access to a <strong>digital service</strong></span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span
+                        class="w-6 h-6 rounded-full bg-brand-red text-brand-bg flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5"
+                        >2</span
+                      >
+                      <span>Refunds are <strong>not guaranteed</strong></span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span
+                        class="w-6 h-6 rounded-full bg-brand-bright text-brand-black flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5"
+                        >3</span
+                      >
+                      <span>Access may begin <strong>immediately after purchase</strong></span>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </section>
 
-            <!-- Section 11: Payments -->
-            <section id="payments" class="scroll-mt-24 scroll-animate fade-up">
-              <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#C92216] hover:shadow-[8px_8px_0px_0px_#C92216] transition-shadow duration-300"
-              >
-                <div class="flex items-start gap-4 mb-6">
-                  <div
-                    class="w-14 h-14 rounded-2xl bg-brand-red flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
-                  >
-                    <svg
-                      class="w-7 h-7 text-brand-bg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                    >
-                      <rect width="20" height="14" x="2" y="5" rx="2" />
-                      <line x1="2" y1="10" x2="22" y2="10" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p class="text-brand-red text-sm font-mono font-semibold mb-1">SECTION 11</p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
-                      How Do We Handle Payments?
-                    </h2>
-                  </div>
-                </div>
-                <div
-                  class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
-                >
-                  <p>
-                    If the Services include paid features now or in the future, payments will be
-                    processed by third-party payment processors. We do not collect, store, or
-                    process full payment card details or other sensitive financial information on
-                    our own servers.
-                  </p>
-                  <p>
-                    The payment processors may collect and process payment-related information (such
-                    as billing details and transaction information) in accordance with their own
-                    privacy policies and security practices.
-                  </p>
-                  <div class="mt-6 p-4 rounded-xl bg-brand-red/10 border border-brand-red/30">
-                    <p class="text-sm text-brand-black">
-                      We may receive limited information related to payments, such as confirmation
-                      of payment status, subscription details, or transaction identifiers, solely
-                      for the purpose of providing the Services and managing access to paid
-                      features.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <!-- Section 12: Updates -->
-            <section id="updates" class="scroll-mt-24 scroll-animate fade-up">
+            <!-- Section 3: Subscriptions & Recurring Payments -->
+            <section id="subscriptions" class="scroll-mt-24 scroll-animate fade-up">
               <div
                 class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#79dcaf] hover:shadow-[8px_8px_0px_0px_#79dcaf] transition-shadow duration-300"
               >
@@ -1472,38 +855,62 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 12</p>
+                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 03</p>
                     <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
-                      Policy Updates
+                      Subscriptions & Recurring Payments
                     </h2>
                   </div>
                 </div>
                 <div
                   class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
                 >
-                  <p>
-                    We may update this Privacy Notice occasionally to reflect changes to the
-                    Services, changes in how information is handled, or other operational or legal
-                    considerations. When updates are made, the revised version will be indicated by
-                    an updated "Revised" date at the top of this notice.
-                  </p>
-                  <p>
-                    If we make material changes, we may provide notice by posting an updated version
-                    of this Privacy Notice on the Services or, where reasonably practicable, by
-                    other appropriate means.
-                  </p>
-                  <div class="mt-6 p-4 rounded-xl bg-brand-bright/30 border border-brand-teal/30">
-                    <p class="text-sm text-brand-black">
-                      We encourage you to review this Privacy Notice periodically to stay informed
-                      about how personal information is handled.
-                    </p>
+                  <p>For subscription-based plans:</p>
+                  <div class="space-y-4 mt-4">
+                    <div class="p-4 rounded-xl bg-brand-bg border border-brand-black/20">
+                      <h4 class="font-semibold text-brand-black mb-2 flex items-center gap-2">
+                        <span
+                          class="w-6 h-6 rounded bg-brand-teal text-brand-bg flex items-center justify-center text-xs"
+                          >1</span
+                        >
+                        Your Responsibility
+                      </h4>
+                      <p class="text-sm">
+                        You are responsible for managing your subscription and cancellations.
+                      </p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-brand-bg border border-brand-black/20">
+                      <h4 class="font-semibold text-brand-black mb-2 flex items-center gap-2">
+                        <span
+                          class="w-6 h-6 rounded bg-brand-red text-brand-bg flex items-center justify-center text-xs"
+                          >2</span
+                        >
+                        Cancellation Effect
+                      </h4>
+                      <p class="text-sm">
+                        Cancelling a subscription stops future charges but
+                        <strong>does not retroactively refund past payments</strong>.
+                      </p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-brand-bg border border-brand-black/20">
+                      <h4 class="font-semibold text-brand-black mb-2 flex items-center gap-2">
+                        <span
+                          class="w-6 h-6 rounded bg-brand-bright text-brand-black flex items-center justify-center text-xs"
+                          >3</span
+                        >
+                        No Partial Refunds
+                      </h4>
+                      <p class="text-sm">
+                        We do not provide partial refunds for unused time, unused features, or
+                        periods of inactivity.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
             </section>
 
-            <!-- Section 13: Contact -->
-            <section id="contact" class="scroll-mt-24 scroll-animate fade-up">
+            <!-- Section 4: One-Time Purchases & Lifetime Deals -->
+            <section id="one-time" class="scroll-mt-24 scroll-animate fade-up">
               <div
                 class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#2F7A72] hover:shadow-[8px_8px_0px_0px_#2F7A72] transition-shadow duration-300"
               >
@@ -1518,14 +925,79 @@
                       stroke="currentColor"
                       stroke-width="1.5"
                     >
-                      <rect width="20" height="16" x="2" y="4" rx="2" />
-                      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                      <rect width="20" height="14" x="2" y="5" rx="2" />
+                      <line x1="2" y1="10" x2="22" y2="10" />
                     </svg>
                   </div>
                   <div>
-                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 13</p>
+                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 04</p>
                     <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
-                      Contact Us
+                      One-Time Purchases & Lifetime Deals
+                    </h2>
+                  </div>
+                </div>
+                <div
+                  class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
+                >
+                  <p>For one-time purchases (including lifetime deals):</p>
+                  <div class="p-4 rounded-xl bg-brand-teal/10 border border-brand-teal/30 mb-4">
+                    <p class="text-sm text-brand-black font-semibold">
+                      <span class="text-brand-teal">Key Point:</span> Payments are
+                      <strong>non-refundable</strong> once access is granted.
+                    </p>
+                  </div>
+                  <p>No refunds are provided for:</p>
+                  <ul class="list-none space-y-2 mt-4">
+                    <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
+                      <span>Change of mind</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
+                      <span>Lack of usage</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
+                      <span>Feature expectations</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
+                      <span>Service updates or modifications</span>
+                    </li>
+                  </ul>
+                  <div class="mt-6 p-4 rounded-xl bg-brand-bright/30 border border-brand-teal/30">
+                    <p class="text-sm text-brand-black">
+                      Lifetime deals are governed by the <strong>Lifetime Deal Disclosure</strong>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section 5: Exceptions (Limited) -->
+            <section id="exceptions" class="scroll-mt-24 scroll-animate fade-up">
+              <div
+                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#C92216] hover:shadow-[8px_8px_0px_0px_#C92216] transition-shadow duration-300"
+              >
+                <div class="flex items-start gap-4 mb-6">
+                  <div
+                    class="w-14 h-14 rounded-2xl bg-brand-red flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
+                  >
+                    <svg
+                      class="w-7 h-7 text-brand-bg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    >
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                      <path d="m9 12 2 2 4-4" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-brand-red text-sm font-mono font-semibold mb-1">SECTION 05</p>
+                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
+                      Exceptions (Limited)
                     </h2>
                   </div>
                 </div>
@@ -1533,8 +1005,313 @@
                   class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
                 >
                   <p>
-                    If you have questions or concerns about this Privacy Notice or how personal
-                    information is handled, you can contact the operator of Stay On Brand at:
+                    We may, <strong>at our sole discretion</strong>, consider a refund in limited
+                    cases such as:
+                  </p>
+                  <ul class="list-none space-y-2 mt-4">
+                    <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-teal flex-shrink-0 mt-2"></span>
+                      <span>Duplicate charges</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-teal flex-shrink-0 mt-2"></span>
+                      <span
+                        >Technical errors preventing access that cannot be reasonably resolved</span
+                      >
+                    </li>
+                  </ul>
+                  <div class="mt-6 p-4 rounded-xl bg-brand-red/10 border border-brand-red/30">
+                    <p class="text-sm text-brand-black">
+                      <span class="text-brand-red font-semibold">Important:</span> Granting a refund
+                      in one case does <strong>not</strong> create an obligation to issue refunds in
+                      the future.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section 6: Termination for Policy Violations -->
+            <section id="termination" class="scroll-mt-24 scroll-animate fade-up">
+              <div
+                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#79dcaf] hover:shadow-[8px_8px_0px_0px_#79dcaf] transition-shadow duration-300"
+              >
+                <div class="flex items-start gap-4 mb-6">
+                  <div
+                    class="w-14 h-14 rounded-2xl bg-brand-bright flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
+                  >
+                    <svg
+                      class="w-7 h-7 text-brand-black"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 06</p>
+                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
+                      Termination for Policy Violations
+                    </h2>
+                  </div>
+                </div>
+                <div
+                  class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
+                >
+                  <p>
+                    Accounts that are suspended, restricted, or terminated due to violations of the
+                    Terms of Service, Acceptable Use Policy, or other applicable policies are
+                    <strong>not eligible for refunds</strong>.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section 7: Taxes & Fees -->
+            <section id="taxes" class="scroll-mt-24 scroll-animate fade-up">
+              <div
+                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#2F7A72] hover:shadow-[8px_8px_0px_0px_#2F7A72] transition-shadow duration-300"
+              >
+                <div class="flex items-start gap-4 mb-6">
+                  <div
+                    class="w-14 h-14 rounded-2xl bg-brand-teal flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
+                  >
+                    <svg
+                      class="w-7 h-7 text-brand-bg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    >
+                      <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 07</p>
+                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
+                      Taxes & Fees
+                    </h2>
+                  </div>
+                </div>
+                <div
+                  class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
+                >
+                  <p>
+                    Refunds, if issued, do not include taxes, fees, or charges imposed by payment
+                    processors, banks, or third parties, unless required by applicable law.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section 8: Pricing Changes -->
+            <section id="pricing" class="scroll-mt-24 scroll-animate fade-up">
+              <div
+                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#C92216] hover:shadow-[8px_8px_0px_0px_#C92216] transition-shadow duration-300"
+              >
+                <div class="flex items-start gap-4 mb-6">
+                  <div
+                    class="w-14 h-14 rounded-2xl bg-brand-red flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
+                  >
+                    <svg
+                      class="w-7 h-7 text-brand-bg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    >
+                      <line x1="12" y1="1" x2="12" y2="23" />
+                      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-brand-red text-sm font-mono font-semibold mb-1">SECTION 08</p>
+                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
+                      Pricing Changes
+                    </h2>
+                  </div>
+                </div>
+                <div
+                  class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
+                >
+                  <p>
+                    Changes to pricing, plans, features, or availability do
+                    <strong>not</strong> entitle users to refunds for past payments.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section 9: Refund Method -->
+            <section id="refund-method" class="scroll-mt-24 scroll-animate fade-up">
+              <div
+                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#79dcaf] hover:shadow-[8px_8px_0px_0px_#79dcaf] transition-shadow duration-300"
+              >
+                <div class="flex items-start gap-4 mb-6">
+                  <div
+                    class="w-14 h-14 rounded-2xl bg-brand-bright flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
+                  >
+                    <svg
+                      class="w-7 h-7 text-brand-black"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    >
+                      <rect width="20" height="14" x="2" y="5" rx="2" />
+                      <line x1="2" y1="10" x2="22" y2="10" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 09</p>
+                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
+                      Refund Method
+                    </h2>
+                  </div>
+                </div>
+                <div
+                  class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
+                >
+                  <p>
+                    Approved refunds, if any, will be issued using the original payment method where
+                    reasonably possible. Processing times may vary depending on the payment
+                    provider.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section 10: Chargebacks & Payment Disputes -->
+            <section id="chargebacks" class="scroll-mt-24 scroll-animate fade-up">
+              <div
+                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#2F7A72] hover:shadow-[8px_8px_0px_0px_#2F7A72] transition-shadow duration-300"
+              >
+                <div class="flex items-start gap-4 mb-6">
+                  <div
+                    class="w-14 h-14 rounded-2xl bg-brand-teal flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
+                  >
+                    <svg
+                      class="w-7 h-7 text-brand-bg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    >
+                      <path
+                        d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+                      />
+                      <line x1="12" y1="9" x2="12" y2="13" />
+                      <line x1="12" y1="17" x2="12.01" y2="17" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 10</p>
+                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
+                      Chargebacks & Payment Disputes
+                    </h2>
+                  </div>
+                </div>
+                <div
+                  class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
+                >
+                  <p>
+                    Initiating a chargeback or payment dispute without first contacting us may
+                    result in:
+                  </p>
+                  <ul class="list-none space-y-2 mt-4">
+                    <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
+                      <span>Immediate suspension or termination of access</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-2"></span>
+                      <span>Restriction from future use of the Services</span>
+                    </li>
+                  </ul>
+                  <div class="mt-6 p-4 rounded-xl bg-brand-teal/10 border border-brand-teal/30">
+                    <p class="text-sm text-brand-black">
+                      We reserve the right to contest chargebacks where appropriate.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section 11: Legal Rights -->
+            <section id="legal-rights" class="scroll-mt-24 scroll-animate fade-up">
+              <div
+                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#C92216] hover:shadow-[8px_8px_0px_0px_#C92216] transition-shadow duration-300"
+              >
+                <div class="flex items-start gap-4 mb-6">
+                  <div
+                    class="w-14 h-14 rounded-2xl bg-brand-red flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
+                  >
+                    <svg
+                      class="w-7 h-7 text-brand-bg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M12 16v-4" />
+                      <path d="M12 8h.01" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-brand-red text-sm font-mono font-semibold mb-1">SECTION 11</p>
+                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
+                      Legal Rights
+                    </h2>
+                  </div>
+                </div>
+                <div
+                  class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
+                >
+                  <p>
+                    Nothing in this Refund Policy limits your statutory consumer rights where
+                    applicable law requires refunds or cancellation rights.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section 12: Contact -->
+            <section id="contact" class="scroll-mt-24 scroll-animate fade-up">
+              <div
+                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#79dcaf] hover:shadow-[8px_8px_0px_0px_#79dcaf] transition-shadow duration-300"
+              >
+                <div class="flex items-start gap-4 mb-6">
+                  <div
+                    class="w-14 h-14 rounded-2xl bg-brand-bright flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
+                  >
+                    <svg
+                      class="w-7 h-7 text-brand-black"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    >
+                      <rect width="20" height="16" x="2" y="4" rx="2" />
+                      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 12</p>
+                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
+                      Contact
+                    </h2>
+                  </div>
+                </div>
+                <div
+                  class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
+                >
+                  <p>
+                    If you have questions about this Refund Policy, you may contact the operator of
+                    the Services at:
                   </p>
                   <div class="mt-6 space-y-4">
                     <div
@@ -1557,73 +1334,14 @@
                       <div>
                         <p class="text-xs text-brand-gray uppercase tracking-wide">Email</p>
                         <a
-                          href="mailto:codacrewcodelabs@gmail.com"
+                          href="mailto:legal@stayonbrand.in"
                           class="text-brand-black font-semibold hover:text-brand-teal transition-colors"
                           >legal@stayonbrand.in</a
                         >
                       </div>
                     </div>
                   </div>
-                  <p class="mt-6">
-                    We will make reasonable efforts to respond to inquiries in a timely manner.
-                  </p>
-                </div>
-              </div>
-            </section>
-
-            <!-- Data Management Section -->
-            <section class="scroll-mt-24 scroll-animate fade-up">
-              <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#C92216] hover:shadow-[8px_8px_0px_0px_#C92216] transition-shadow duration-300"
-              >
-                <div class="flex items-start gap-4 mb-6">
-                  <div
-                    class="w-14 h-14 rounded-2xl bg-brand-red flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
-                  >
-                    <svg
-                      class="w-7 h-7 text-brand-bg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                    >
-                      <path d="M3 6h18" />
-                      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                      <line x1="10" y1="11" x2="10" y2="17" />
-                      <line x1="14" y1="11" x2="14" y2="17" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p class="text-brand-red text-sm font-mono font-semibold mb-1">
-                      DATA MANAGEMENT
-                    </p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
-                      Review, Update, or Delete Your Data
-                    </h2>
-                  </div>
-                </div>
-                <div
-                  class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
-                >
-                  <p>
-                    Depending on where you live, you may have certain rights regarding your personal
-                    information. These may include the right to request access to the information we
-                    hold about you, request corrections, or request deletion of your personal
-                    information.
-                  </p>
-                  <p>
-                    You may also have the right to withdraw your consent where processing is based
-                    on consent. These rights may be limited in some circumstances under applicable
-                    law.
-                  </p>
-                  <div class="mt-6 p-4 rounded-xl bg-brand-red/10 border border-brand-red/30">
-                    <p class="text-sm text-brand-black">
-                      To make a request, please contact us using the contact information provided
-                      above. We may need to verify your identity before responding to certain
-                      requests.
-                    </p>
-                  </div>
+                  <p class="mt-6">Responses are provided at our discretion.</p>
                 </div>
               </div>
             </section>
@@ -1634,11 +1352,11 @@
                 class="bg-brand-black text-brand-bg rounded-3xl p-8 md:p-12 border border-brand-black shadow-[6px_6px_0px_0px_#C92216]"
               >
                 <p class="text-brand-bright font-script text-2xl mb-2">
-                  Your privacy matters to us
+                  Clear and transparent policies
                 </p>
                 <p class="text-brand-bg/80 text-base mb-8">
                   By using Stay On Brand, you acknowledge that you have read and understood this
-                  Privacy Policy.
+                  Refund Policy.
                 </p>
                 <div class="flex flex-col sm:flex-row items-center gap-4">
                   <RouterLink
@@ -1679,7 +1397,7 @@
           <div class="flex items-center gap-6 text-sm">
             <RouterLink
               to="/privacy"
-              class="text-brand-red hover:text-brand-red/80 transition-colors duration-300 font-semibold"
+              class="text-brand-black/60 hover:text-brand-black transition-colors duration-300 font-medium"
               >Privacy</RouterLink
             >
             <RouterLink
@@ -1687,8 +1405,13 @@
               class="text-brand-black/60 hover:text-brand-black transition-colors duration-300 font-medium"
               >Terms</RouterLink
             >
+            <RouterLink
+              to="/refund-policy"
+              class="text-brand-red hover:text-brand-red/80 transition-colors duration-300 font-semibold"
+              >Refund</RouterLink
+            >
             <a
-              href="mailto:codacrewcodelabs@gmail.com"
+              href="mailto:legal@stayonbrand.in"
               class="text-brand-black/60 hover:text-brand-black transition-colors duration-300 font-medium"
               >Contact</a
             >
@@ -1712,9 +1435,7 @@
           stroke-width="2"
           class="text-brand-bg"
         >
-          <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
-          <circle cx="12" cy="16" r="1" />
-          <path d="m7 11V7a5 5 0 0 1 10 0v4" />
+          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
         </svg>
       </div>
     </div>

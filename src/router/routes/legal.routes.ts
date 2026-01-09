@@ -20,6 +20,15 @@ export const legalRoutes: RouteRecordRaw[] = [
     }
   },
   {
+    path: '/refund-policy',
+    name: 'RefundPolicy',
+    component: () => import('@/views/legal/RefundPolicyPage.vue'),
+    meta: {
+      layout: 'default',
+      title: 'Refund Policy'
+    }
+  },
+  {
     path: '/cookies',
     name: 'CookiePolicy',
     component: () => import('@/views/legal/CookiePolicyPage.vue'),

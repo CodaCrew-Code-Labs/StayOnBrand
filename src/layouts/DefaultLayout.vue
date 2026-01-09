@@ -10,7 +10,8 @@
       route.name === 'Home' ||
       route.name === 'Pricing' ||
       route.name === 'Terms' ||
-      route.name === 'Privacy'
+      route.name === 'Privacy' ||
+      route.name === 'RefundPolicy'
   )
 </script>
 
