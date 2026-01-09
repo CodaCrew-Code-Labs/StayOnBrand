@@ -15,7 +15,7 @@ export const legalRoutes: RouteRecordRaw[] = [
     name: 'Privacy',
     component: () => import('@/views/legal/PrivacyPage.vue'),
     meta: {
-      layout: 'legal',
+      layout: 'default',
       title: 'Privacy Policy'
     }
   },

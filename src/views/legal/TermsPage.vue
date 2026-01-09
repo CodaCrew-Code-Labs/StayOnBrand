@@ -7,11 +7,12 @@
 
   // Navigation sections
   const sections = [
-    { id: 'conditions', title: 'Conditions of Use', number: '01' },
+    { id: 'conditions', title: 'Terms and Conditions', number: '01' },
     { id: 'privacy', title: 'Privacy Policy', number: '02' },
-    { id: 'copyright', title: 'Copyright', number: '03' },
-    { id: 'communications', title: 'Communications', number: '04' },
-    { id: 'disputes', title: 'Disputes', number: '05' }
+    { id: 'cookie', title: 'Cookie Policy', number: '03' },
+    { id: 'aup', title: 'Acceptable Use Policy', number: '04' },
+    { id: 'refund', title: 'Refund Policy', number: '05' },
+    { id: 'ltd', title: 'Lifetime Deal Disclosure', number: '06' }
   ]
 
   // Active section tracking
@@ -153,7 +154,7 @@
             to="/help"
             class="group text-brand-black border-brand-black transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden hover:bg-brand-bright text-xs font-semibold tracking-wide border rounded-full pt-2 px-5 pb-2 relative shadow-[3px_3px_0px_0px_#1A1A1A]"
           >
-            <span class="z-10 relative">WHATS WCAG ???</span>
+            <span class="z-10 relative">WHAT'S WCAG ???</span>
           </RouterLink>
         </div>
 
@@ -421,7 +422,7 @@
                   <div>
                     <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 01</p>
                     <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
-                      Conditions of Use
+                      Terms and Conditions
                     </h2>
                   </div>
                 </div>
@@ -429,15 +430,14 @@
                   class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
                 >
                   <p>
-                    We will provide their services to you, which are subject to the conditions
-                    stated below in this document. Every time you visit this website, use its
-                    services or make a purchase, you accept the following conditions. This is why we
-                    urge you to read them carefully.
+                    These Terms and Conditions govern your access to and use of our services. By
+                    accessing, using, or interacting with this platform, you acknowledge that you
+                    have read, understood, and agree to be bound by these Terms and our Privacy
+                    Policy.
                   </p>
                   <p>
-                    By accessing and using Stay on Brand's color accessibility validation platform,
-                    you acknowledge that you have read, understood, and agree to be bound by these
-                    Terms of Service and our Privacy Policy.
+                    If you do not agree with any part of these Terms, you must discontinue use of
+                    the service immediately.
                   </p>
                   <div class="mt-6 p-4 rounded-xl bg-brand-bright/20 border border-brand-teal/30">
                     <p class="text-sm text-brand-black">
@@ -481,27 +481,25 @@
                   class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
                 >
                   <p>
-                    Before you continue using our website we advise you to read our
+                    Before continuing to use our Services, please review our
                     <RouterLink
                       to="/privacy"
                       class="text-brand-red hover:text-brand-red/80 underline decoration-brand-red/30 underline-offset-4 hover:decoration-brand-red transition-all duration-300 font-semibold"
                     >
                       privacy policy
                     </RouterLink>
-                    regarding our user data collection. It will help you better understand our
-                    practices.
+                    to understand how we collect, use, and protect your information.
                   </p>
                   <p>
-                    We are committed to protecting your privacy and ensuring the security of your
-                    personal information. Our data collection practices are transparent and comply
-                    with applicable privacy regulations including GDPR and CCPA.
+                    We are committed to handling personal data responsibly and transparently, in
+                    accordance with applicable privacy laws such as GDPR and CCPA.
                   </p>
                 </div>
               </div>
             </section>
 
-            <!-- Section 3: Copyright -->
-            <section id="copyright" class="scroll-mt-24 scroll-animate fade-up">
+            <!-- Section 3: Cookie -->
+            <section id="cookie" class="scroll-mt-24 scroll-animate fade-up">
               <div
                 class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#79dcaf] hover:shadow-[8px_8px_0px_0px_#79dcaf] transition-shadow duration-300"
               >
@@ -523,7 +521,7 @@
                   <div>
                     <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 03</p>
                     <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
-                      Copyright
+                      Cookie Policy
                     </h2>
                   </div>
                 </div>
@@ -531,15 +529,16 @@
                   class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
                 >
                   <p>
-                    Content published on this website (digital downloads, images, texts, graphics,
-                    logos) is the property of Stay on Brand and/or its content creators and
-                    protected by international copyright laws. The entire compilation of the content
-                    found on this website is exclusive property, with copyright authorship for this
-                    compilation.
+                    Cookies and similar technologies are used on this website to ensure proper
+                    functionality, improve performance, and support security. Some cookies are
+                    essential for the operation of the Services, while others help us understand how
+                    the Services are used so we can improve them. Cookies do not give us access to
+                    your device or personal information beyond what you choose to share.
                   </p>
                   <p>
-                    Unauthorized reproduction, distribution, or modification of our content is
-                    strictly prohibited and may result in legal action.
+                    We use cookies responsibly and transparently, in accordance with applicable
+                    privacy laws such as GDPR and CCPA. You can manage or disable non-essential
+                    cookies through your browser settings or available cookie preference tools.
                   </p>
                   <ul class="list-none space-y-3 mt-6">
                     <li class="flex items-start gap-3">
@@ -547,29 +546,38 @@
                         class="w-6 h-6 rounded-full bg-brand-teal text-brand-bg flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5"
                         >1</span
                       >
-                      <span>All trademarks and logos are property of their respective owners</span>
+                      <span
+                        >Essential cookies are required for core functionality and security and
+                        cannot be disabled</span
+                      >
                     </li>
                     <li class="flex items-start gap-3">
                       <span
                         class="w-6 h-6 rounded-full bg-brand-red text-brand-bg flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5"
                         >2</span
                       >
-                      <span>User-generated content remains property of the user</span>
+                      <span
+                        >Optional analytics cookies are used only to improve performance and user
+                        experience</span
+                      >
                     </li>
                     <li class="flex items-start gap-3">
                       <span
                         class="w-6 h-6 rounded-full bg-brand-bright text-brand-black flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5"
                         >3</span
                       >
-                      <span>Fair use provisions apply to educational and personal use</span>
+                      <span
+                        >Third-party cookies, if used, are governed by the privacy policies of their
+                        respective providers</span
+                      >
                     </li>
                   </ul>
                 </div>
               </div>
             </section>
 
-            <!-- Section 4: Communications -->
-            <section id="communications" class="scroll-mt-24 scroll-animate fade-up">
+            <!-- Section 4: AUP -->
+            <section id="aup" class="scroll-mt-24 scroll-animate fade-up">
               <div
                 class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#2F7A72] hover:shadow-[8px_8px_0px_0px_#2F7A72] transition-shadow duration-300"
               >
@@ -591,7 +599,7 @@
                   <div>
                     <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 04</p>
                     <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
-                      Communications
+                      Acceptable Use Policy
                     </h2>
                   </div>
                 </div>
@@ -599,23 +607,24 @@
                   class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
                 >
                   <p>
-                    The entire communication with us is electronic. Every time you send us an email
-                    or visit our website, you are going to be communicating with us. You hereby
-                    consent to receive communications from us. If you subscribe to the news on our
-                    website, you are going to receive regular emails from us.
+                    Use of our Services is subject to reasonable and lawful conduct. By accessing or
+                    using the Services, you agree to use them responsibly, in compliance with
+                    applicable laws, and in accordance with our Acceptable Use Policy. You are
+                    responsible for all activity carried out through your access to the Services.
                   </p>
                   <p>
-                    We will continue to communicate with you by posting news and notices on our
-                    website and by sending you emails. You also agree that all notices, disclosures,
-                    agreements, and other communications we provide to you electronically meet the
-                    legal requirements.
+                    We reserve the right to monitor, restrict, suspend, or terminate access to the
+                    Services if we believe, in our sole discretion, that the Services are being
+                    misused, abused, or used in violation of our policies. Actions we take to
+                    protect the Services, users, or the operator may be carried out without prior
+                    notice where permitted by law.
                   </p>
                 </div>
               </div>
             </section>
 
-            <!-- Section 5: Disputes -->
-            <section id="disputes" class="scroll-mt-24 scroll-animate fade-up">
+            <!-- Section 5: Refund -->
+            <section id="refund" class="scroll-mt-24 scroll-animate fade-up">
               <div
                 class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#C92216] hover:shadow-[8px_8px_0px_0px_#C92216] transition-shadow duration-300"
               >
@@ -638,7 +647,7 @@
                   <div>
                     <p class="text-brand-red text-sm font-mono font-semibold mb-1">SECTION 05</p>
                     <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
-                      Disputes
+                      Refund Policy
                     </h2>
                   </div>
                 </div>
@@ -646,26 +655,108 @@
                   class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
                 >
                   <p>
-                    Any dispute related in any way to your visit to this website or to products you
-                    purchase from us shall be arbitrated by state or federal court and you consent
-                    to exclusive jurisdiction and venue of such courts.
+                    All purchases made through our Services are subject to our Refund Policy.
+                    Refunds are not guaranteed and are handled in accordance with the terms outlined
+                    in that policy. By purchasing a paid plan, subscription, or one-time product,
+                    you acknowledge that access to a digital service may begin immediately and that
+                    refunds may be limited or unavailable except where required by applicable law.
                   </p>
                   <p>
-                    We encourage users to contact our support team first to resolve any issues
-                    before pursuing formal dispute resolution procedures. Most concerns can be
-                    addressed through direct communication.
+                    We encourage users to contact us first if they experience billing issues,
+                    duplicate charges, or technical problems affecting access. Many concerns can be
+                    reviewed and resolved through direct communication before any further action is
+                    taken.
                   </p>
                   <div class="mt-6 p-4 rounded-xl bg-brand-black text-brand-bg">
                     <p class="text-sm">
-                      <span class="text-brand-bright font-semibold">Contact Support:</span> For any
-                      questions or concerns, reach out to us at
+                      <span class="text-brand-bright font-semibold">Contact Support:</span> For
+                      refund-related questions or billing concerns, reach out to us at
                       <a
                         href="mailto:support@stayonbrand.com"
                         class="text-brand-bright hover:underline"
-                        >support@stayonbrand.com</a
+                        >legal@stayonbrand.in</a
                       >
                     </p>
                   </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section 6: LTD -->
+            <section id="ltd" class="scroll-mt-24 scroll-animate fade-up">
+              <div
+                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#C92216] hover:shadow-[8px_8px_0px_0px_#C92216] transition-shadow duration-300"
+              >
+                <div class="flex items-start gap-4 mb-6">
+                  <div
+                    class="w-14 h-14 rounded-2xl bg-brand-bright flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
+                  >
+                    <svg
+                      class="w-7 h-7 text-brand-bg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    >
+                      <path
+                        d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 05</p>
+                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
+                      Lifetime Deal Disclosure
+                    </h2>
+                  </div>
+                </div>
+                <div
+                  class="prose-content space-y-4 text-brand-black/80 leading-relaxed text-base md:text-lg"
+                >
+                  <p>
+                    Lifetime deals provide one-time access to the Services for as long as the
+                    Services remain available. “Lifetime” refers to the lifetime of the Services,
+                    not the lifetime of any individual user, device, company, or legal entity.
+                    Access is provided subject to technical, financial, and operational
+                    considerations.
+                  </p>
+                  <p>
+                    Lifetime deals are offered transparently and responsibly. Usage is subject to
+                    fair-use principles, service limitations, and applicable policies. Features,
+                    functionality, or availability may change over time as the Services evolve.
+                  </p>
+                  <ul class="list-none space-y-3 mt-6">
+                    <li class="flex items-start gap-3">
+                      <span
+                        class="w-6 h-6 rounded-full bg-brand-teal text-brand-bg flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5"
+                        >1</span
+                      >
+                      <span
+                        >Lifetime access applies only to the Services and features included at the
+                        time of purchase</span
+                      >
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span
+                        class="w-6 h-6 rounded-full bg-brand-red text-brand-bg flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5"
+                        >2</span
+                      >
+                      <span
+                        >Usage limits, technical constraints, and fair-use restrictions may
+                        apply</span
+                      >
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span
+                        class="w-6 h-6 rounded-full bg-brand-bright text-brand-black flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5"
+                        >3</span
+                      >
+                      <span
+                        >Service availability may depend on infrastructure or third-party services
+                        and may change or be discontinued</span
+                      >
+                    </li>
+                  </ul>
                 </div>
               </div>
             </section>

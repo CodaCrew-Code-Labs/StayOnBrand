@@ -6,7 +6,11 @@
 
   // Check if we're on pages that have their own full-page layout with navigation
   const hasOwnLayout = computed(
-    () => route.name === 'Home' || route.name === 'Pricing' || route.name === 'Terms'
+    () =>
+      route.name === 'Home' ||
+      route.name === 'Pricing' ||
+      route.name === 'Terms' ||
+      route.name === 'Privacy'
   )
 </script>
 

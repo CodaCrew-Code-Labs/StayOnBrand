@@ -146,7 +146,7 @@
             to="/help"
             class="group text-brand-black border-brand-black transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden hover:bg-brand-bright text-xs font-semibold tracking-wide border rounded-full pt-2 px-5 pb-2 relative shadow-[3px_3px_0px_0px_#1A1A1A]"
           >
-            <span class="z-10 relative">WHATS WCAG ???</span>
+            <span class="z-10 relative">WHAT'S WCAG ???</span>
           </RouterLink>
         </div>
 

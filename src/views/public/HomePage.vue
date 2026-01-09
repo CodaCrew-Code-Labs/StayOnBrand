@@ -302,7 +302,7 @@
               to="/help"
               class="group text-brand-black border-brand-black transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden hover:bg-brand-bright text-xs font-semibold tracking-wide border rounded-full pt-2 px-5 pb-2 relative shadow-[3px_3px_0px_0px_#1A1A1A]"
             >
-              <span class="z-10 relative">WHATS WCAG ???</span>
+              <span class="z-10 relative">WHAT'S WCAG ???</span>
             </RouterLink>
           </div>
 
@@ -2239,12 +2239,6 @@
               Contact
             </RouterLink>
             <RouterLink
-              to="/privacy"
-              class="text-brand-black/60 hover:text-brand-teal text-sm font-medium transition-colors underline-reveal"
-            >
-              Privacy & Cookie Policy
-            </RouterLink>
-            <RouterLink
               to="/terms"
               class="text-brand-black/60 hover:text-brand-teal text-sm font-medium transition-colors underline-reveal"
             >
@@ -2275,7 +2269,7 @@
           </p>
           <div class="flex items-center gap-4">
             <a
-              href="#"
+              href="https://twitter.com/this_is_mhd"
               class="text-brand-black/40 hover:text-brand-red transition-colors"
               aria-label="Twitter"
             >
@@ -2296,51 +2290,7 @@
               </svg>
             </a>
             <a
-              href="#"
-              class="text-brand-black/40 hover:text-brand-red transition-colors"
-              aria-label="Instagram"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-              </svg>
-            </a>
-            <a
-              href="#"
-              class="text-brand-black/40 hover:text-brand-teal transition-colors"
-              aria-label="LinkedIn"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path
-                  d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
-                />
-                <rect width="4" height="12" x="2" y="9" />
-                <circle cx="4" cy="4" r="2" />
-              </svg>
-            </a>
-            <a
-              href="#"
+              href="https://github.com/CodaCrew-Code-Labs/StayOnBrand"
               class="text-brand-black/40 hover:text-brand-black transition-colors"
               aria-label="GitHub"
             >
