@@ -2,6 +2,16 @@ import type { RouteRecordRaw } from 'vue-router'
 
 export const protectedRoutes: RouteRecordRaw[] = [
   {
+    path: '/confirm-plan',
+    name: 'ConfirmSubscription',
+    component: () => import('@/views/public/ConfirmSubscriptionPage.vue'),
+    meta: {
+      layout: 'default',
+      title: 'Confirm Plan',
+      requiresAuth: true
+    }
+  },
+  {
     path: '/dashboard',
     name: 'Dashboard',
     component: () => import('@/views/dashboard/DashboardPage.vue'),

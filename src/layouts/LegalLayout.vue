@@ -1,5 +1,12 @@
 <script setup lang="ts">
+  import { computed } from 'vue'
   import { RouterLink, RouterView } from 'vue-router'
+  import { useAuthStore } from '@/stores/auth.store'
+
+  const authStore = useAuthStore()
+
+  // Computed home link - dashboard for logged in, landing for logged out
+  const homeLink = computed(() => (authStore.isAuthenticated ? '/dashboard' : '/'))
 </script>
 
 <template>
@@ -7,7 +14,9 @@
     <!-- Header -->
     <header class="border-b border-gray-200">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <RouterLink to="/" class="text-xl font-bold text-gray-900"> Stay on Brand </RouterLink>
+        <RouterLink :to="homeLink" class="text-xl font-bold text-gray-900">
+          Stay on Brand
+        </RouterLink>
       </div>
     </header>
 

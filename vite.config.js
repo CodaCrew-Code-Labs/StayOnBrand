@@ -10,7 +10,7 @@ export default defineConfig({
         }
     },
     server: {
-        port: 3000,
+        port: Number(process.env.VITE_APP_PORT) || 3000,
         open: true
     },
     build: {

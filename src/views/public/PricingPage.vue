@@ -1,6 +1,30 @@
 <script setup lang="ts">
   import { ref, onMounted, onUnmounted, nextTick, computed } from 'vue'
-  import { RouterLink } from 'vue-router'
+  import { RouterLink, useRouter } from 'vue-router'
+  import { useAuthStore } from '@/stores/auth.store'
+  import { AuthService } from '@/services/auth'
+
+  const router = useRouter()
+  const authStore = useAuthStore()
+
+  // Computed home link - dashboard for logged in, landing for logged out
+  const homeLink = computed(() => (authStore.isAuthenticated ? '/dashboard' : '/'))
+
+  // Handle subscribe button click - redirect based on auth status
+  function handleSubscribeClick(plan: string) {
+    if (authStore.isAuthenticated) {
+      router.push({ path: '/confirm-plan', query: { plan } })
+    } else {
+      router.push({ path: '/login', query: { redirect: `/confirm-plan?plan=${plan}` } })
+    }
+  }
+
+  // Handle sign out
+  function handleSignOut() {
+    AuthService.logout()
+    authStore.logout()
+    router.push('/login')
+  }
 
   // Billing toggle state
   const isYearlyBilling = ref(true)
@@ -39,7 +63,7 @@
         { text: 'Full WCAG 2.1 AA + AAA', icon: 'check' },
         { text: '7-day free trial', icon: 'clock' }
       ],
-      cta: 'Start Free Trial',
+      cta: 'Subscribe Now',
       ctaStyle: 'primary',
       accentColor: 'brand-teal',
       popular: true
@@ -57,7 +81,7 @@
         { text: 'Unlimited team & subs', icon: 'check' },
         { text: '30-day free trial', icon: 'clock' }
       ],
-      cta: 'Contact Sales',
+      cta: 'Subscribe Now',
       ctaStyle: 'outline',
       accentColor: 'brand-purple'
     }
@@ -171,7 +195,7 @@
 
         <!-- Center Logo -->
         <RouterLink
-          to="/"
+          :to="homeLink"
           class="group cursor-pointer transform -translate-x-1/2 absolute left-1/2"
         >
           <div
@@ -189,23 +213,37 @@
         <!-- Right Nav Items -->
         <div class="flex gap-3 items-center">
           <RouterLink
-            to="/"
+            :to="homeLink"
             class="group relative bg-brand-bg text-brand-black px-5 py-2 rounded-full border border-brand-black font-semibold text-xs tracking-wide shadow-[3px_3px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden hover:bg-brand-bright hidden md:flex"
           >
-            <span class="z-10 relative">HOME</span>
+            <span class="z-10 relative">{{
+              authStore.isAuthenticated ? 'DASHBOARD' : 'HOME'
+            }}</span>
           </RouterLink>
-          <RouterLink
-            to="/login"
-            class="group relative bg-brand-bg text-brand-black px-5 py-2 rounded-full border border-brand-black font-semibold text-xs tracking-wide shadow-[3px_3px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden hover:bg-brand-bright hidden md:flex"
-          >
-            <span class="z-10 relative">LOGIN</span>
-          </RouterLink>
-          <RouterLink
-            to="/signup"
-            class="group relative bg-brand-bright text-brand-black px-5 py-2 rounded-full border border-brand-black font-semibold text-xs tracking-wide shadow-[3px_3px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden"
-          >
-            <span class="relative z-10">GET STARTED</span>
-          </RouterLink>
+          <!-- Show login/signup for guests -->
+          <template v-if="!authStore.isAuthenticated">
+            <RouterLink
+              to="/login"
+              class="group relative bg-brand-bg text-brand-black px-5 py-2 rounded-full border border-brand-black font-semibold text-xs tracking-wide shadow-[3px_3px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden hover:bg-brand-bright hidden md:flex"
+            >
+              <span class="z-10 relative">LOGIN</span>
+            </RouterLink>
+            <RouterLink
+              to="/signup"
+              class="group relative bg-brand-bright text-brand-black px-5 py-2 rounded-full border border-brand-black font-semibold text-xs tracking-wide shadow-[3px_3px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden"
+            >
+              <span class="relative z-10">GET STARTED</span>
+            </RouterLink>
+          </template>
+          <!-- Show sign out for authenticated users -->
+          <template v-else>
+            <button
+              class="group relative bg-brand-bright text-brand-black px-5 py-2 rounded-full border border-brand-black font-semibold text-xs tracking-wide shadow-[3px_3px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden"
+              @click="handleSignOut"
+            >
+              <span class="relative z-10">SIGN OUT</span>
+            </button>
+          </template>
         </div>
       </nav>
     </header>
@@ -594,12 +632,12 @@
                 </li>
               </ul>
 
-              <RouterLink
-                to="/signup"
-                class="w-full py-3.5 rounded-xl bg-brand-teal text-white text-center text-sm font-bold tracking-wide hover:bg-brand-bright hover:text-brand-black transition-colors shadow-[0_0_20px_-5px_rgba(47,122,114,0.5)] hover:shadow-[0_0_30px_-5px_rgba(121,220,175,0.6)]"
+              <button
+                class="w-full py-3.5 rounded-xl bg-brand-teal text-white text-center text-sm font-bold tracking-wide hover:bg-brand-bright hover:text-brand-black transition-colors shadow-[0_0_20px_-5px_rgba(47,122,114,0.5)] hover:shadow-[0_0_30px_-5px_rgba(121,220,175,0.6)] cursor-pointer"
+                @click="handleSubscribeClick('professional')"
               >
                 Subscribe Now
-              </RouterLink>
+              </button>
             </div>
 
             <!-- Card 3: Business -->
@@ -740,12 +778,12 @@
                 </li>
               </ul>
 
-              <RouterLink
-                to="/contact"
-                class="w-full py-3 rounded-xl border border-white/10 text-center text-sm font-semibold hover:bg-white/5 transition-colors relative z-10 group-hover:border-brand-purple/30"
+              <button
+                class="w-full py-3 rounded-xl border border-white/10 text-center text-sm font-semibold hover:bg-white/5 transition-colors relative z-10 group-hover:border-brand-purple/30 cursor-pointer"
+                @click="handleSubscribeClick('enterprise')"
               >
                 Subscribe Now
-              </RouterLink>
+              </button>
             </div>
           </div>
 
@@ -964,9 +1002,9 @@
                       Save 40%
                     </div>
 
-                    <RouterLink
-                      to="/signup"
-                      class="group flex items-center justify-center gap-2 w-full bg-brand-teal text-brand-bg px-6 py-4 rounded-xl font-bold text-sm uppercase tracking-wide hover:bg-brand-bright hover:text-brand-black transition-all shadow-[0_0_20px_-5px_rgba(47,122,114,0.5)]"
+                    <button
+                      class="group flex items-center justify-center gap-2 w-full bg-brand-teal text-brand-bg px-6 py-4 rounded-xl font-bold text-sm uppercase tracking-wide hover:bg-brand-bright hover:text-brand-black transition-all shadow-[0_0_20px_-5px_rgba(47,122,114,0.5)] cursor-pointer"
+                      @click="handleSubscribeClick('lifetime')"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -983,7 +1021,7 @@
                         />
                       </svg>
                       Get Lifetime Access
-                    </RouterLink>
+                    </button>
 
                     <p class="text-xs text-brand-bg/40 mt-4">Limited spots available</p>
                   </div>
@@ -1069,12 +1107,12 @@
                       : pricingPlans.professional.monthly
                   }}
                 </div>
-                <RouterLink
-                  to="/signup"
-                  class="w-full py-2.5 rounded-lg bg-brand-teal text-white text-xs font-bold hover:bg-brand-bright hover:text-brand-black transition-colors shadow-lg shadow-brand-teal/20 text-center"
+                <button
+                  class="w-full py-2.5 rounded-lg bg-brand-teal text-white text-xs font-bold hover:bg-brand-bright hover:text-brand-black transition-colors shadow-lg shadow-brand-teal/20 text-center cursor-pointer"
+                  @click="handleSubscribeClick('professional')"
                 >
                   SUBSCRIBE NOW
-                </RouterLink>
+                </button>
               </div>
 
               <!-- Business Header -->
@@ -1093,12 +1131,12 @@
                       : pricingPlans.enterprise.monthly
                   }}
                 </div>
-                <RouterLink
-                  to="/contact"
-                  class="w-full py-2.5 rounded-lg border border-brand-black/10 bg-white text-xs font-bold hover:bg-brand-black hover:text-brand-bg transition-colors text-center"
+                <button
+                  class="w-full py-2.5 rounded-lg border border-brand-black/10 bg-white text-xs font-bold hover:bg-brand-black hover:text-brand-bg transition-colors text-center cursor-pointer"
+                  @click="handleSubscribeClick('enterprise')"
                 >
                   SUBSCRIBE NOW
-                </RouterLink>
+                </button>
               </div>
 
               <!-- Feature Rows -->

@@ -18,5 +18,14 @@ export const publicRoutes: RouteRecordRaw[] = [
       layout: 'default',
       title: 'Pricing'
     }
+  },
+  {
+    path: '/confirm-subscription',
+    name: 'ConfirmSubscription',
+    component: () => import('@/views/public/ConfirmSubscriptionPage.vue'),
+    meta: {
+      layout: 'default',
+      title: 'Confirm Subscription'
+    }
   }
 ]

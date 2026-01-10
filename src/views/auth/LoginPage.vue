@@ -1,11 +1,15 @@
 <script setup lang="ts">
   import { ref, onMounted } from 'vue'
-  import { RouterLink, useRouter } from 'vue-router'
+  import { RouterLink, useRouter, useRoute } from 'vue-router'
   import { AuthService } from '@/services/auth'
   import { useAuthStore } from '@/stores/auth.store'
 
   const router = useRouter()
+  const route = useRoute()
   const authStore = useAuthStore()
+
+  // Get redirect URL from query params
+  const redirectUrl = route.query.redirect as string | undefined
 
   // Form state
   const email = ref('')
@@ -65,8 +69,8 @@
         localStorage.setItem('userData', JSON.stringify(userData))
       }
 
-      // Navigate to dashboard
-      router.push('/dashboard')
+      // Navigate to redirect URL or dashboard
+      router.push(redirectUrl || '/dashboard')
     } catch (err: unknown) {
       error.value = (err as Error).message || 'Login failed'
     } finally {
@@ -80,7 +84,15 @@
       const url = await AuthService.getGoogleAuthUrl()
       // Store auth flow type for callback page messaging
       sessionStorage.setItem('authFlow', 'login')
-      window.location.href = url
+      // Store redirect URL for after authentication
+      if (redirectUrl) {
+        sessionStorage.setItem('authRedirect', redirectUrl)
+      }
+      // Force account selection by adding prompt parameter
+      const finalUrl = url.includes('?')
+        ? `${url}&prompt=select_account`
+        : `${url}?prompt=select_account`
+      window.location.href = finalUrl
     } catch (err: unknown) {
       console.error('Failed to get Google auth URL:', err)
       error.value = (err as Error).message || 'Failed to connect with Google'

@@ -93,19 +93,49 @@
       // Exchange code for tokens via backend (Cognito handles everything)
       const tokens = await AuthService.exchangeGoogleCode(code)
       console.log('Authentication successful:', tokens)
+      console.log('Tokens structure:', JSON.stringify(tokens, null, 2))
 
       // Store auth data
       authStore.setToken(tokens.accessToken || tokens.idToken || '')
+
+      // Decode the idToken to extract user info including email
+      let userEmail = ''
+      let userId = ''
+
+      if (tokens.idToken) {
+        try {
+          // Decode JWT token (simple base64 decode of payload)
+          const payload = JSON.parse(atob(tokens.idToken.split('.')[1]))
+          console.log('Decoded JWT payload:', payload)
+          userEmail = payload.email || ''
+          userId = payload.sub || 'google-user'
+        } catch (error) {
+          console.error('Failed to decode JWT token:', error)
+          userEmail = tokens.user?.email || tokens.email || ''
+          userId = tokens.user?.id || tokens.sub || 'google-user'
+        }
+      } else {
+        userEmail = tokens.user?.email || tokens.email || ''
+        userId = tokens.user?.id || tokens.sub || 'google-user'
+      }
+
+      console.log('Extracted email:', userEmail)
+      console.log('Extracted user ID:', userId)
+
       authStore.setUser({
-        id: tokens.user?.id || tokens.sub || 'google-user',
-        email: tokens.user?.email || tokens.email || ''
+        id: userId,
+        email: userEmail
       })
 
-      // Clean up auth flow indicator
-      sessionStorage.removeItem('authFlow')
+      // Get redirect URL from session storage
+      const authRedirect = sessionStorage.getItem('authRedirect')
 
-      // Redirect to dashboard
-      router.push('/dashboard')
+      // Clean up auth flow indicators
+      sessionStorage.removeItem('authFlow')
+      sessionStorage.removeItem('authRedirect')
+
+      // Redirect to saved URL or dashboard
+      router.push(authRedirect || '/dashboard')
     } catch (err: unknown) {
       console.error('Token exchange failed:', err)
       errorMessage.value =

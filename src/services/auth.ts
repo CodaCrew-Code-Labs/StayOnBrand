@@ -27,7 +27,7 @@ export class AuthService {
   // Get Google OAuth URL from backend
   static async getGoogleAuthUrl(): Promise<string> {
     try {
-      const response = await fetch(`${API_URL}/auth/google/url`)
+      const response = await fetch(`${API_URL}/auth/google/url?prompt=select_account`)
 
       if (!response.ok) {
         // Check if response is HTML (error page)

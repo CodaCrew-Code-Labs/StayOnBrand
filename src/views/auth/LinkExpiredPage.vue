@@ -1,6 +1,12 @@
 <script setup lang="ts">
-  import { ref, onMounted } from 'vue'
+  import { ref, computed, onMounted } from 'vue'
   import { RouterLink } from 'vue-router'
+  import { useAuthStore } from '@/stores/auth.store'
+
+  const authStore = useAuthStore()
+
+  // Computed home link - dashboard for logged in, landing for logged out
+  const homeLink = computed(() => (authStore.isAuthenticated ? '/dashboard' : '/'))
 
   // Animation state
   const isVisible = ref(false)
@@ -96,7 +102,7 @@
         class="max-w-7xl mx-auto flex justify-between items-center bg-white/80 backdrop-blur-md border border-brand-black rounded-full px-6 py-3 shadow-hard-sm"
         :class="{ 'reveal-visible': isVisible }"
       >
-        <RouterLink to="/" class="flex items-center gap-2 group cursor-pointer">
+        <RouterLink :to="homeLink" class="flex items-center gap-2 group cursor-pointer">
           <div
             class="w-8 h-8 flex items-center justify-center bg-brand-teal border border-brand-black rounded-full shadow-hard-sm"
           >

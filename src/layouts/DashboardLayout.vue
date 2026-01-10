@@ -11,6 +11,7 @@
 
   const navigation = [
     { name: 'Dashboard', to: '/dashboard' },
+    { name: 'Pricing', to: '/pricing' },
     { name: 'Settings', to: '/settings' },
     { name: 'Profile', to: '/profile' },
     { name: 'Billing', to: '/billing' }
@@ -35,7 +36,9 @@
       <div class="flex flex-col h-full">
         <!-- Logo -->
         <div class="flex items-center h-16 px-6 border-b border-gray-200">
-          <RouterLink to="/" class="text-xl font-bold text-gray-900"> Stay on Brand </RouterLink>
+          <RouterLink to="/dashboard" class="text-xl font-bold text-gray-900">
+            Stay on Brand
+          </RouterLink>
         </div>
 
         <!-- Navigation -->

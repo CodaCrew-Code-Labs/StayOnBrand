@@ -1,6 +1,21 @@
 <script setup lang="ts">
-  import { ref, onMounted, onUnmounted, nextTick } from 'vue'
-  import { RouterLink } from 'vue-router'
+  import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
+  import { RouterLink, useRouter } from 'vue-router'
+  import { useAuthStore } from '@/stores/auth.store'
+  import { AuthService } from '@/services/auth'
+
+  const router = useRouter()
+  const authStore = useAuthStore()
+
+  // Computed home link - dashboard for logged in, landing for logged out
+  const homeLink = computed(() => (authStore.isAuthenticated ? '/dashboard' : '/'))
+
+  // Handle sign out
+  function handleSignOut() {
+    AuthService.logout()
+    authStore.logout()
+    router.push('/login')
+  }
 
   // Scroll progress tracking
   const scrollProgress = ref(0)
@@ -152,7 +167,7 @@
         <!-- Left Nav Items -->
         <div class="gap-3 hidden md:flex">
           <RouterLink
-            to="/"
+            :to="homeLink"
             class="group text-brand-black border-brand-black transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden hover:bg-brand-bright text-xs font-semibold tracking-wide border rounded-full pt-2 px-5 pb-2 relative shadow-[3px_3px_0px_0px_#1A1A1A]"
           >
             <span class="z-10 relative">HOME</span>
@@ -186,7 +201,7 @@
 
         <!-- Center Logo -->
         <RouterLink
-          to="/"
+          :to="homeLink"
           class="group cursor-pointer transform -translate-x-1/2 absolute left-1/2"
         >
           <div
@@ -209,12 +224,24 @@
           >
             <span class="z-10 relative">PRICING</span>
           </RouterLink>
-          <RouterLink
-            to="/signup"
-            class="group relative bg-brand-bright text-brand-black px-5 py-2 rounded-full border border-brand-black font-semibold text-xs tracking-wide shadow-[3px_3px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden"
-          >
-            <span class="relative z-10">GET STARTED</span>
-          </RouterLink>
+          <!-- Show signup for guests -->
+          <template v-if="!authStore.isAuthenticated">
+            <RouterLink
+              to="/signup"
+              class="group relative bg-brand-bright text-brand-black px-5 py-2 rounded-full border border-brand-black font-semibold text-xs tracking-wide shadow-[3px_3px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden"
+            >
+              <span class="relative z-10">GET STARTED</span>
+            </RouterLink>
+          </template>
+          <!-- Show sign out for authenticated users -->
+          <template v-else>
+            <button
+              class="group relative bg-brand-bright text-brand-black px-5 py-2 rounded-full border border-brand-black font-semibold text-xs tracking-wide shadow-[3px_3px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden"
+              @click="handleSignOut"
+            >
+              <span class="relative z-10">SIGN OUT</span>
+            </button>
+          </template>
         </div>
       </nav>
     </header>

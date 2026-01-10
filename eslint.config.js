@@ -17,6 +17,14 @@ export default defineConfigWithVueTs(
   vueTsConfigs.recommended,
   skipFormatting,
   {
+    files: ['vite.config.js', 'vite.config.ts'],
+    languageOptions: {
+      globals: {
+        process: 'readonly'
+      }
+    }
+  },
+  {
     rules: {
       'vue/multi-word-component-names': 'off',
       'vue/no-v-html': 'warn',

@@ -1,8 +1,22 @@
 <script setup lang="ts">
   import { computed } from 'vue'
-  import { RouterLink, RouterView, useRoute } from 'vue-router'
+  import { RouterLink, RouterView, useRoute, useRouter } from 'vue-router'
+  import { useAuthStore } from '@/stores/auth.store'
+  import { AuthService } from '@/services/auth'
 
   const route = useRoute()
+  const router = useRouter()
+  const authStore = useAuthStore()
+
+  // Computed home link - dashboard for logged in, landing for logged out
+  const homeLink = computed(() => (authStore.isAuthenticated ? '/dashboard' : '/'))
+
+  // Handle sign out
+  async function handleSignOut() {
+    await AuthService.logout()
+    authStore.logout()
+    router.push('/login')
+  }
 
   // Check if we're on pages that have their own full-page layout with navigation
   const hasOwnLayout = computed(
@@ -14,7 +28,8 @@
       route.name === 'RefundPolicy' ||
       route.name === 'LifetimeDealDisclosure' ||
       route.name === 'AcceptableUsePolicy' ||
-      route.name === 'TermsAndConditions'
+      route.name === 'TermsAndConditions' ||
+      route.name === 'ConfirmSubscription'
   )
 </script>
 
@@ -30,7 +45,7 @@
     >
       <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 items-center">
-          <RouterLink to="/" class="flex items-center gap-2">
+          <RouterLink :to="homeLink" class="flex items-center gap-2">
             <div class="w-8 h-8 bg-brand-black rounded-full flex items-center justify-center">
               <span class="font-display font-bold text-sm text-brand-bright">S.</span>
             </div>
@@ -43,18 +58,36 @@
             >
               Pricing
             </RouterLink>
-            <RouterLink
-              to="/login"
-              class="text-brand-black/70 hover:text-brand-black transition-colors font-medium text-sm"
-            >
-              Login
-            </RouterLink>
-            <RouterLink
-              to="/signup"
-              class="bg-brand-black text-brand-bg px-4 py-2 rounded-full font-semibold text-sm hover:bg-brand-black/90 transition-colors shadow-[3px_3px_0px_0px_#2F7A72]"
-            >
-              Get Started
-            </RouterLink>
+            <!-- Show login/signup for guests -->
+            <template v-if="!authStore.isAuthenticated">
+              <RouterLink
+                to="/login"
+                class="text-brand-black/70 hover:text-brand-black transition-colors font-medium text-sm"
+              >
+                Login
+              </RouterLink>
+              <RouterLink
+                to="/signup"
+                class="bg-brand-black text-brand-bg px-4 py-2 rounded-full font-semibold text-sm hover:bg-brand-black/90 transition-colors shadow-[3px_3px_0px_0px_#2F7A72]"
+              >
+                Get Started
+              </RouterLink>
+            </template>
+            <!-- Show dashboard/logout for authenticated users -->
+            <template v-else>
+              <RouterLink
+                to="/dashboard"
+                class="text-brand-black/70 hover:text-brand-black transition-colors font-medium text-sm"
+              >
+                Dashboard
+              </RouterLink>
+              <button
+                class="bg-brand-black text-brand-bg px-4 py-2 rounded-full font-semibold text-sm hover:bg-brand-black/90 transition-colors shadow-[3px_3px_0px_0px_#2F7A72]"
+                @click="handleSignOut"
+              >
+                Sign Out
+              </button>
+            </template>
           </div>
         </div>
       </nav>

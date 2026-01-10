@@ -1,6 +1,30 @@
 <script setup lang="ts">
-  import { ref, onMounted, onUnmounted, nextTick } from 'vue'
-  import { RouterLink } from 'vue-router'
+  import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
+  import { RouterLink, useRouter } from 'vue-router'
+  import { useAuthStore } from '@/stores/auth.store'
+  import { AuthService } from '@/services/auth'
+
+  const router = useRouter()
+  const authStore = useAuthStore()
+
+  // Computed home link - dashboard for logged in, landing for logged out
+  const homeLink = computed(() => (authStore.isAuthenticated ? '/dashboard' : '/'))
+
+  // Handle subscribe button click - redirect based on auth status
+  function handleSubscribeClick(plan: string) {
+    if (authStore.isAuthenticated) {
+      router.push({ path: '/confirm-plan', query: { plan } })
+    } else {
+      router.push({ path: '/login', query: { redirect: `/confirm-plan?plan=${plan}` } })
+    }
+  }
+
+  // Handle sign out
+  function handleSignOut() {
+    AuthService.logout()
+    authStore.logout()
+    router.push('/login')
+  }
 
   // Feature carousel state
   const activeCardIndex = ref(2)
@@ -41,7 +65,7 @@
         '10 brand palettes',
         '2 Image validations per day'
       ],
-      cta: 'Start Free Trial',
+      cta: 'Subscribe Now',
       color: 'bright',
       popular: true
     },
@@ -59,7 +83,7 @@
         'Unlimited Image Validation',
         'White-label reports'
       ],
-      cta: 'Contact Sales',
+      cta: 'Subscribe Now',
       color: 'red'
     }
   }
@@ -327,7 +351,7 @@
 
           <!-- Center Logo -->
           <RouterLink
-            to="/"
+            :to="homeLink"
             class="group cursor-pointer transform -translate-x-1/2 absolute left-1/2"
           >
             <div
@@ -350,18 +374,36 @@
             >
               <span class="z-10 relative">PRICING</span>
             </RouterLink>
-            <RouterLink
-              to="/affiliates"
-              class="group relative bg-brand-bg text-brand-black px-5 py-2 rounded-full border border-brand-black font-semibold text-xs tracking-wide shadow-[3px_3px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden hover:bg-brand-bright hidden md:flex"
-            >
-              <span class="z-10 relative">AFFILIATES</span>
-            </RouterLink>
-            <RouterLink
-              to="/signup"
-              class="group relative bg-brand-bright text-brand-black px-5 py-2 rounded-full border border-brand-black font-semibold text-xs tracking-wide shadow-[3px_3px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden"
-            >
-              <span class="relative z-10">GET STARTED</span>
-            </RouterLink>
+            <!-- Show affiliates and signup for guests -->
+            <template v-if="!authStore.isAuthenticated">
+              <RouterLink
+                to="/affiliates"
+                class="group relative bg-brand-bg text-brand-black px-5 py-2 rounded-full border border-brand-black font-semibold text-xs tracking-wide shadow-[3px_3px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden hover:bg-brand-bright hidden md:flex"
+              >
+                <span class="z-10 relative">AFFILIATES</span>
+              </RouterLink>
+              <RouterLink
+                to="/signup"
+                class="group relative bg-brand-bright text-brand-black px-5 py-2 rounded-full border border-brand-black font-semibold text-xs tracking-wide shadow-[3px_3px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden"
+              >
+                <span class="relative z-10">GET STARTED</span>
+              </RouterLink>
+            </template>
+            <!-- Show dashboard and sign out for authenticated users -->
+            <template v-else>
+              <RouterLink
+                to="/dashboard"
+                class="group relative bg-brand-bg text-brand-black px-5 py-2 rounded-full border border-brand-black font-semibold text-xs tracking-wide shadow-[3px_3px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden hover:bg-brand-bright hidden md:flex"
+              >
+                <span class="z-10 relative">DASHBOARD</span>
+              </RouterLink>
+              <button
+                class="group relative bg-brand-bright text-brand-black px-5 py-2 rounded-full border border-brand-black font-semibold text-xs tracking-wide shadow-[3px_3px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden"
+                @click="handleSignOut"
+              >
+                <span class="relative z-10">SIGN OUT</span>
+              </button>
+            </template>
           </div>
         </nav>
       </header>
@@ -1978,12 +2020,12 @@
           </ul>
 
           <!-- CTA Button -->
-          <RouterLink
-            to="/signup"
-            class="w-full py-3 rounded-full bg-brand-bright text-brand-black font-semibold text-sm uppercase tracking-wide shadow-[4px_4px_0px_0px_#C92216] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#C92216] transition-all btn-animate stat-footer"
+          <button
+            class="w-full py-3 rounded-full bg-brand-bright text-brand-black font-semibold text-sm uppercase tracking-wide shadow-[4px_4px_0px_0px_#C92216] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#C92216] transition-all btn-animate stat-footer cursor-pointer"
+            @click="handleSubscribeClick('professional')"
           >
             {{ pricingPlans.professional.cta }}
-          </RouterLink>
+          </button>
         </div>
 
         <!-- Enterprise Plan -->
@@ -2074,12 +2116,12 @@
           </ul>
 
           <!-- CTA Button -->
-          <RouterLink
-            to="/signup"
-            class="w-full py-3 rounded-full bg-brand-black text-brand-bg font-semibold text-sm uppercase tracking-wide shadow-[4px_4px_0px_0px_#C92216] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#C92216] transition-all btn-animate stat-footer"
+          <button
+            class="w-full py-3 rounded-full bg-brand-black text-brand-bg font-semibold text-sm uppercase tracking-wide shadow-[4px_4px_0px_0px_#C92216] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#C92216] transition-all btn-animate stat-footer cursor-pointer"
+            @click="handleSubscribeClick('enterprise')"
           >
             {{ pricingPlans.enterprise.cta }}
-          </RouterLink>
+          </button>
         </div>
       </div>
     </section>

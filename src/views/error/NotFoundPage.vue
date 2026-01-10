@@ -1,6 +1,12 @@
 <script setup lang="ts">
-  import { ref, onMounted } from 'vue'
+  import { ref, computed, onMounted } from 'vue'
   import { RouterLink } from 'vue-router'
+  import { useAuthStore } from '@/stores/auth.store'
+
+  const authStore = useAuthStore()
+
+  // Computed home link - dashboard for logged in, landing for logged out
+  const homeLink = computed(() => (authStore.isAuthenticated ? '/dashboard' : '/'))
 
   // Typewriter effect state
   const showTypewriter = ref(false)
@@ -33,7 +39,7 @@
     <header class="w-full max-w-screen-2xl mx-auto px-6 py-5 relative z-40">
       <nav class="flex items-center justify-between border-b border-brand-black/10 pb-5">
         <!-- Logo -->
-        <RouterLink to="/" class="flex items-center gap-2 group">
+        <RouterLink :to="homeLink" class="flex items-center gap-2 group">
           <div
             class="w-8 h-8 bg-brand-black rounded-full flex items-center justify-center text-brand-bright transform group-hover:rotate-12 transition-transform duration-300 shadow-lg"
           >
@@ -166,7 +172,7 @@
             <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
               <!-- 01: Return Home (Shine Animation) -->
               <RouterLink
-                to="/"
+                :to="homeLink"
                 class="btn-shine w-full sm:w-auto px-8 py-3.5 bg-brand-bg text-brand-black rounded-full font-bold text-sm tracking-wide hover:bg-white transition-all flex items-center justify-center gap-2 group/btn relative overflow-hidden shadow-[0_0_20px_rgba(248,243,232,0.2)]"
               >
                 <span

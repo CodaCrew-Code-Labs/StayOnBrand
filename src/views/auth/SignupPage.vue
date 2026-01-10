@@ -186,7 +186,11 @@
       console.log('Google Auth URL from backend:', url)
       // Store auth flow type for callback page messaging
       sessionStorage.setItem('authFlow', 'signup')
-      window.location.href = url
+      // Force account selection by adding prompt parameter
+      const finalUrl = url.includes('?')
+        ? `${url}&prompt=select_account`
+        : `${url}?prompt=select_account`
+      window.location.href = finalUrl
     } catch (error: unknown) {
       console.error('Failed to get Google auth URL:', error)
       showToast((error as Error).message || 'Failed to initiate Google sign up', 'error')
