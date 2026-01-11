@@ -1,10 +1,17 @@
 import type { RouteRecordRaw } from 'vue-router'
+import { useAuthStore } from '@/stores/auth.store'
 
 export const publicRoutes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'Home',
     component: () => import('@/views/public/HomePage.vue'),
+    beforeEnter: () => {
+      const authStore = useAuthStore()
+      if (authStore.isAuthenticated) {
+        return { name: 'Dashboard' }
+      }
+    },
     meta: {
       layout: 'default',
       title: 'Home'
@@ -21,7 +28,7 @@ export const publicRoutes: RouteRecordRaw[] = [
   },
   {
     path: '/confirm-subscription',
-    name: 'ConfirmSubscription',
+    name: 'ConfirmSubscriptionPublic',
     component: () => import('@/views/public/ConfirmSubscriptionPage.vue'),
     meta: {
       layout: 'default',

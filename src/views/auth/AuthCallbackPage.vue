@@ -122,10 +122,34 @@
       console.log('Extracted email:', userEmail)
       console.log('Extracted user ID:', userId)
 
-      authStore.setUser({
+      const user = {
         id: userId,
         email: userEmail
-      })
+      }
+      authStore.setUser(user)
+
+      // Persist auth data to localStorage for session persistence across refreshes
+      const expiryDate = new Date()
+      expiryDate.setDate(expiryDate.getDate() + 30)
+      localStorage.setItem('authExpiry', expiryDate.toISOString())
+      localStorage.setItem('rememberMe', 'true')
+      localStorage.setItem('accessToken', tokens.accessToken || tokens.idToken || '')
+      localStorage.setItem('userData', JSON.stringify(user))
+
+      // Sync with DodoPayments after successful Google OAuth
+      if (userEmail) {
+        try {
+          const dodoId = await AuthService.syncDodoUser(userEmail)
+          if (dodoId) {
+            // Store dodo ID globally
+            ;(window as Window & { dodoId?: string }).dodoId = dodoId
+            // Update auth store directly
+            authStore.dodoId = dodoId
+          }
+        } catch (error) {
+          console.warn('DodoPayments sync failed during Google OAuth:', error)
+        }
+      }
 
       // Get redirect URL from session storage
       const authRedirect = sessionStorage.getItem('authRedirect')

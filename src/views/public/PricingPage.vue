@@ -13,9 +13,9 @@
   // Handle subscribe button click - redirect based on auth status
   function handleSubscribeClick(plan: string) {
     if (authStore.isAuthenticated) {
-      router.push({ path: '/confirm-plan', query: { plan } })
+      router.push({ path: '/confirm-subscription', query: { plan } })
     } else {
-      router.push({ path: '/login', query: { redirect: `/confirm-plan?plan=${plan}` } })
+      router.push({ path: '/login', query: { redirect: `/confirm-subscription?plan=${plan}` } })
     }
   }
 
@@ -68,7 +68,7 @@
       accentColor: 'brand-teal',
       popular: true
     },
-    enterprise: {
+    business: {
       name: 'BUSINESS',
       number: '03',
       description: 'Custom solutions for large teams',
@@ -659,16 +659,14 @@
                 <h3
                   class="text-xs font-bold tracking-[0.2em] uppercase text-brand-purple mb-4 group-hover:text-brand-purple transition-colors"
                 >
-                  Enterprise
+                  Business
                 </h3>
                 <div class="flex items-baseline gap-1">
                   <span class="text-2xl font-light text-brand-gray">$</span>
                   <span
                     class="text-6xl font-display font-bold tracking-tighter text-brand-purple group-hover:text-brand-purple transition-colors"
                     >{{
-                      isYearlyBilling
-                        ? pricingPlans.enterprise.yearly
-                        : pricingPlans.enterprise.monthly
+                      isYearlyBilling ? pricingPlans.business.yearly : pricingPlans.business.monthly
                     }}</span
                   >
                 </div>
@@ -780,7 +778,7 @@
 
               <button
                 class="w-full py-3 rounded-xl border border-white/10 text-center text-sm font-semibold hover:bg-white/5 transition-colors relative z-10 group-hover:border-brand-purple/30 cursor-pointer"
-                @click="handleSubscribeClick('enterprise')"
+                @click="handleSubscribeClick('business')"
               >
                 Subscribe Now
               </button>
@@ -1120,20 +1118,18 @@
                 class="p-6 md:p-8 flex flex-col items-center gap-4 border-b border-brand-black/5 bg-brand-bg/50"
               >
                 <div class="text-xs font-bold tracking-[0.2em] uppercase text-brand-purple italic">
-                  Enterprise
+                  Business
                 </div>
                 <div
                   class="font-display font-bold text-3xl md:text-4xl text-brand-black tracking-tight"
                 >
                   ${{
-                    isYearlyBilling
-                      ? pricingPlans.enterprise.yearly
-                      : pricingPlans.enterprise.monthly
+                    isYearlyBilling ? pricingPlans.business.yearly : pricingPlans.business.monthly
                   }}
                 </div>
                 <button
                   class="w-full py-2.5 rounded-lg border border-brand-black/10 bg-white text-xs font-bold hover:bg-brand-black hover:text-brand-bg transition-colors text-center cursor-pointer"
-                  @click="handleSubscribeClick('enterprise')"
+                  @click="handleSubscribeClick('business')"
                 >
                   SUBSCRIBE NOW
                 </button>

@@ -567,6 +567,7 @@
   import { ref, computed } from 'vue'
   import { useRouter, useRoute, RouterLink } from 'vue-router'
   import { useAuthStore } from '@/stores/auth.store'
+  // import { tierService } from '@/services/user.service'
 
   const router = useRouter()
   const route = useRoute()
@@ -612,7 +613,7 @@
         { text: '7-day free trial', highlight: false }
       ]
     },
-    enterprise: {
+    business: {
       name: 'Business',
       description: 'Custom solutions for large teams',
       monthly: 20,
@@ -631,8 +632,8 @@
   // Get current plan from route query (for subscription plans)
   const currentPlan = computed(() => {
     const planParam = route.query.plan as string
-    if (planParam === 'enterprise') {
-      return plans.enterprise
+    if (planParam === 'business') {
+      return plans.business
     }
     return plans.professional
   })
@@ -641,14 +642,64 @@
     router.push('/pricing')
   }
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
     const planType = route.query.plan || 'professional'
+    let mappingKey = ''
+
     if (isLifetime.value) {
-      console.log('Selected plan: lifetime')
+      mappingKey = 'lifetime'
+      console.log('Selected plan key:', mappingKey)
     } else {
-      console.log('Selected plan:', planType, 'Billing:', selectedBilling.value)
+      // Frame the key based on plan and billing cycle
+      const planName = planType === 'business' ? 'Business' : 'Professional'
+      const billingCycle = selectedBilling.value === 'yearly' ? 'Yearly' : 'Monthly'
+      mappingKey = `${planName}/${billingCycle}`
+
+      // Get tier mapping from environment
+      const tierMapping = JSON.parse(import.meta.env.VITE_TEST_TIER_MAPPING || '{}')
+      const productId = tierMapping[mappingKey] || mappingKey
+
+      console.log('Selected plan key:', mappingKey)
+      console.log('Mapped product ID:', productId)
+
+      try {
+        // Call DodoPayments subscribe API
+        const response = await fetch('http://localhost:3002/api/v1/dodopayments/subscribe', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            product_id: productId,
+            customer_email: userEmail.value
+          })
+        })
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        const data = await response.json()
+        console.log('DodoPayments response:', data)
+
+        // Store session ID in global variable
+        if (data.session_id) {
+          authStore.lastSessionId = data.session_id
+          console.log('Stored session ID:', data.session_id)
+        }
+
+        // Redirect to payment URL
+        if (data.session_url) {
+          window.location.href = data.session_url
+          return
+        }
+      } catch (error) {
+        console.error('Failed to create subscription:', error)
+        // TODO: Show error message to user
+      }
     }
-    // TODO: Integrate with DodoPayments
+
+    // Fallback redirect
     router.push('/dashboard')
   }
 </script>

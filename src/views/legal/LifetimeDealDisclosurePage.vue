@@ -843,7 +843,7 @@
                       </li>
                       <li class="flex items-start gap-3 text-sm">
                         <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-1.5"></span>
-                        <span>Access to premium, enterprise, or add-on functionality</span>
+                        <span>Access to professional, business, or add-on functionality</span>
                       </li>
                       <li class="flex items-start gap-3 text-sm">
                         <span class="w-2 h-2 rounded-full bg-brand-red flex-shrink-0 mt-1.5"></span>

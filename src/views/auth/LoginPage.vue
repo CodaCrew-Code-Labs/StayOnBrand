@@ -57,17 +57,21 @@
       const result = await AuthService.login(email.value, password.value, rememberMe.value)
 
       // Store auth data
-      authStore.setToken(result.accessToken || result.token || '')
+      const token = result.accessToken || result.token || ''
+      authStore.setToken(token)
       const userData = {
         id: result.user?.id || 'user',
         email: email.value
       }
       authStore.setUser(userData)
 
-      // Store user data in localStorage if remember me is enabled
-      if (rememberMe.value) {
-        localStorage.setItem('userData', JSON.stringify(userData))
-      }
+      // Always persist auth data to localStorage for session persistence across refreshes
+      const expiryDate = new Date()
+      expiryDate.setDate(expiryDate.getDate() + 30)
+      localStorage.setItem('authExpiry', expiryDate.toISOString())
+      localStorage.setItem('rememberMe', 'true')
+      localStorage.setItem('accessToken', token)
+      localStorage.setItem('userData', JSON.stringify(userData))
 
       // Navigate to redirect URL or dashboard
       router.push(redirectUrl || '/dashboard')

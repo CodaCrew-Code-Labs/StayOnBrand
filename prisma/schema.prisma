@@ -1,0 +1,34 @@
+// This is your Prisma schema file
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model UserMapping {
+  userUuid       String   @id @map("user_uuid")
+  email          String   @unique
+  dodoCustomerId String?  @map("dodo_customer_id")
+  createdAt      DateTime @default(now()) @map("created_at")
+  
+  // Relations
+  sessions       Session[]
+
+  @@map("user_mapping")
+}
+
+model Session {
+  id            String   @id @default(cuid())
+  sessionId     String   @map("session_id")
+  sobCustomerId String   @map("sob_customer_id")
+  status        String
+  createdAt     DateTime @default(now()) @map("created_date")
+  
+  // Relations
+  user          UserMapping @relation(fields: [sobCustomerId], references: [userUuid])
+
+  @@map("sessions")
+}

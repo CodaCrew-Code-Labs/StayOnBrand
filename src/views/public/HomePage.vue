@@ -13,9 +13,9 @@
   // Handle subscribe button click - redirect based on auth status
   function handleSubscribeClick(plan: string) {
     if (authStore.isAuthenticated) {
-      router.push({ path: '/confirm-plan', query: { plan } })
+      router.push({ path: '/confirm-subscription', query: { plan } })
     } else {
-      router.push({ path: '/login', query: { redirect: `/confirm-plan?plan=${plan}` } })
+      router.push({ path: '/login', query: { redirect: `/confirm-subscription?plan=${plan}` } })
     }
   }
 
@@ -69,8 +69,8 @@
       color: 'bright',
       popular: true
     },
-    enterprise: {
-      name: 'ENTERPRISE',
+    business: {
+      name: 'Business',
       subtitle: 'Organization',
       description: 'Custom solutions for large teams and agencies',
       support: '24/7 dedicated support',
@@ -2028,7 +2028,7 @@
           </button>
         </div>
 
-        <!-- Enterprise Plan -->
+        <!-- Business Plan -->
         <div
           class="group relative bg-brand-bg rounded-3xl p-8 flex flex-col items-center text-center border-2 border-brand-black/10 shadow-xl scroll-animate fade-up delay-300 stat-card stat-card-light"
         >
@@ -2061,7 +2061,7 @@
           <h3
             class="text-2xl font-display font-bold text-brand-black uppercase tracking-wide stat-number"
           >
-            ENTERPRISE
+            Business
           </h3>
           <span class="text-brand-red text-sm font-medium mb-4">Organization</span>
 
@@ -2077,9 +2077,7 @@
             <span
               class="text-5xl font-display font-bold text-brand-black transition-all duration-300"
             >
-              {{
-                isYearlyPricing ? pricingPlans.enterprise.yearly : pricingPlans.enterprise.monthly
-              }}
+              {{ isYearlyPricing ? pricingPlans.business.yearly : pricingPlans.business.monthly }}
             </span>
             <span class="text-brand-black/60 text-sm">{{
               isYearlyPricing ? '/Year' : '/Month'
@@ -2095,7 +2093,7 @@
           <!-- Features -->
           <ul class="text-left w-full space-y-3 mb-8 stat-content">
             <li
-              v-for="feature in pricingPlans.enterprise.features"
+              v-for="feature in pricingPlans.business.features"
               :key="feature"
               class="flex items-center gap-2 text-sm text-brand-black/70"
             >
@@ -2118,9 +2116,9 @@
           <!-- CTA Button -->
           <button
             class="w-full py-3 rounded-full bg-brand-black text-brand-bg font-semibold text-sm uppercase tracking-wide shadow-[4px_4px_0px_0px_#C92216] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#C92216] transition-all btn-animate stat-footer cursor-pointer"
-            @click="handleSubscribeClick('enterprise')"
+            @click="handleSubscribeClick('business')"
           >
-            {{ pricingPlans.enterprise.cta }}
+            {{ pricingPlans.business.cta }}
           </button>
         </div>
       </div>

@@ -13,16 +13,21 @@
     "format": "prettier --write src/",
     "type-check": "vue-tsc --noEmit",
     "prepare": "husky",
-    "server": "ts-node server/index.ts"
+    "gateway": "ts-node gateway/index.ts",
+    "keycard": "npm run keycard:setup && ts-node keycard/index.ts",
+    "keycard:setup": "cp node_modules/keycard-subscription-backend/prisma/schema.prisma prisma/schema.prisma && npx prisma generate"
   },
   "dependencies": {
+    "@prisma/client": "^7.2.0",
     "@types/csrf": "^1.3.2",
     "cors": "^2.8.5",
     "csrf": "^3.1.0",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "gateway-cognito-auth": "^1.0.5",
+    "keycard-subscription-backend": "^1.0.11",
     "pinia": "^3.0.4",
+    "prisma": "^7.2.0",
     "vue": "^3.5.15",
     "vue-router": "^4.4.5"
   },
