@@ -5,8 +5,11 @@
 
   const authStore = useAuthStore()
 
-  // Computed home link - dashboard for logged in, landing for logged out
-  const homeLink = computed(() => (authStore.isAuthenticated ? '/dashboard' : '/'))
+  // Check if app is launched
+  const isLaunched = import.meta.env.VITE_LAUNCHED === 'true'
+
+  // Home link - dashboard for logged in users when launched, otherwise always root
+  const homeLink = computed(() => (isLaunched && authStore.isAuthenticated ? '/dashboard' : '/'))
 
   // Typewriter effect state
   const showTypewriter = ref(false)
@@ -34,33 +37,6 @@
     <div
       class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-teal/20 rounded-full aurora-blob pointer-events-none z-0"
     ></div>
-
-    <!-- Navigation -->
-    <header class="w-full max-w-screen-2xl mx-auto px-6 py-5 relative z-40">
-      <nav class="flex items-center justify-between border-b border-brand-black/10 pb-5">
-        <!-- Logo -->
-        <RouterLink :to="homeLink" class="flex items-center gap-2 group">
-          <div
-            class="w-8 h-8 bg-brand-black rounded-full flex items-center justify-center text-brand-bright transform group-hover:rotate-12 transition-transform duration-300 shadow-lg"
-          >
-            <span class="font-display font-bold text-sm">S.</span>
-          </div>
-          <span
-            class="font-display font-bold text-xl tracking-tight group-hover:text-brand-teal transition-colors"
-          >
-            Stay on Brand
-          </span>
-        </RouterLink>
-
-        <!-- Right Action -->
-        <RouterLink
-          to="/login"
-          class="text-sm font-bold border border-brand-black/20 px-5 py-2 rounded-full hover:bg-brand-black hover:text-brand-bg transition-all duration-300"
-        >
-          Sign in
-        </RouterLink>
-      </nav>
-    </header>
 
     <!-- Main Content -->
     <main
@@ -183,8 +159,9 @@
                 <span>RETURN HOME</span>
               </RouterLink>
 
-              <!-- 02: Help & FAQ -->
+              <!-- 02: Help & FAQ (only shown when launched) -->
               <RouterLink
+                v-if="isLaunched"
                 to="/help"
                 class="w-full sm:w-auto px-8 py-3.5 bg-transparent border border-brand-bg/20 text-brand-bg rounded-full font-bold text-sm tracking-wide hover:border-brand-bg/50 hover:bg-brand-bg/5 transition-all flex items-center justify-center gap-2 relative group/outline"
               >
@@ -255,8 +232,8 @@
           <span>All systems operational</span>
         </div>
 
-        <!-- Quick Links -->
-        <div class="flex items-center gap-6 text-brand-black/40 text-xs">
+        <!-- Quick Links (only shown when launched) -->
+        <div v-if="isLaunched" class="flex items-center gap-6 text-brand-black/40 text-xs">
           <RouterLink to="/terms" class="hover:text-brand-black transition-colors"
             >Terms</RouterLink
           >
