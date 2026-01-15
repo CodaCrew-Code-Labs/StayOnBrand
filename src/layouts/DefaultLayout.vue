@@ -29,7 +29,8 @@
       route.name === 'LifetimeDealDisclosure' ||
       route.name === 'AcceptableUsePolicy' ||
       route.name === 'TermsAndConditions' ||
-      route.name === 'ConfirmSubscription'
+      route.name === 'ConfirmSubscription' ||
+      route.name === 'StoryList'
   )
 </script>
 

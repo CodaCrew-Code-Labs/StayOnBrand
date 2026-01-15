@@ -2,6 +2,7 @@
   import { computed } from 'vue'
   import { useRoute } from 'vue-router'
   import { DefaultLayout, AuthLayout, DashboardLayout, LegalLayout, ErrorLayout } from '@/layouts'
+  import ToastContainer from '@/components/ToastContainer.vue'
 
   const route = useRoute()
 
@@ -21,4 +22,5 @@
 
 <template>
   <component :is="currentLayout" />
+  <ToastContainer />
 </template>

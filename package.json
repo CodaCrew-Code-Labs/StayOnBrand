@@ -15,7 +15,8 @@
     "prepare": "husky",
     "gateway": "ts-node gateway/index.ts",
     "keycard": "npm run keycard:setup && ts-node keycard/index.ts",
-    "keycard:setup": "cp node_modules/keycard-subscription-backend/prisma/schema.prisma prisma/schema.prisma && npx prisma generate"
+    "keycard:setup": "cp node_modules/keycard-subscription-backend/prisma/schema.prisma prisma/schema.prisma && npx prisma generate",
+    "vercel": "npx vercel dev"
   },
   "dependencies": {
     "@prisma/client": "^7.2.0",
@@ -38,6 +39,7 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^22.19.3",
+    "@vercel/node": "^5.5.20",
     "@vitejs/plugin-vue": "^6.0.3",
     "@vitest/coverage-v8": "^4.0.16",
     "@vue/eslint-config-prettier": "^10.1.0",

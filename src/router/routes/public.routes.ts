@@ -18,6 +18,15 @@ export const publicRoutes: RouteRecordRaw[] = [
     }
   },
   {
+    path: '/story',
+    name: 'StoryList',
+    component: () => import('@/views/public/StoryListPage.vue'),
+    meta: {
+      layout: 'default',
+      title: 'Join the Story'
+    }
+  },
+  {
     path: '/pricing',
     name: 'Pricing',
     component: () => import('@/views/public/PricingPage.vue'),
