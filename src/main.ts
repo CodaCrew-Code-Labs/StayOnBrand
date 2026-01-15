@@ -7,6 +7,27 @@ import { useAuthStore } from '@/stores/auth.store'
 
 import './styles/main.css'
 
+// Google Analytics
+const GA_ID = 'G-G2RYWM6FZ2'
+const script = document.createElement('script')
+script.async = true
+script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`
+document.head.appendChild(script)
+
+declare global {
+  interface Window {
+    dataLayer: unknown[]
+    gtag: (...args: unknown[]) => void
+  }
+}
+
+window.dataLayer = window.dataLayer || []
+window.gtag = function gtag(...args: unknown[]) {
+  window.dataLayer.push(args)
+}
+window.gtag('js', new Date())
+window.gtag('config', GA_ID)
+
 const app = createApp(App)
 
 try {
