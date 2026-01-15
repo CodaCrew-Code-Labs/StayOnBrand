@@ -337,6 +337,29 @@
               03
             </div>
           </div>
+
+          <!-- A11y Learn More Button -->
+          <a
+            href="https://medium.com/@mhdrahman/wcag-for-saas-owners-the-complete-guide-to-web-accessibility-compliance-in-2026-8eb794a9bcfa"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="a11y-btn group mt-6 md:mt-8 inline-flex items-center gap-2 px-5 py-2.5 md:px-6 md:py-3 rounded-full font-bold text-xs md:text-sm uppercase tracking-wider"
+          >
+            <span class="relative z-10">Learn more about A11y</span>
+            <svg
+              class="w-3.5 h-3.5 md:w-4 md:h-4 relative z-10"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+              />
+            </svg>
+          </a>
         </div>
 
         <!-- === LEFT SIDE FLOATING ICONS (Scattered) === -->
@@ -1360,5 +1383,66 @@
   .btn-submit:disabled {
     transform: none;
     box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.1);
+  }
+
+  /* A11y Button - Black with Bright Text, Red on Hover */
+  .a11y-btn {
+    background: #1a1a1a;
+    border: 2px solid #1a1a1a;
+    color: #79dcaf;
+    box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.25);
+    animation: a11y-pulse 2s ease-in-out infinite;
+    position: relative;
+    transition:
+      box-shadow 0.2s ease,
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .a11y-btn:hover {
+    background: #e63946;
+    border-color: #e63946;
+    color: #ffffff;
+    box-shadow:
+      0 4px 0 0 rgba(0, 0, 0, 0.25),
+      0 0 25px rgba(230, 57, 70, 0.5);
+    animation: a11y-wobble 0.5s ease-in-out infinite;
+  }
+
+  .a11y-btn:active {
+    transform: translateY(2px) rotate(0deg);
+    box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.2);
+    animation: none;
+  }
+
+  @keyframes a11y-pulse {
+    0%,
+    100% {
+      box-shadow:
+        0 4px 0 0 rgba(0, 0, 0, 0.25),
+        0 0 0 0 rgba(230, 57, 70, 0);
+    }
+    50% {
+      box-shadow:
+        0 4px 0 0 rgba(0, 0, 0, 0.25),
+        0 0 20px 4px rgba(230, 57, 70, 0.4);
+    }
+  }
+
+  @keyframes a11y-wobble {
+    0%,
+    100% {
+      transform: rotate(-3deg) scale(1.05);
+    }
+    25% {
+      transform: rotate(3deg) scale(1.08);
+    }
+    50% {
+      transform: rotate(-3deg) scale(1.05);
+    }
+    75% {
+      transform: rotate(3deg) scale(1.08);
+    }
   }
 </style>
