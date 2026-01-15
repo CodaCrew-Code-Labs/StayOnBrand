@@ -58,7 +58,9 @@
 </script>
 
 <template>
-  <div class="bg-brand-bg text-brand-black relative flex flex-col min-h-screen font-sans">
+  <div
+    class="bg-brand-bg text-brand-black relative flex flex-col min-h-screen font-sans overflow-x-hidden"
+  >
     <!-- === HERO SECTION === -->
     <div class="relative w-full min-h-screen flex flex-col justify-between overflow-hidden">
       <!-- Background Grid -->
@@ -179,7 +181,7 @@
 
       <!-- Main Hero Content -->
       <main
-        class="flex-grow flex flex-col z-10 text-center w-full max-w-screen-2xl mr-auto ml-auto px-4 relative items-center justify-center"
+        class="flex-grow flex flex-col z-10 text-center w-full max-w-screen-2xl mr-auto ml-auto px-3 sm:px-4 md:px-6 relative items-center justify-center overflow-x-hidden"
       >
         <!-- Script Header -->
         <div class="relative mb-6 animate-fade-up">
@@ -211,12 +213,12 @@
           <!-- Line 1: "Every great brand" - Contrast check animation -->
           <div class="relative group/line1" style="animation-delay: 0.1s">
             <div
-              class="absolute -left-4 md:-left-12 top-1/2 -translate-y-1/2 bg-brand-bg text-brand-black w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center font-medium text-xs border border-brand-black animate-float shadow-[2px_2px_0px_0px_#C92216] pulse-glow"
+              class="absolute -left-2 sm:-left-4 md:-left-12 top-1/2 -translate-y-1/2 bg-brand-bg text-brand-black w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-full hidden sm:flex items-center justify-center font-medium text-[10px] sm:text-xs border border-brand-black animate-float shadow-[2px_2px_0px_0px_#C92216] pulse-glow"
             >
               01
             </div>
             <h1
-              class="md:text-7xl lg:text-8xl xl:text-9xl uppercase text-brand-black leading-[0.85] select-none text-5xl tracking-tight font-changa flex gap-2 md:gap-4 contrast-check-text"
+              class="text-3xl sm:text-4xl md:text-7xl lg:text-8xl xl:text-9xl uppercase text-brand-black leading-[0.85] select-none tracking-tight font-changa flex flex-wrap justify-center gap-1 sm:gap-2 md:gap-4 contrast-check-text"
             >
               <span
                 class="inline-block animate-blur-in hover-contrast-flash"
@@ -258,7 +260,7 @@
           <!-- Line 2: "starts with" - Screen reader scan effect -->
           <div class="relative mt-1 group/line2" style="animation-delay: 0.4s">
             <h1
-              class="md:text-8xl lg:text-9xl xl:text-[10rem] uppercase leading-[0.85] select-none text-6xl tracking-wide font-bangers text-brand-red animate-fade-up screen-reader-text"
+              class="text-4xl sm:text-5xl md:text-8xl lg:text-9xl xl:text-[10rem] uppercase leading-[0.85] select-none tracking-wide font-bangers text-brand-red animate-fade-up screen-reader-text"
             >
               starts with
             </h1>
@@ -278,7 +280,7 @@
           <!-- Line 3: "iconic colors" - Color vision simulation -->
           <div class="relative mt-2 group/line3" style="animation-delay: 0.6s">
             <h1
-              class="md:text-7xl lg:text-8xl xl:text-9xl uppercase text-brand-black leading-[0.85] select-none text-5xl tracking-tighter font-archivo color-vision-text"
+              class="text-3xl sm:text-4xl md:text-7xl lg:text-8xl xl:text-9xl uppercase text-brand-black leading-[0.85] select-none tracking-tighter font-archivo color-vision-text"
             >
               <span class="inline-block animate-wave color-letter" style="animation-delay: 0.7s"
                 >i</span
@@ -308,7 +310,7 @@
               >
             </h1>
             <div
-              class="absolute -right-2 md:-right-10 top-0 bg-brand-bright text-brand-black w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center font-medium text-xs border border-brand-black shadow-[2px_2px_0px_0px_#2F7A72] animate-float-delayed pulse-glow"
+              class="absolute -right-2 md:-right-10 top-0 bg-brand-bright text-brand-black w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-full hidden sm:flex items-center justify-center font-medium text-[10px] sm:text-xs border border-brand-black shadow-[2px_2px_0px_0px_#2F7A72] animate-float-delayed pulse-glow"
             >
               02
             </div>
@@ -325,14 +327,14 @@
           </div>
 
           <!-- Line 4: "that are accessible to everyone" - Bebas Neue (tall, thin) -->
-          <div class="relative mt-4 md:mt-6 overflow-hidden pl-12 md:pl-14">
+          <div class="relative mt-4 md:mt-6 overflow-hidden pl-0 sm:pl-10 md:pl-14">
             <h3
-              class="uppercase text-brand-teal leading-[0.85] select-none lg:text-6xl xl:text-7xl md:text-5xl text-4xl tracking-wider font-bebas animate-typewriter"
+              class="uppercase text-brand-teal leading-[0.85] select-none text-xl sm:text-2xl md:text-5xl lg:text-6xl xl:text-7xl tracking-wider font-bebas animate-typewriter"
             >
               that are accessible to everyone
             </h3>
             <div
-              class="absolute top-1/2 -translate-y-1/2 left-0 bg-brand-bg text-brand-black w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center font-medium text-xs border border-brand-black shadow-[2px_2px_0px_0px_#1A1A1A] animate-float-slow"
+              class="absolute top-1/2 -translate-y-1/2 left-0 bg-brand-bg text-brand-black w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-full hidden sm:flex items-center justify-center font-medium text-[10px] sm:text-xs border border-brand-black shadow-[2px_2px_0px_0px_#1A1A1A] animate-float-slow"
             >
               03
             </div>
@@ -712,7 +714,7 @@
             >
               <!-- Input Container -->
               <div
-                class="relative flex flex-col sm:flex-row gap-3 sm:gap-0 bg-brand-bg border-2 border-brand-black rounded-full p-2 transition-all duration-200 input-container"
+                class="relative flex flex-col sm:flex-row gap-3 sm:gap-0 bg-brand-bg border-2 border-brand-black rounded-2xl sm:rounded-full p-2 transition-all duration-200 input-container"
                 :class="{
                   'border-brand-teal shadow-[3px_3px_0px_0px_#2F7A72]': isFocused,
                   'shadow-[4px_4px_0px_0px_#1A1A1A]': !isFocused
@@ -784,7 +786,9 @@
             </div>
 
             <!-- Trust Indicators -->
-            <div class="mt-6 flex items-center justify-center gap-6 text-brand-black/50 text-xs">
+            <div
+              class="mt-6 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-brand-black/50 text-xs"
+            >
               <span class="flex items-center gap-1.5">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
