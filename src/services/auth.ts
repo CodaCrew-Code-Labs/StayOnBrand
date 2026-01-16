@@ -4,16 +4,9 @@ declare global {
   }
 }
 
-const API_URL = (() => {
-  const url = import.meta.env.VITE_AUTH_API_URL || 'http://localhost:3001'
-  try {
-    new URL(url)
-    return url
-  } catch {
-    console.error('Invalid API URL configuration')
-    return 'http://localhost:3001'
-  }
-})()
+const GATEWAY_PORT = import.meta.env.VITE_GATEWAY_PORT || '3001'
+const KEYCARD_PORT = import.meta.env.VITE_KEYCARD_PORT || '3002'
+const API_URL = `http://localhost:${GATEWAY_PORT}`
 
 export class AuthService {
   // Get CSRF token from backend
@@ -89,7 +82,7 @@ export class AuthService {
       console.log('Syncing DodoPayments user for:', email)
 
       // Always try to create/get user to ensure they exist in DodoPayments
-      const createResponse = await fetch('http://localhost:3002/api/v1/user', {
+      const createResponse = await fetch(`http://localhost:${KEYCARD_PORT}/api/v1/user`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -7,7 +7,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 const app = express()
-const port = process.env.AUTH_PORT || 3001
+const port = process.env.VITE_GATEWAY_PORT || 3001
 
 app.use(
   cors({
@@ -55,14 +55,11 @@ try {
   // Manually add domain and redirectUri if missing
   const fullConfig = {
     ...config,
-    domain: config.domain || process.env.COGNITO_DOMAIN || process.env.COGNITO_OAUTH_DOMAIN,
-    redirectUri:
-      config.redirectUri ||
-      process.env.COGNITO_REDIRECT_URI ||
-      process.env.COGNITO_OAUTH_REDIRECT_URI,
+    domain: config.domain || process.env.COGNITO_DOMAIN,
+    redirectUri: config.redirectUri || process.env.COGNITO_REDIRECT_URI,
     scopes: config.scopes || process.env.COGNITO_OAUTH_SCOPES?.split(' ') || ['openid'],
-    oauthDomain: process.env.COGNITO_OAUTH_DOMAIN,
-    oauthRedirectUri: process.env.COGNITO_OAUTH_REDIRECT_URI
+    oauthDomain: process.env.COGNITO_DOMAIN,
+    oauthRedirectUri: process.env.COGNITO_REDIRECT_URI
   }
 
   console.log('Full config with domain/redirectUri:', fullConfig)
@@ -246,8 +243,8 @@ app.post('/auth/reset-password', csrfProtection, async (req, res) => {
   }
 })
 
-// Subscribe to story list (Mailjet) - also available as Vercel serverless function
-app.post('/api/subscribe', async (req, res) => {
+// Subscribe to waitlist (Mailjet) - also available as Vercel serverless function
+app.post('/waitlist/subscribe', async (req, res) => {
   try {
     const { email } = req.body
 

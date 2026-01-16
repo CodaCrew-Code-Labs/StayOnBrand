@@ -1,4 +1,5 @@
-const KEYCARD_API_URL = 'http://localhost:3002/api/v1'
+const KEYCARD_PORT = import.meta.env.VITE_KEYCARD_PORT || '3002'
+const KEYCARD_API_URL = `http://localhost:${KEYCARD_PORT}/api/v1`
 
 export interface UserData {
   email: string

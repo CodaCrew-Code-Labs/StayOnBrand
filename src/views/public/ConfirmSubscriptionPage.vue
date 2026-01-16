@@ -569,6 +569,8 @@
   import { useAuthStore } from '@/stores/auth.store'
   // import { tierService } from '@/services/user.service'
 
+  const KEYCARD_PORT = import.meta.env.VITE_KEYCARD_PORT || '3002'
+
   const router = useRouter()
   const route = useRoute()
   const authStore = useAuthStore()
@@ -664,16 +666,19 @@
 
       try {
         // Call DodoPayments subscribe API
-        const response = await fetch('http://localhost:3002/api/v1/dodopayments/subscribe', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            product_id: productId,
-            customer_email: userEmail.value
-          })
-        })
+        const response = await fetch(
+          `http://localhost:${KEYCARD_PORT}/api/v1/dodopayments/subscribe`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              product_id: productId,
+              customer_email: userEmail.value
+            })
+          }
+        )
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`)

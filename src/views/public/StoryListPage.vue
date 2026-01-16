@@ -19,16 +19,20 @@
 
     try {
       // Use VITE_USE_GATEWAY=true for local dev with gateway server
-      // Otherwise, use relative /api/subscribe (for vercel dev and production)
+      // Otherwise, use relative /api/waitlist/subscribe (for vercel dev and production)
       const useGateway = import.meta.env.VITE_USE_GATEWAY === 'true'
-      const baseUrl = useGateway ? import.meta.env.VITE_AUTH_API_URL || 'http://localhost:3001' : ''
-      const response = await fetch(`${baseUrl}/api/subscribe`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email: email.value })
-      })
+      const gatewayPort = import.meta.env.VITE_GATEWAY_PORT || '3001'
+      const baseUrl = useGateway ? `http://localhost:${gatewayPort}` : ''
+      const response = await fetch(
+        `${baseUrl}${useGateway ? '/waitlist/subscribe' : '/api/waitlist/subscribe'}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email: email.value })
+        }
+      )
 
       // Check if response is valid JSON
       const contentType = response.headers.get('content-type')
