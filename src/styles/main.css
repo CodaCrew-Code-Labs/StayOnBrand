@@ -459,6 +459,18 @@
   }
 }
 
+/* Fade slide in effect for table rows */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Wiggle animation */
 @keyframes wiggle {
   0%,
@@ -1052,6 +1064,617 @@ html {
   content: '|';
   animation: blink 1s infinite;
   margin-left: 2px;
+}
+
+/* ========================================
+   HAND-DRAWN / NEO-BRUTALISM UTILITIES
+   ======================================== */
+
+/* Wobbly hand-drawn border effect using SVG filter */
+.hand-drawn-border {
+  position: relative;
+  border: 3px solid var(--color-brand-black);
+}
+
+.hand-drawn-border::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 2px solid var(--color-brand-black);
+  border-radius: inherit;
+  opacity: 0.3;
+  transform: rotate(0.5deg);
+  pointer-events: none;
+}
+
+/* Paper texture background */
+.paper-bg {
+  background-color: #faf6ed;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-blend-mode: soft-light;
+  background-size: 150px;
+}
+
+/* Marker/highlighter effect for text */
+.marker-highlight {
+  position: relative;
+  display: inline;
+}
+
+.marker-highlight::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  right: -4px;
+  bottom: 0;
+  height: 40%;
+  background: var(--color-brand-bright);
+  opacity: 0.5;
+  z-index: -1;
+  transform: rotate(-0.5deg) skewX(-5deg);
+}
+
+.marker-highlight-red::before {
+  background: var(--color-brand-red);
+  opacity: 0.25;
+}
+
+.marker-highlight-teal::before {
+  background: var(--color-brand-teal);
+  opacity: 0.3;
+}
+
+/* Wiggle animation on hover */
+@keyframes wiggleHover {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-1.5deg);
+  }
+  75% {
+    transform: rotate(1.5deg);
+  }
+}
+
+.wiggle-hover {
+  transition: transform 0.2s ease;
+}
+
+.wiggle-hover:hover {
+  animation: wiggleHover 0.4s ease-in-out;
+}
+
+/* Hand-drawn scribble underline */
+.hand-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.hand-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 6px;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 5 Q25 2, 50 5 T100 4' fill='none' stroke='%231a1a1a' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.hand-underline-teal::after {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 5 Q25 2, 50 5 T100 4' fill='none' stroke='%232f7a72' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+.hand-underline-red::after {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 5 Q25 2, 50 5 T100 4' fill='none' stroke='%23c92216' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+/* Draw-in animation for borders */
+@keyframes drawIn {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.draw-in {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawIn 1.5s ease-out forwards;
+}
+
+/* Bouncy spring animation */
+@keyframes springBounce {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.08);
+  }
+  50% {
+    transform: scale(0.96);
+  }
+  70% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.spring-bounce:active {
+  animation: springBounce 0.4s ease-out;
+}
+
+/* Neo-brutalist button with shadow shift */
+.neo-button {
+  position: relative;
+  border: 3px solid var(--color-brand-black);
+  box-shadow: 4px 4px 0px 0px var(--color-brand-black);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.neo-button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px 0px var(--color-brand-black);
+}
+
+.neo-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px 0px var(--color-brand-black);
+}
+
+/* Notebook ruled lines background */
+.notebook-lines {
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 27px,
+    rgba(0, 0, 0, 0.08) 27px,
+    rgba(0, 0, 0, 0.08) 28px
+  );
+  background-size: 100% 28px;
+}
+
+/* Hand-drawn circle effect */
+.hand-circle {
+  position: relative;
+}
+
+.hand-circle::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border: 2.5px solid var(--color-brand-black);
+  border-radius: 50%;
+  transform: rotate(-3deg);
+  clip-path: polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%);
+}
+
+/* Torn paper edge effect */
+.torn-edge-bottom {
+  position: relative;
+}
+
+.torn-edge-bottom::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 16px;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 8 Q10 4, 20 8 T40 6 T60 10 T80 6 T100 8 T120 5 T140 9 T160 6 T180 8 T200 7 L200 16 L0 16 Z' fill='%23faf6ed'/%3E%3C/svg%3E");
+  background-size: 200px 16px;
+  background-repeat: repeat-x;
+}
+
+/* ========================================
+   VARIATION C: BALANCED HYBRID DESIGN SYSTEM
+   ======================================== */
+
+/* Corner fold decoration */
+.corner-fold {
+  position: relative;
+  overflow: visible;
+}
+
+.corner-fold::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 28px 28px 0;
+  border-color: transparent var(--color-brand-bg) transparent transparent;
+  z-index: 2;
+}
+
+.corner-fold::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, transparent 50%, rgba(0, 0, 0, 0.08) 50%);
+  z-index: 1;
+}
+
+/* Tape decoration variations */
+.tape-decoration {
+  position: relative;
+}
+
+.tape-decoration::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 20px;
+  width: 48px;
+  height: 18px;
+  background: #e8dcc8;
+  border: 1.5px solid var(--color-brand-black);
+  transform: rotate(-6deg);
+  z-index: 10;
+  opacity: 0.9;
+}
+
+.tape-mint::before {
+  background: var(--color-brand-bright);
+  opacity: 0.7;
+}
+
+.tape-red::before {
+  background: var(--color-brand-red);
+  opacity: 0.6;
+}
+
+/* Sketchy circle overlay for avatars */
+.sketchy-circle {
+  position: relative;
+}
+
+.sketchy-circle::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border: 2px dashed var(--color-brand-black);
+  border-radius: 50%;
+  transform: rotate(-4deg);
+  opacity: 0.4;
+}
+
+.sketchy-circle::after {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border: 1.5px solid var(--color-brand-black);
+  border-radius: 50%;
+  transform: rotate(3deg);
+  opacity: 0.2;
+  clip-path: polygon(0 0, 85% 0, 100% 50%, 85% 100%, 0 100%);
+}
+
+/* Subtle card with balanced shadow */
+.card-hybrid {
+  background: #faf6ed;
+  border: 3px solid var(--color-brand-black);
+  box-shadow: 4px 4px 0px 0px var(--color-brand-teal);
+  border-radius: 4px;
+  position: relative;
+}
+
+.card-hybrid-red {
+  box-shadow: 4px 4px 0px 0px var(--color-brand-red);
+}
+
+.card-hybrid-dark {
+  box-shadow: 4px 4px 0px 0px var(--color-brand-black);
+}
+
+/* Soft rotation utility classes */
+.rotate-slight-left {
+  transform: rotate(-0.3deg);
+}
+
+.rotate-slight-right {
+  transform: rotate(0.3deg);
+}
+
+.rotate-medium-left {
+  transform: rotate(-0.8deg);
+}
+
+.rotate-medium-right {
+  transform: rotate(0.8deg);
+}
+
+/* Badge with subtle rotation */
+.badge-hybrid {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--color-brand-bright);
+  opacity: 0.9;
+  border: 2px solid var(--color-brand-black);
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  transform: rotate(0.5deg);
+}
+
+.badge-hybrid-outline {
+  background: transparent;
+  border: 2px solid var(--color-brand-black);
+  opacity: 0.7;
+}
+
+/* Input field with hybrid style */
+.input-hybrid {
+  background: white;
+  border: 2px solid rgba(26, 26, 26, 0.2);
+  border-radius: 4px;
+  padding: 12px 16px;
+  transition: all 0.2s ease;
+  box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 0.05);
+}
+
+.input-hybrid:focus {
+  border-color: var(--color-brand-black);
+  box-shadow: 3px 3px 0px 0px var(--color-brand-teal);
+  outline: none;
+}
+
+/* Dashed divider */
+.divider-dashed {
+  border: none;
+  border-top: 2px dashed rgba(26, 26, 26, 0.2);
+  margin: 1.5rem 0;
+}
+
+/* Small doodle decorations */
+.doodle-corner {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.15;
+}
+
+/* Stat card hybrid */
+.stat-hybrid {
+  background: white;
+  border: 2px solid rgba(26, 26, 26, 0.2);
+  border-radius: 4px;
+  padding: 16px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.stat-hybrid:hover {
+  border-color: var(--color-brand-black);
+  transform: translateY(-2px);
+  box-shadow: 3px 3px 0px 0px rgba(0, 0, 0, 0.1);
+}
+
+.stat-hybrid-highlight {
+  background: white;
+  border: 3px solid var(--color-brand-black);
+  box-shadow: 4px 4px 0px 0px var(--color-brand-teal);
+}
+
+.stat-hybrid-highlight:hover {
+  transform: translateY(-2px) rotate(-0.5deg);
+  box-shadow: 5px 5px 0px 0px var(--color-brand-teal);
+}
+
+/* Marker highlight - refined */
+.marker-subtle {
+  position: relative;
+  display: inline;
+}
+
+.marker-subtle::before {
+  content: '';
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  bottom: 2px;
+  height: 35%;
+  background: var(--color-brand-bright);
+  opacity: 0.4;
+  z-index: -1;
+  transform: skewX(-3deg);
+}
+
+/* Button hybrid style */
+.btn-hybrid {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: white;
+  border: 3px solid var(--color-brand-black);
+  border-radius: 4px;
+  font-weight: 700;
+  box-shadow: 4px 4px 0px 0px var(--color-brand-black);
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.btn-hybrid:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0px 0px var(--color-brand-black);
+}
+
+.btn-hybrid:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px 0px var(--color-brand-black);
+}
+
+.btn-hybrid-primary {
+  background: var(--color-brand-teal);
+  color: white;
+}
+
+.btn-hybrid-sm {
+  padding: 8px 14px;
+  font-size: 0.875rem;
+  box-shadow: 3px 3px 0px 0px var(--color-brand-black);
+}
+
+.btn-hybrid-sm:hover {
+  box-shadow: 4px 4px 0px 0px var(--color-brand-black);
+}
+
+/* Icon button hybrid */
+.icon-btn-hybrid {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: white;
+  border: 2px solid var(--color-brand-black);
+  border-radius: 4px;
+  box-shadow: 3px 3px 0px 0px var(--color-brand-black);
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.icon-btn-hybrid:hover {
+  background: var(--color-brand-teal);
+  color: white;
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px 0px var(--color-brand-black);
+}
+
+.icon-btn-hybrid:active {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0px 0px var(--color-brand-black);
+}
+
+/* Table hybrid style */
+.table-hybrid {
+  width: 100%;
+  border: 3px solid var(--color-brand-black);
+  border-radius: 4px;
+  overflow: hidden;
+  background: white;
+}
+
+.table-hybrid-header {
+  background: var(--color-brand-bg);
+  border-bottom: 2px solid var(--color-brand-black);
+  padding: 12px 16px;
+}
+
+.table-hybrid-row {
+  border-bottom: 1px dashed rgba(26, 26, 26, 0.15);
+  padding: 16px;
+  transition: background 0.2s ease;
+}
+
+.table-hybrid-row:last-child {
+  border-bottom: none;
+}
+
+.table-hybrid-row:hover {
+  background: rgba(121, 220, 175, 0.08);
+}
+
+/* Navigation item hybrid */
+.nav-item-hybrid {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: white;
+  border: 2px solid rgba(26, 26, 26, 0.15);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.nav-item-hybrid:hover {
+  border-color: rgba(26, 26, 26, 0.3);
+  background: var(--color-brand-bg);
+}
+
+.nav-item-hybrid-active {
+  background: rgba(121, 220, 175, 0.3);
+  border: 3px solid var(--color-brand-black);
+  box-shadow: 4px 4px 0px 0px var(--color-brand-black);
+  transform: rotate(-0.3deg);
+}
+
+/* Section header with underline */
+.section-header-hybrid {
+  display: inline-block;
+  position: relative;
+}
+
+.section-header-hybrid::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 3px;
+  background: var(--color-brand-teal);
+  transform: scaleX(0.9) skewX(-5deg);
+}
+
+/* Empty state hybrid */
+.empty-state-hybrid {
+  padding: 48px 24px;
+  background: white;
+  border: 2px dashed rgba(26, 26, 26, 0.25);
+  border-radius: 4px;
+  text-align: center;
+}
+
+/* Loading skeleton hybrid */
+.skeleton-hybrid {
+  background: linear-gradient(
+    90deg,
+    rgba(26, 26, 26, 0.06) 25%,
+    rgba(26, 26, 26, 0.1) 50%,
+    rgba(26, 26, 26, 0.06) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* Simple hand arrow for navigation */
+.hand-arrow {
+  position: relative;
+}
+
+.hand-arrow::after {
+  content: '→';
+  font-family: var(--font-script);
+  font-size: 1.25rem;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: all 0.2s ease;
+}
+
+.hand-arrow:hover::after {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 /* Reduce motion for accessibility */

@@ -1,11 +1,4 @@
-declare global {
-  interface Window {
-    dodoId?: string
-  }
-}
-
 const GATEWAY_PORT = import.meta.env.VITE_GATEWAY_PORT || '3001'
-const KEYCARD_PORT = import.meta.env.VITE_KEYCARD_PORT || '3002'
 const API_URL = `http://localhost:${GATEWAY_PORT}`
 
 export class AuthService {
@@ -76,37 +69,6 @@ export class AuthService {
     }
   }
 
-  // DodoPayments user sync methods
-  static async syncDodoUser(email: string): Promise<string | null> {
-    try {
-      console.log('Syncing DodoPayments user for:', email)
-
-      // Always try to create/get user to ensure they exist in DodoPayments
-      const createResponse = await fetch(`http://localhost:${KEYCARD_PORT}/api/v1/user`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer test-token'
-        },
-        body: JSON.stringify({ email })
-      })
-
-      console.log('Create/check user response status:', createResponse.status)
-
-      if (createResponse.ok) {
-        const userData = await createResponse.json()
-        console.log('User data from POST:', userData)
-        return userData.uuid || null
-      }
-
-      console.log('Failed to sync user')
-      return null
-    } catch (error) {
-      console.error('Failed to sync DodoPayments user:', error)
-      return null
-    }
-  }
-
   static async login(
     email: string,
     password: string,
@@ -129,17 +91,6 @@ export class AuthService {
     }
 
     const result = await response.json()
-
-    // Sync with DodoPayments after successful login
-    try {
-      const dodoId = await this.syncDodoUser(email)
-      if (dodoId) {
-        // Store dodo ID globally
-        window.dodoId = dodoId
-      }
-    } catch (error) {
-      console.warn('DodoPayments sync failed during login:', error)
-    }
 
     // Store tokens and remember me preference
     if (rememberMe) {
@@ -234,17 +185,6 @@ export class AuthService {
     }
 
     const result = await response.json()
-
-    // Create DodoPayments customer after successful signup
-    try {
-      const dodoId = await this.syncDodoUser(email)
-      if (dodoId) {
-        // Store dodo ID globally
-        window.dodoId = dodoId
-      }
-    } catch (error) {
-      console.warn('DodoPayments sync failed during signup:', error)
-    }
 
     console.log('Signup response received successfully')
     return result

@@ -117,41 +117,45 @@
 <template>
   <div class="bg-brand-bg text-brand-black relative flex flex-col font-sans min-h-screen">
     <!-- Background Grid -->
-    <div class="absolute inset-0 pointer-events-none opacity-[0.15] bg-grid z-0"></div>
-    <!-- Dotted Line Grid with Beam -->
-    <div class="absolute inset-0 pointer-events-none bg-grid-lines z-0">
-      <div
-        class="absolute inset-0 bg-linear-to-b from-transparent via-brand-red/5 to-transparent h-[50vh] animate-scan-vertical blur-md"
-      ></div>
-    </div>
+    <div class="absolute inset-0 pointer-events-none opacity-[0.12] bg-grid z-0"></div>
 
-    <!-- Decorative Noodle SVGs -->
+    <!-- Notebook lines background effect -->
+    <div class="absolute inset-0 pointer-events-none notebook-lines opacity-30 z-0"></div>
+
+    <!-- Hand-drawn decorative SVGs -->
     <svg
-      class="absolute top-0 left-0 w-full h-full pointer-events-none z-0 overflow-visible"
-      xmlns="http://www.w3.org/2000/svg"
+      class="absolute top-20 left-10 w-16 h-16 pointer-events-none z-0 opacity-20"
+      viewBox="0 0 100 100"
     >
-      <path
-        d="M 100 200 Q 50 400 150 600"
-        fill="none"
-        stroke="#C92216"
-        stroke-width="1.5"
-        class="opacity-30 noodle-path"
-      />
-      <path
-        d="M 90% 100 Q 85% 300 95% 500"
+      <circle
+        cx="50"
+        cy="50"
+        r="45"
         fill="none"
         stroke="#2F7A72"
-        stroke-width="1.5"
-        class="opacity-30 noodle-path"
+        stroke-width="2"
+        stroke-dasharray="8 4"
+        class="draw-in"
+      />
+    </svg>
+    <svg
+      class="absolute top-40 right-20 w-12 h-12 pointer-events-none z-0 opacity-15"
+      viewBox="0 0 100 100"
+    >
+      <path
+        d="M10 50 Q 50 10 90 50 Q 50 90 10 50"
+        fill="none"
+        stroke="#C92216"
+        stroke-width="2"
+        class="draw-in"
         style="animation-delay: 0.5s"
       />
-      <circle r="4" fill="#C92216">
-        <animateMotion dur="10s" repeatCount="indefinite" path="M 100 200 Q 50 400 150 600" />
-      </circle>
     </svg>
 
     <!-- Scroll Progress Indicator -->
-    <div class="fixed top-0 left-0 w-full h-1 bg-brand-bg/50 z-[60]">
+    <div
+      class="fixed top-0 left-0 w-full h-1.5 bg-brand-bg/50 z-[60] border-b-2 border-brand-black/10"
+    >
       <div
         class="h-full bg-brand-red transition-all duration-300 ease-out"
         :style="{ width: `${scrollProgress}%` }"
@@ -159,130 +163,96 @@
     </div>
 
     <!-- Navigation -->
-    <header
-      class="z-50 md:px-12 w-full max-w-screen-2xl mr-auto ml-auto pt-6 px-6 pb-6 relative scroll-animate fade-down"
+    <nav
+      class="relative z-50 w-full max-w-screen-2xl mx-auto px-6 md:px-12 py-6 flex items-center justify-between scroll-animate fade-down"
     >
-      <nav class="flex w-full items-center justify-between">
-        <!-- Left Nav Items -->
-        <div class="gap-3 hidden md:flex">
-          <RouterLink
-            :to="homeLink"
-            class="group text-brand-black border-brand-black transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden hover:bg-brand-bright text-xs font-semibold tracking-wide border rounded-full pt-2 px-5 pb-2 relative shadow-[3px_3px_0px_0px_#1A1A1A]"
-          >
-            <span class="z-10 relative">HOME</span>
-          </RouterLink>
-          <RouterLink
-            to="/help"
-            class="group text-brand-black border-brand-black transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden hover:bg-brand-bright text-xs font-semibold tracking-wide border rounded-full pt-2 px-5 pb-2 relative shadow-[3px_3px_0px_0px_#1A1A1A]"
-          >
-            <span class="z-10 relative">WHAT'S WCAG ???</span>
-          </RouterLink>
+      <!-- Logo -->
+      <RouterLink :to="homeLink" class="flex items-center gap-2 group">
+        <div
+          class="w-10 h-10 bg-brand-black rounded-full flex items-center justify-center transform group-hover:rotate-6 transition-transform duration-300 border-3 border-brand-black shadow-[3px_3px_0px_0px_#2F7A72]"
+        >
+          <span class="font-display font-bold text-base text-brand-bright">S.</span>
         </div>
+        <span
+          class="text-xl font-bold tracking-tight text-brand-black group-hover:text-brand-teal transition-colors hidden sm:inline"
+        >
+          Stay on Brand
+        </span>
+      </RouterLink>
 
-        <!-- Mobile Menu Icon -->
-        <button class="md:hidden text-brand-black">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <line x1="4" x2="20" y1="12" y2="12" />
-            <line x1="4" x2="20" y1="6" y2="6" />
-            <line x1="4" x2="20" y1="18" y2="18" />
-          </svg>
-        </button>
+      <!-- Center Badge -->
+      <div class="hidden md:flex absolute left-1/2 -translate-x-1/2">
+        <div
+          class="bg-brand-bright border-3 border-brand-black px-4 py-2 rounded-[4px] shadow-[4px_4px_0px_0px_#1A1A1A] transform rotate-[0.5deg]"
+        >
+          <span class="font-script text-lg text-brand-black">Refund Policy</span>
+        </div>
+      </div>
 
-        <!-- Center Logo -->
+      <!-- Right Nav Items -->
+      <div class="flex gap-3 items-center">
         <RouterLink
           :to="homeLink"
-          class="group cursor-pointer transform -translate-x-1/2 absolute left-1/2"
+          class="group relative bg-brand-bg text-brand-black px-5 py-2 rounded-[4px] border-3 border-brand-black font-semibold text-xs tracking-wide shadow-[4px_4px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden hover:bg-brand-bright hidden md:flex wiggle-hover"
         >
-          <div
-            class="absolute inset-0 bg-brand-bright rounded-full opacity-0 group-hover:animate-sonar"
-          ></div>
-          <div
-            class="w-10 h-10 bg-brand-black rounded-full flex items-center justify-center text-brand-bg transition-transform hover:scale-105 border border-brand-black relative overflow-hidden"
-          >
-            <span class="font-display font-bold tracking-tighter text-lg text-brand-bright"
-              >S.</span
-            >
-          </div>
+          <span class="z-10 relative">HOME</span>
         </RouterLink>
-
-        <!-- Right Nav Items -->
-        <div class="flex gap-3 items-center">
+        <RouterLink
+          to="/pricing"
+          class="group relative bg-brand-bg text-brand-black px-5 py-2 rounded-[4px] border-3 border-brand-black font-semibold text-xs tracking-wide shadow-[4px_4px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden hover:bg-brand-bright hidden md:flex wiggle-hover"
+        >
+          <span class="z-10 relative">PRICING</span>
+        </RouterLink>
+        <!-- Show signup for guests -->
+        <template v-if="!authStore.isAuthenticated">
           <RouterLink
-            to="/pricing"
-            class="group relative bg-brand-bg text-brand-black px-5 py-2 rounded-full border border-brand-black font-semibold text-xs tracking-wide shadow-[3px_3px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden hover:bg-brand-bright hidden md:flex"
+            to="/signup"
+            class="group relative bg-brand-bright text-brand-black px-5 py-2 rounded-[4px] border-3 border-brand-black font-semibold text-xs tracking-wide shadow-[4px_4px_0px_0px_#C92216] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#C92216] hover-beam overflow-hidden neo-button"
           >
-            <span class="z-10 relative">PRICING</span>
+            <span class="relative z-10">GET STARTED</span>
           </RouterLink>
-          <!-- Show signup for guests -->
-          <template v-if="!authStore.isAuthenticated">
-            <RouterLink
-              to="/signup"
-              class="group relative bg-brand-bright text-brand-black px-5 py-2 rounded-full border border-brand-black font-semibold text-xs tracking-wide shadow-[3px_3px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden"
-            >
-              <span class="relative z-10">GET STARTED</span>
-            </RouterLink>
-          </template>
-          <!-- Show sign out for authenticated users -->
-          <template v-else>
-            <button
-              class="group relative bg-brand-bright text-brand-black px-5 py-2 rounded-full border border-brand-black font-semibold text-xs tracking-wide shadow-[3px_3px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden"
-              @click="handleSignOut"
-            >
-              <span class="relative z-10">SIGN OUT</span>
-            </button>
-          </template>
-        </div>
-      </nav>
-    </header>
+        </template>
+        <!-- Show sign out for authenticated users -->
+        <template v-else>
+          <button
+            class="group relative bg-brand-bright text-brand-black px-5 py-2 rounded-[4px] border-3 border-brand-black font-semibold text-xs tracking-wide shadow-[4px_4px_0px_0px_#C92216] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#C92216] hover-beam overflow-hidden neo-button"
+            @click="handleSignOut"
+          >
+            <span class="relative z-10">SIGN OUT</span>
+          </button>
+        </template>
+      </div>
+    </nav>
 
     <!-- Hero Section -->
     <section class="relative z-10 pt-12 md:pt-20 pb-16 px-6 md:px-12">
       <div class="max-w-screen-2xl mx-auto text-center">
         <!-- Script Header -->
-        <div class="relative mb-6 scroll-animate fade-up">
+        <div class="relative mb-6 scroll-animate fade-up inline-block">
           <span
-            class="md:text-3xl text-brand-red block transform hover:rotate-0 transition-transform cursor-default text-2xl font-medium font-script rotate-[-3deg] wiggle-hover"
+            class="md:text-3xl text-brand-red block text-2xl font-script transform rotate-[-2deg] wiggle-hover cursor-default"
           >
             #ClearPolicies
           </span>
+          <!-- Hand-drawn star decoration -->
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
+            class="absolute -right-8 -top-2 w-6 h-6 text-brand-teal opacity-80"
             viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="absolute -right-6 -top-3 text-brand-teal opacity-80 animate-pulse"
+            fill="currentColor"
           >
-            <path
-              d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
-            />
+            <path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7-6.3-4.6-6.3 4.6 2.3-7-6-4.6h7.6z" />
           </svg>
         </div>
 
         <!-- Main Headline -->
         <div class="leading-none flex flex-col max-w-5xl mx-auto relative items-center">
           <div class="relative scroll-animate fade-up delay-100">
+            <!-- Hand-drawn circle decoration -->
             <div
-              class="absolute -left-4 md:-left-16 top-1/2 -translate-y-1/2 bg-brand-bg text-brand-black w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center font-medium text-xs border border-brand-black animate-float shadow-[2px_2px_0px_0px_#2F7A72] pulse-glow"
+              class="absolute -left-4 md:-left-16 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full border-3 border-brand-black bg-brand-bg flex items-center justify-center shadow-[3px_3px_0px_0px_#2F7A72] transform rotate-[-3deg] animate-float"
             >
               <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="14"
-                height="14"
+                class="w-5 h-5 text-brand-teal"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -304,20 +274,26 @@
             >
               Policy
             </h1>
+            <!-- Hand-drawn underline -->
             <svg
-              class="absolute -bottom-1 left-0 w-full h-3 md:h-5 text-brand-bright opacity-90"
-              viewBox="0 0 100 10"
+              class="absolute -bottom-2 left-0 w-full h-4 md:h-6"
+              viewBox="0 0 200 12"
               preserveAspectRatio="none"
             >
-              <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="2" fill="none" />
+              <path
+                d="M0 8 Q 50 2 100 8 T 200 6"
+                stroke="#79dcaf"
+                stroke-width="3"
+                fill="none"
+                stroke-linecap="round"
+              />
             </svg>
+            <!-- Floating badge -->
             <div
-              class="absolute -right-2 md:-right-12 top-1/2 -translate-y-1/2 bg-brand-bright text-brand-black w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center font-medium text-xs border border-brand-black shadow-[2px_2px_0px_0px_#C92216] animate-float-delayed pulse-glow"
+              class="absolute -right-2 md:-right-14 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full border-3 border-brand-black bg-brand-bright flex items-center justify-center shadow-[3px_3px_0px_0px_#C92216] transform rotate-[3deg] animate-float-delayed"
             >
               <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="14"
-                height="14"
+                class="w-5 h-5 text-brand-black"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -338,17 +314,16 @@
           Policy, and Privacy Policy.
         </p>
 
-        <!-- Last Updated Badge & Download Button -->
+        <!-- Last Updated & Download Row -->
         <div
-          class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4 scroll-animate fade-up delay-400"
+          class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 scroll-animate fade-up delay-400"
         >
+          <!-- Last Updated Badge -->
           <div
-            class="inline-flex items-center gap-2 bg-brand-black text-brand-bg px-4 py-2 rounded-full text-xs font-semibold"
+            class="inline-flex items-center gap-2 bg-brand-black text-brand-bg px-5 py-2.5 rounded-[4px] text-sm font-semibold border-3 border-brand-black shadow-[4px_4px_0px_0px_#2F7A72] transform rotate-[-0.3deg]"
           >
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
+              class="w-4 h-4"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -357,41 +332,42 @@
               <circle cx="12" cy="12" r="10" />
               <polyline points="12 6 12 12 16 14" />
             </svg>
-            Last Updated: January 08, 2026
+            <span class="font-script text-base">Last Updated:</span>
+            <span>January 08, 2026</span>
           </div>
+
+          <!-- Download Button -->
           <a
             href="/StayOnBrand_Refund_Policy.pdf"
             download="StayOnBrand_Refund_Policy.pdf"
-            class="group inline-flex items-center gap-2 bg-brand-red text-brand-bg px-5 py-2 rounded-full text-xs font-semibold border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0px_0px_#1A1A1A] transition-all duration-300"
+            class="group relative bg-brand-red text-brand-bg px-5 py-2.5 rounded-[4px] border-3 border-brand-black font-semibold text-sm tracking-wide shadow-[4px_4px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#1A1A1A] overflow-hidden inline-flex items-center gap-2 transform rotate-[0.3deg]"
           >
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
+              class="w-4 h-4 relative z-10"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
               stroke-width="2"
-              class="group-hover:animate-bounce"
             >
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
               <polyline points="7 10 12 15 17 10" />
               <line x1="12" y1="15" x2="12" y2="3" />
             </svg>
-            Download PDF
+            <span class="relative z-10">DOWNLOAD PDF</span>
           </a>
         </div>
 
-        <!-- Key Points Summary -->
+        <!-- Key Points Summary Cards -->
         <div
-          class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto scroll-animate fade-up delay-500"
+          class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-5 max-w-4xl mx-auto scroll-animate fade-up delay-500"
         >
-          <div
-            class="bg-brand-bg border border-brand-black rounded-2xl p-5 shadow-[4px_4px_0px_0px_#2F7A72] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#2F7A72] transition-all duration-300"
-          >
-            <div class="w-10 h-10 bg-brand-teal rounded-xl flex items-center justify-center mb-3">
+          <!-- Card 1 -->
+          <div class="card-hybrid paper-bg p-5 transform rotate-[-0.3deg] tape-decoration">
+            <div
+              class="w-12 h-12 bg-brand-teal rounded-xl flex items-center justify-center mb-3 border-3 border-brand-black shadow-[2px_2px_0px_0px_#1A1A1A]"
+            >
               <svg
-                class="w-5 h-5 text-brand-bg"
+                class="w-6 h-6 text-brand-bg"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -401,15 +377,25 @@
                 <line x1="2" y1="10" x2="22" y2="10" />
               </svg>
             </div>
-            <p class="text-sm font-semibold text-brand-black">Digital Service</p>
-            <p class="text-xs text-brand-gray mt-1">All purchases are for digital service access</p>
+            <p class="text-base font-bold text-brand-black">Digital Service</p>
+            <p class="text-sm text-brand-gray mt-1 font-script">
+              All purchases are for digital service access
+            </p>
           </div>
-          <div
-            class="bg-brand-bg border border-brand-black rounded-2xl p-5 shadow-[4px_4px_0px_0px_#C92216] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#C92216] transition-all duration-300"
-          >
-            <div class="w-10 h-10 bg-brand-red rounded-xl flex items-center justify-center mb-3">
+
+          <!-- Card 2 - Highlighted -->
+          <div class="card-hybrid card-hybrid-red paper-bg p-5 transform rotate-[0.5deg] relative">
+            <!-- Marker highlight effect on this card -->
+            <div class="absolute top-2 right-2">
+              <span class="font-script text-xs text-brand-red transform rotate-[8deg] inline-block"
+                >important!</span
+              >
+            </div>
+            <div
+              class="w-12 h-12 bg-brand-red rounded-xl flex items-center justify-center mb-3 border-3 border-brand-black shadow-[2px_2px_0px_0px_#1A1A1A]"
+            >
               <svg
-                class="w-5 h-5 text-brand-bg"
+                class="w-6 h-6 text-brand-bg"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -420,15 +406,19 @@
                 <line x1="9" y1="9" x2="15" y2="15" />
               </svg>
             </div>
-            <p class="text-sm font-semibold text-brand-black">Final Purchases</p>
-            <p class="text-xs text-brand-gray mt-1">All purchases are final and non-refundable</p>
+            <p class="text-base font-bold text-brand-black marker-highlight">Final Purchases</p>
+            <p class="text-sm text-brand-gray mt-1 font-script">
+              All purchases are final and non-refundable
+            </p>
           </div>
-          <div
-            class="bg-brand-bg border border-brand-black rounded-2xl p-5 shadow-[4px_4px_0px_0px_#79dcaf] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#79dcaf] transition-all duration-300"
-          >
-            <div class="w-10 h-10 bg-brand-bright rounded-xl flex items-center justify-center mb-3">
+
+          <!-- Card 3 -->
+          <div class="card-hybrid paper-bg p-5 transform rotate-[-0.5deg] corner-fold">
+            <div
+              class="w-12 h-12 bg-brand-bright rounded-xl flex items-center justify-center mb-3 border-3 border-brand-black shadow-[2px_2px_0px_0px_#1A1A1A]"
+            >
               <svg
-                class="w-5 h-5 text-brand-black"
+                class="w-6 h-6 text-brand-black"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -438,8 +428,10 @@
                 <path d="m9 12 2 2 4-4" />
               </svg>
             </div>
-            <p class="text-sm font-semibold text-brand-black">Exceptions Apply</p>
-            <p class="text-xs text-brand-gray mt-1">Limited exceptions for duplicate charges</p>
+            <p class="text-base font-bold text-brand-black">Exceptions Apply</p>
+            <p class="text-sm text-brand-gray mt-1 font-script">
+              Limited exceptions for duplicate charges
+            </p>
           </div>
         </div>
       </div>
@@ -449,89 +441,88 @@
     <main class="relative z-10 flex-grow pb-20 px-6 md:px-12">
       <div class="max-w-screen-2xl mx-auto">
         <!-- Content Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 lg:gap-12">
           <!-- Left Sidebar: Navigation -->
-          <aside class="hidden lg:block lg:col-span-4">
-            <div class="sticky top-20 space-y-5">
+          <aside class="md:col-span-5 lg:col-span-4">
+            <div class="sticky top-24 space-y-5">
               <!-- Reading Progress Card -->
               <div
-                class="relative overflow-hidden bg-gradient-to-br from-brand-black via-brand-black to-brand-black/90 rounded-3xl p-6 border border-brand-black shadow-[6px_6px_0px_0px_#2F7A72]"
+                class="card-hybrid p-6 transform rotate-slight-left relative overflow-hidden"
+                style="background: #1a1a1a; box-shadow: 4px 4px 0px 0px #2f7a72"
               >
-                <!-- Decorative Background Pattern -->
-                <div class="absolute inset-0 opacity-10">
+                <!-- Tape decoration -->
+                <div
+                  class="absolute -top-1 left-6 w-12 h-5 bg-brand-bright/70 border-2 border-brand-black transform rotate-[-4deg]"
+                ></div>
+
+                <div class="flex items-center gap-3 mb-4 mt-2">
                   <div
-                    class="absolute top-0 right-0 w-32 h-32 bg-brand-bright rounded-full blur-3xl"
-                  ></div>
-                  <div
-                    class="absolute bottom-0 left-0 w-24 h-24 bg-brand-teal rounded-full blur-2xl"
-                  ></div>
+                    class="w-12 h-12 bg-brand-bright rounded-xl flex items-center justify-center border-3 border-brand-bright"
+                  >
+                    <svg
+                      class="w-6 h-6 text-brand-black"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-brand-bg font-bold text-lg">Refund Policy</p>
+                    <p class="text-brand-bg/50 text-xs font-script">Clear & Transparent</p>
+                  </div>
                 </div>
 
-                <div class="relative z-10">
-                  <div class="flex items-center justify-between mb-4">
-                    <div class="flex items-center gap-3">
-                      <div
-                        class="w-12 h-12 bg-brand-bright rounded-2xl flex items-center justify-center shadow-lg"
-                      >
-                        <svg
-                          class="w-6 h-6 text-brand-black"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        >
-                          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                        </svg>
-                      </div>
-                      <div>
-                        <p class="text-brand-bg font-bold text-lg">Refund Policy</p>
-                        <p class="text-brand-bg/50 text-xs">Clear & Transparent</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Reading Progress -->
-                  <div class="mb-4">
-                    <div class="flex justify-between text-xs mb-2">
-                      <span class="text-brand-bg/70">Reading Progress</span>
-                      <span class="text-brand-bright font-mono font-bold"
-                        >{{ Math.round(scrollProgress) }}%</span
-                      >
-                    </div>
-                    <div class="h-2 bg-brand-bg/20 rounded-full overflow-hidden">
-                      <div
-                        class="h-full bg-gradient-to-r from-brand-teal to-brand-bright rounded-full transition-all duration-300"
-                        :style="{ width: `${scrollProgress}%` }"
-                      ></div>
-                    </div>
-                  </div>
-
-                  <!-- Quick Stats -->
-                  <div class="grid grid-cols-2 gap-3">
-                    <div
-                      class="bg-brand-bg/10 backdrop-blur rounded-xl p-3 border border-brand-bg/10"
+                <!-- Reading Progress -->
+                <div class="mb-4">
+                  <div class="flex justify-between text-xs mb-2">
+                    <span class="text-brand-bright font-script">Reading Progress</span>
+                    <span class="text-brand-bright font-bold"
+                      >{{ Math.round(scrollProgress) }}%</span
                     >
-                      <p class="text-brand-bright text-2xl font-bold font-mono">12</p>
-                      <p class="text-brand-bg/60 text-xs">Sections</p>
-                    </div>
+                  </div>
+                  <div
+                    class="h-3 bg-brand-bright/30 rounded-lg overflow-hidden border-2 border-brand-bright/50"
+                  >
                     <div
-                      class="bg-brand-bg/10 backdrop-blur rounded-xl p-3 border border-brand-bg/10"
-                    >
-                      <p class="text-brand-bright text-2xl font-bold font-mono">0</p>
-                      <p class="text-brand-bg/60 text-xs">Hidden Fees</p>
-                    </div>
+                      class="h-full bg-brand-bright rounded-lg transition-all duration-300"
+                      :style="{ width: `${scrollProgress}%` }"
+                    ></div>
+                  </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="grid grid-cols-2 gap-3">
+                  <div
+                    class="bg-brand-bright/20 rounded-xl p-3 border-2 border-brand-bright/40 transform rotate-[0.5deg]"
+                  >
+                    <p class="text-brand-bright text-2xl font-bold font-script">12</p>
+                    <p class="text-brand-bright text-xs">Sections</p>
+                  </div>
+                  <div
+                    class="bg-brand-bright/20 rounded-xl p-3 border-2 border-brand-bright/40 transform rotate-[-0.5deg]"
+                  >
+                    <p class="text-brand-bright text-2xl font-bold font-script">0</p>
+                    <p class="text-brand-bright text-xs">Hidden Fees</p>
                   </div>
                 </div>
               </div>
 
               <!-- Table of Contents -->
               <div
-                class="bg-brand-bg border-2 border-brand-black rounded-3xl overflow-hidden shadow-[5px_5px_0px_0px_#C92216]"
+                class="card-hybrid paper-bg overflow-hidden transform rotate-slight-right"
+                style="box-shadow: 4px 4px 0px 0px #c92216"
               >
                 <!-- Header -->
-                <div class="bg-brand-black px-5 py-4 flex items-center justify-between">
+                <div
+                  class="bg-brand-black px-5 py-4 flex items-center justify-between border-b-3 border-brand-black"
+                >
                   <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 bg-brand-red rounded-lg flex items-center justify-center">
+                    <div
+                      class="w-9 h-9 bg-brand-red rounded-lg flex items-center justify-center border-2 border-brand-red"
+                    >
                       <svg
                         class="w-4 h-4 text-brand-bg"
                         viewBox="0 0 24 24"
@@ -551,31 +542,32 @@
                       >Contents</span
                     >
                   </div>
-                  <span class="text-brand-bg/50 text-xs font-mono"
+                  <span class="text-brand-bg/50 text-xs font-script"
                     >{{ sections.length }} items</span
                   >
                 </div>
 
                 <!-- Navigation Items -->
-                <div class="p-3 max-h-[40vh] overflow-y-auto scrollbar-thin">
+                <div class="p-3 max-h-[45vh] overflow-y-auto hide-scrollbar">
                   <div class="space-y-1.5">
                     <button
                       v-for="section in sections"
                       :key="section.id"
                       :class="[
-                        'w-full group flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-all duration-200 text-left',
+                        'w-full group flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-200 text-left',
                         activeSection === section.id
-                          ? 'bg-brand-bright border-2 border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]'
-                          : 'hover:bg-brand-bright/20 border-2 border-transparent'
+                          ? 'bg-brand-bright border-3 border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A] transform rotate-[-0.3deg]'
+                          : 'hover:bg-brand-bright/20 border-2 border-transparent hover:border-brand-black/20'
                       ]"
                       @click="scrollToSection(section.id)"
                     >
+                      <!-- Number Badge with hand-drawn feel -->
                       <div
                         :class="[
-                          'w-7 h-7 rounded-lg flex items-center justify-center font-mono text-xs font-bold transition-all duration-200 shrink-0',
+                          'w-8 h-8 rounded-lg flex items-center justify-center font-script text-base font-bold transition-all duration-200 shrink-0 border-2',
                           activeSection === section.id
-                            ? 'bg-brand-black text-brand-bright'
-                            : 'bg-brand-black/10 text-brand-black group-hover:bg-brand-red group-hover:text-brand-bg'
+                            ? 'bg-brand-black text-brand-bright border-brand-black'
+                            : 'bg-brand-bg text-brand-black border-brand-black/30 group-hover:bg-brand-red group-hover:text-brand-bg group-hover:border-brand-red'
                         ]"
                       >
                         {{ section.number }}
@@ -584,26 +576,23 @@
                         :class="[
                           'flex-1 text-sm font-medium transition-all duration-200 truncate',
                           activeSection === section.id
-                            ? 'text-brand-black'
+                            ? 'text-brand-black font-bold'
                             : 'text-brand-black/70 group-hover:text-brand-black'
                         ]"
                       >
                         {{ section.title }}
                       </span>
-                      <svg
+                      <!-- Hand-drawn arrow -->
+                      <span
                         :class="[
-                          'w-4 h-4 transition-all duration-200 shrink-0',
+                          'font-script text-lg transition-all duration-200 shrink-0',
                           activeSection === section.id
                             ? 'text-brand-black opacity-100'
                             : 'text-brand-gray opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0'
                         ]"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2.5"
                       >
-                        <path d="m9 18 6-6-6-6" />
-                      </svg>
+                        →
+                      </span>
                     </button>
                   </div>
                 </div>
@@ -611,71 +600,66 @@
 
               <!-- Contact Card -->
               <div
-                class="relative overflow-hidden bg-gradient-to-br from-brand-teal to-brand-teal/80 rounded-3xl p-5 border border-brand-black shadow-[5px_5px_0px_0px_#1A1A1A]"
+                class="card-hybrid p-5 transform rotate-slight-left relative"
+                style="background: #1a1a1a; box-shadow: 4px 4px 0px 0px #2f7a72"
               >
+                <!-- Corner fold effect -->
                 <div
-                  class="absolute top-0 right-0 w-20 h-20 bg-brand-bright/20 rounded-full blur-2xl"
+                  class="absolute top-0 right-0 w-0 h-0 border-t-[20px] border-t-brand-bg border-l-[20px] border-l-transparent"
                 ></div>
 
-                <div class="relative z-10">
-                  <div class="flex items-start gap-3 mb-4">
-                    <div
-                      class="w-10 h-10 bg-brand-bg rounded-xl flex items-center justify-center shrink-0 shadow-md"
-                    >
-                      <svg
-                        class="w-5 h-5 text-brand-teal"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <circle cx="12" cy="12" r="10" />
-                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-                        <line x1="12" y1="17" x2="12.01" y2="17" />
-                      </svg>
-                    </div>
-                    <div>
-                      <p class="text-brand-bg font-bold">Questions?</p>
-                      <p class="text-brand-bg/70 text-xs">We're here to help</p>
-                    </div>
-                  </div>
-
-                  <a
-                    href="mailto:legal@stayonbrand.in"
-                    class="flex items-center justify-center gap-2 w-full bg-brand-bg text-brand-teal px-4 py-3 rounded-xl text-sm font-bold hover:bg-brand-bright hover:text-brand-black transition-all duration-200 shadow-md hover:shadow-lg"
+                <div class="flex items-start gap-3 mb-4">
+                  <div
+                    class="w-11 h-11 bg-brand-bright rounded-xl flex items-center justify-center shrink-0 border-3 border-brand-bright"
                   >
                     <svg
-                      class="w-4 h-4"
+                      class="w-5 h-5 text-brand-black"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
                       stroke-width="2"
                     >
-                      <rect width="20" height="16" x="2" y="4" rx="2" />
-                      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                      <line x1="12" y1="17" x2="12.01" y2="17" />
                     </svg>
-                    Contact Support
-                  </a>
+                  </div>
+                  <div>
+                    <p class="text-brand-bright font-bold">Questions?</p>
+                    <p class="text-brand-bright text-xs font-script">We're here to help</p>
+                  </div>
                 </div>
+
+                <p class="text-brand-bg/80 text-sm mb-4">
+                  Need help understanding our refund policy? Our support team is ready to assist.
+                </p>
+
+                <a
+                  href="mailto:legal@stayonbrand.in"
+                  class="group relative bg-brand-bright text-brand-black px-4 py-3 rounded-[4px] border-3 border-brand-black font-semibold text-sm tracking-wide shadow-[4px_4px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden neo-button w-full justify-center inline-flex items-center gap-2"
+                >
+                  <span class="relative z-10">Contact Support</span>
+                  <span class="font-script text-lg relative z-10">→</span>
+                </a>
               </div>
 
               <!-- Quick Links -->
-              <div
-                class="bg-brand-bg border-2 border-brand-black rounded-3xl p-4 shadow-[4px_4px_0px_0px_#79dcaf]"
-              >
-                <p class="text-xs font-bold text-brand-black uppercase tracking-wider mb-3 px-1">
-                  Related
+              <div class="card-hybrid paper-bg p-4 transform rotate-slight-right">
+                <p
+                  class="text-xs font-bold text-brand-black uppercase tracking-wider mb-3 px-1 font-script"
+                >
+                  Related Documents
                 </p>
                 <div class="space-y-2">
                   <RouterLink
                     to="/terms"
-                    class="flex items-center gap-3 p-3 rounded-xl hover:bg-brand-bright/30 transition-all duration-200 group"
+                    class="flex items-center gap-3 p-3 rounded-lg hover:bg-brand-bright/30 transition-all duration-200 group border-2 border-transparent hover:border-brand-black/20"
                   >
                     <div
-                      class="w-9 h-9 rounded-xl bg-brand-teal/20 flex items-center justify-center group-hover:bg-brand-teal group-hover:scale-105 transition-all duration-200"
+                      class="w-10 h-10 rounded-lg bg-brand-teal/20 flex items-center justify-center group-hover:bg-brand-teal group-hover:scale-105 transition-all duration-200 border-2 border-brand-teal/30 group-hover:border-brand-teal"
                     >
                       <svg
-                        class="w-4 h-4 text-brand-teal group-hover:text-brand-bg"
+                        class="w-5 h-5 text-brand-teal group-hover:text-brand-bg"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -689,18 +673,22 @@
                       <p class="text-sm font-semibold text-brand-black truncate">
                         Terms of Service
                       </p>
-                      <p class="text-xs text-brand-gray">Usage guidelines</p>
+                      <p class="text-xs text-brand-gray font-script">Usage guidelines</p>
                     </div>
+                    <span
+                      class="font-script text-brand-gray group-hover:text-brand-black transition-colors"
+                      >→</span
+                    >
                   </RouterLink>
                   <RouterLink
                     to="/privacy"
-                    class="flex items-center gap-3 p-3 rounded-xl hover:bg-brand-bright/30 transition-all duration-200 group"
+                    class="flex items-center gap-3 p-3 rounded-lg hover:bg-brand-bright/30 transition-all duration-200 group border-2 border-transparent hover:border-brand-black/20"
                   >
                     <div
-                      class="w-9 h-9 rounded-xl bg-brand-red/20 flex items-center justify-center group-hover:bg-brand-red group-hover:scale-105 transition-all duration-200"
+                      class="w-10 h-10 rounded-lg bg-brand-red/20 flex items-center justify-center group-hover:bg-brand-red group-hover:scale-105 transition-all duration-200 border-2 border-brand-red/30 group-hover:border-brand-red"
                     >
                       <svg
-                        class="w-4 h-4 text-brand-red group-hover:text-brand-bg"
+                        class="w-5 h-5 text-brand-red group-hover:text-brand-bg"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -711,32 +699,12 @@
                     </div>
                     <div class="flex-1 min-w-0">
                       <p class="text-sm font-semibold text-brand-black truncate">Privacy Policy</p>
-                      <p class="text-xs text-brand-gray">How we handle data</p>
+                      <p class="text-xs text-brand-gray font-script">How we handle data</p>
                     </div>
-                  </RouterLink>
-                  <RouterLink
-                    to="/help"
-                    class="flex items-center gap-3 p-3 rounded-xl hover:bg-brand-bright/30 transition-all duration-200 group"
-                  >
-                    <div
-                      class="w-9 h-9 rounded-xl bg-brand-bright/50 flex items-center justify-center group-hover:bg-brand-bright group-hover:scale-105 transition-all duration-200"
+                    <span
+                      class="font-script text-brand-gray group-hover:text-brand-black transition-colors"
+                      >→</span
                     >
-                      <svg
-                        class="w-4 h-4 text-brand-black"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <path
-                          d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z"
-                        />
-                      </svg>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                      <p class="text-sm font-semibold text-brand-black truncate">Help & FAQ</p>
-                      <p class="text-xs text-brand-gray">Common questions</p>
-                    </div>
                   </RouterLink>
                 </div>
               </div>
@@ -744,15 +712,15 @@
           </aside>
 
           <!-- Right Column: Content -->
-          <div class="col-span-1 lg:col-span-8 space-y-12 md:space-y-16">
+          <div class="col-span-1 md:col-span-7 lg:col-span-8 space-y-10 md:space-y-12">
             <!-- Section 1: Who We Are -->
             <section id="who-we-are" class="scroll-mt-24 scroll-animate fade-up">
               <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#2F7A72] hover:shadow-[8px_8px_0px_0px_#2F7A72] transition-shadow duration-300"
+                class="card-hybrid paper-bg p-6 md:p-8 transform rotate-slight-left tape-decoration overflow-visible"
               >
                 <div class="flex items-start gap-4 mb-6">
                   <div
-                    class="w-14 h-14 rounded-2xl bg-brand-teal flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
+                    class="w-14 h-14 rounded-xl bg-brand-teal flex items-center justify-center flex-shrink-0 border-3 border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
                   >
                     <svg
                       class="w-7 h-7 text-brand-bg"
@@ -768,8 +736,10 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 01</p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
+                    <p class="text-brand-teal text-base font-script mb-1">Section 01</p>
+                    <h2
+                      class="text-2xl md:text-3xl font-display font-bold text-brand-black hand-underline hand-underline-teal inline-block"
+                    >
                       Who We Are
                     </h2>
                   </div>
@@ -794,11 +764,11 @@
             <!-- Section 2: General Refund Policy -->
             <section id="general-policy" class="scroll-mt-24 scroll-animate fade-up">
               <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#C92216] hover:shadow-[8px_8px_0px_0px_#C92216] transition-shadow duration-300"
+                class="card-hybrid card-hybrid-red paper-bg p-6 md:p-8 transform rotate-slight-right overflow-visible"
               >
                 <div class="flex items-start gap-4 mb-6">
                   <div
-                    class="w-14 h-14 rounded-2xl bg-brand-red flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
+                    class="w-14 h-14 rounded-xl bg-brand-red flex items-center justify-center flex-shrink-0 border-3 border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
                   >
                     <svg
                       class="w-7 h-7 text-brand-bg"
@@ -813,8 +783,10 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="text-brand-red text-sm font-mono font-semibold mb-1">SECTION 02</p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
+                    <p class="text-brand-red text-base font-script mb-1">Section 02</p>
+                    <h2
+                      class="text-2xl md:text-3xl font-display font-bold text-brand-black hand-underline hand-underline-red inline-block"
+                    >
                       General Refund Policy
                     </h2>
                   </div>
@@ -862,11 +834,11 @@
             <!-- Section 3: Subscriptions & Recurring Payments -->
             <section id="subscriptions" class="scroll-mt-24 scroll-animate fade-up">
               <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#79dcaf] hover:shadow-[8px_8px_0px_0px_#79dcaf] transition-shadow duration-300"
+                class="card-hybrid paper-bg p-6 md:p-8 transform rotate-slight-left corner-fold overflow-visible"
               >
                 <div class="flex items-start gap-4 mb-6">
                   <div
-                    class="w-14 h-14 rounded-2xl bg-brand-bright flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
+                    class="w-14 h-14 rounded-xl bg-brand-bright flex items-center justify-center flex-shrink-0 border-3 border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
                   >
                     <svg
                       class="w-7 h-7 text-brand-black"
@@ -882,8 +854,10 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 03</p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
+                    <p class="text-brand-teal text-base font-script mb-1">Section 03</p>
+                    <h2
+                      class="text-2xl md:text-3xl font-display font-bold text-brand-black hand-underline hand-underline-teal inline-block"
+                    >
                       Subscriptions & Recurring Payments
                     </h2>
                   </div>
@@ -939,11 +913,11 @@
             <!-- Section 4: One-Time Purchases & Lifetime Deals -->
             <section id="one-time" class="scroll-mt-24 scroll-animate fade-up">
               <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#2F7A72] hover:shadow-[8px_8px_0px_0px_#2F7A72] transition-shadow duration-300"
+                class="card-hybrid paper-bg p-6 md:p-8 transform rotate-slight-right tape-decoration tape-mint overflow-visible"
               >
                 <div class="flex items-start gap-4 mb-6">
                   <div
-                    class="w-14 h-14 rounded-2xl bg-brand-teal flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
+                    class="w-14 h-14 rounded-xl bg-brand-teal flex items-center justify-center flex-shrink-0 border-3 border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
                   >
                     <svg
                       class="w-7 h-7 text-brand-bg"
@@ -957,8 +931,10 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 04</p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
+                    <p class="text-brand-teal text-base font-script mb-1">Section 04</p>
+                    <h2
+                      class="text-2xl md:text-3xl font-display font-bold text-brand-black hand-underline hand-underline-teal inline-block"
+                    >
                       One-Time Purchases & Lifetime Deals
                     </h2>
                   </div>
@@ -1004,11 +980,11 @@
             <!-- Section 5: Exceptions (Limited) -->
             <section id="exceptions" class="scroll-mt-24 scroll-animate fade-up">
               <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#C92216] hover:shadow-[8px_8px_0px_0px_#C92216] transition-shadow duration-300"
+                class="card-hybrid card-hybrid-red paper-bg p-6 md:p-8 transform rotate-slight-left overflow-visible"
               >
                 <div class="flex items-start gap-4 mb-6">
                   <div
-                    class="w-14 h-14 rounded-2xl bg-brand-red flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
+                    class="w-14 h-14 rounded-xl bg-brand-red flex items-center justify-center flex-shrink-0 border-3 border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
                   >
                     <svg
                       class="w-7 h-7 text-brand-bg"
@@ -1022,8 +998,10 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="text-brand-red text-sm font-mono font-semibold mb-1">SECTION 05</p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
+                    <p class="text-brand-red text-base font-script mb-1">Section 05</p>
+                    <h2
+                      class="text-2xl md:text-3xl font-display font-bold text-brand-black hand-underline hand-underline-red inline-block"
+                    >
                       Exceptions (Limited)
                     </h2>
                   </div>
@@ -1061,11 +1039,11 @@
             <!-- Section 6: Termination for Policy Violations -->
             <section id="termination" class="scroll-mt-24 scroll-animate fade-up">
               <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#79dcaf] hover:shadow-[8px_8px_0px_0px_#79dcaf] transition-shadow duration-300"
+                class="card-hybrid paper-bg p-6 md:p-8 transform rotate-slight-right corner-fold overflow-visible"
               >
                 <div class="flex items-start gap-4 mb-6">
                   <div
-                    class="w-14 h-14 rounded-2xl bg-brand-bright flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
+                    class="w-14 h-14 rounded-xl bg-brand-bright flex items-center justify-center flex-shrink-0 border-3 border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
                   >
                     <svg
                       class="w-7 h-7 text-brand-black"
@@ -1079,8 +1057,10 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 06</p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
+                    <p class="text-brand-teal text-base font-script mb-1">Section 06</p>
+                    <h2
+                      class="text-2xl md:text-3xl font-display font-bold text-brand-black hand-underline hand-underline-teal inline-block"
+                    >
                       Termination for Policy Violations
                     </h2>
                   </div>
@@ -1100,11 +1080,11 @@
             <!-- Section 7: Taxes & Fees -->
             <section id="taxes" class="scroll-mt-24 scroll-animate fade-up">
               <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#2F7A72] hover:shadow-[8px_8px_0px_0px_#2F7A72] transition-shadow duration-300"
+                class="card-hybrid paper-bg p-6 md:p-8 transform rotate-slight-left tape-decoration overflow-visible"
               >
                 <div class="flex items-start gap-4 mb-6">
                   <div
-                    class="w-14 h-14 rounded-2xl bg-brand-teal flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
+                    class="w-14 h-14 rounded-xl bg-brand-teal flex items-center justify-center flex-shrink-0 border-3 border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
                   >
                     <svg
                       class="w-7 h-7 text-brand-bg"
@@ -1117,8 +1097,10 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 07</p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
+                    <p class="text-brand-teal text-base font-script mb-1">Section 07</p>
+                    <h2
+                      class="text-2xl md:text-3xl font-display font-bold text-brand-black hand-underline hand-underline-teal inline-block"
+                    >
                       Taxes & Fees
                     </h2>
                   </div>
@@ -1137,11 +1119,11 @@
             <!-- Section 8: Pricing Changes -->
             <section id="pricing" class="scroll-mt-24 scroll-animate fade-up">
               <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#C92216] hover:shadow-[8px_8px_0px_0px_#C92216] transition-shadow duration-300"
+                class="card-hybrid card-hybrid-red paper-bg p-6 md:p-8 transform rotate-slight-right overflow-visible"
               >
                 <div class="flex items-start gap-4 mb-6">
                   <div
-                    class="w-14 h-14 rounded-2xl bg-brand-red flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
+                    class="w-14 h-14 rounded-xl bg-brand-red flex items-center justify-center flex-shrink-0 border-3 border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
                   >
                     <svg
                       class="w-7 h-7 text-brand-bg"
@@ -1155,8 +1137,10 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="text-brand-red text-sm font-mono font-semibold mb-1">SECTION 08</p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
+                    <p class="text-brand-red text-base font-script mb-1">Section 08</p>
+                    <h2
+                      class="text-2xl md:text-3xl font-display font-bold text-brand-black hand-underline hand-underline-red inline-block"
+                    >
                       Pricing Changes
                     </h2>
                   </div>
@@ -1175,11 +1159,11 @@
             <!-- Section 9: Refund Method -->
             <section id="refund-method" class="scroll-mt-24 scroll-animate fade-up">
               <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#79dcaf] hover:shadow-[8px_8px_0px_0px_#79dcaf] transition-shadow duration-300"
+                class="card-hybrid paper-bg p-6 md:p-8 transform rotate-slight-left corner-fold overflow-visible"
               >
                 <div class="flex items-start gap-4 mb-6">
                   <div
-                    class="w-14 h-14 rounded-2xl bg-brand-bright flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
+                    class="w-14 h-14 rounded-xl bg-brand-bright flex items-center justify-center flex-shrink-0 border-3 border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
                   >
                     <svg
                       class="w-7 h-7 text-brand-black"
@@ -1193,8 +1177,10 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 09</p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
+                    <p class="text-brand-teal text-base font-script mb-1">Section 09</p>
+                    <h2
+                      class="text-2xl md:text-3xl font-display font-bold text-brand-black hand-underline hand-underline-teal inline-block"
+                    >
                       Refund Method
                     </h2>
                   </div>
@@ -1214,11 +1200,11 @@
             <!-- Section 10: Chargebacks & Payment Disputes -->
             <section id="chargebacks" class="scroll-mt-24 scroll-animate fade-up">
               <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#2F7A72] hover:shadow-[8px_8px_0px_0px_#2F7A72] transition-shadow duration-300"
+                class="card-hybrid paper-bg p-6 md:p-8 transform rotate-slight-right tape-decoration overflow-visible"
               >
                 <div class="flex items-start gap-4 mb-6">
                   <div
-                    class="w-14 h-14 rounded-2xl bg-brand-teal flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
+                    class="w-14 h-14 rounded-xl bg-brand-teal flex items-center justify-center flex-shrink-0 border-3 border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
                   >
                     <svg
                       class="w-7 h-7 text-brand-bg"
@@ -1235,8 +1221,10 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 10</p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
+                    <p class="text-brand-teal text-base font-script mb-1">Section 10</p>
+                    <h2
+                      class="text-2xl md:text-3xl font-display font-bold text-brand-black hand-underline hand-underline-teal inline-block"
+                    >
                       Chargebacks & Payment Disputes
                     </h2>
                   </div>
@@ -1270,11 +1258,11 @@
             <!-- Section 11: Legal Rights -->
             <section id="legal-rights" class="scroll-mt-24 scroll-animate fade-up">
               <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#C92216] hover:shadow-[8px_8px_0px_0px_#C92216] transition-shadow duration-300"
+                class="card-hybrid card-hybrid-red paper-bg p-6 md:p-8 transform rotate-slight-left overflow-visible"
               >
                 <div class="flex items-start gap-4 mb-6">
                   <div
-                    class="w-14 h-14 rounded-2xl bg-brand-red flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
+                    class="w-14 h-14 rounded-xl bg-brand-red flex items-center justify-center flex-shrink-0 border-3 border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
                   >
                     <svg
                       class="w-7 h-7 text-brand-bg"
@@ -1289,8 +1277,10 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="text-brand-red text-sm font-mono font-semibold mb-1">SECTION 11</p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
+                    <p class="text-brand-red text-base font-script mb-1">Section 11</p>
+                    <h2
+                      class="text-2xl md:text-3xl font-display font-bold text-brand-black hand-underline hand-underline-red inline-block"
+                    >
                       Legal Rights
                     </h2>
                   </div>
@@ -1309,14 +1299,14 @@
             <!-- Section 12: Contact -->
             <section id="contact" class="scroll-mt-24 scroll-animate fade-up">
               <div
-                class="bg-brand-bg border border-brand-black rounded-3xl p-6 md:p-10 shadow-[6px_6px_0px_0px_#79dcaf] hover:shadow-[8px_8px_0px_0px_#79dcaf] transition-shadow duration-300"
+                class="card-hybrid card-hybrid-red paper-bg p-6 md:p-8 transform rotate-slight-right overflow-visible"
               >
                 <div class="flex items-start gap-4 mb-6">
                   <div
-                    class="w-14 h-14 rounded-2xl bg-brand-bright flex items-center justify-center flex-shrink-0 border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
+                    class="w-14 h-14 rounded-xl bg-brand-red flex items-center justify-center flex-shrink-0 border-3 border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A]"
                   >
                     <svg
-                      class="w-7 h-7 text-brand-black"
+                      class="w-7 h-7 text-brand-bg"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -1327,8 +1317,10 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="text-brand-teal text-sm font-mono font-semibold mb-1">SECTION 12</p>
-                    <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-black">
+                    <p class="text-brand-red text-base font-script mb-1">Section 12</p>
+                    <h2
+                      class="text-2xl md:text-3xl font-display font-bold text-brand-black hand-underline hand-underline-red inline-block"
+                    >
                       Contact
                     </h2>
                   </div>
@@ -1340,15 +1332,15 @@
                     If you have questions about this Refund Policy, you may contact the operator of
                     the Services at:
                   </p>
-                  <div class="mt-6 space-y-4">
+                  <div class="mt-6">
                     <div
-                      class="flex items-center gap-4 p-4 rounded-xl bg-brand-bg border border-brand-black/20"
+                      class="flex items-center gap-4 p-5 rounded-lg bg-white border-3 border-brand-black shadow-[3px_3px_0px_0px_#C92216] rotate-slight-left wiggle-hover"
                     >
                       <div
-                        class="w-10 h-10 rounded-full bg-brand-teal flex items-center justify-center flex-shrink-0"
+                        class="w-12 h-12 rounded-lg bg-brand-red flex items-center justify-center flex-shrink-0 border-2 border-brand-black"
                       >
                         <svg
-                          class="w-5 h-5 text-brand-bg"
+                          class="w-6 h-6 text-brand-bg"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
@@ -1359,16 +1351,20 @@
                         </svg>
                       </div>
                       <div>
-                        <p class="text-xs text-brand-gray uppercase tracking-wide">Email</p>
+                        <p class="text-xs text-brand-gray uppercase tracking-wide font-script">
+                          email us
+                        </p>
                         <a
                           href="mailto:legal@stayonbrand.in"
-                          class="text-brand-black font-semibold hover:text-brand-teal transition-colors"
+                          class="text-brand-black font-bold hover:text-brand-red transition-colors hand-underline hand-underline-red"
                           >legal@stayonbrand.in</a
                         >
                       </div>
                     </div>
                   </div>
-                  <p class="mt-6">Responses are provided at our discretion.</p>
+                  <p class="mt-6 text-sm text-brand-gray font-script">
+                    Responses are provided at our discretion.
+                  </p>
                 </div>
               </div>
             </section>
@@ -1376,9 +1372,15 @@
             <!-- Action Buttons -->
             <div class="pt-8 scroll-animate fade-up">
               <div
-                class="bg-brand-black text-brand-bg rounded-3xl p-8 md:p-12 border border-brand-black shadow-[6px_6px_0px_0px_#C92216]"
+                class="card-hybrid p-8 md:p-12 transform rotate-[0.3deg] relative overflow-visible"
+                style="background: #1a1a1a; box-shadow: 4px 4px 0px 0px #2f7a72"
               >
-                <p class="text-brand-bright font-script text-2xl mb-2">
+                <!-- Corner fold -->
+                <div
+                  class="absolute top-0 right-0 w-0 h-0 border-t-[24px] border-t-brand-bg border-l-[24px] border-l-transparent"
+                ></div>
+
+                <p class="text-brand-bright font-script text-2xl md:text-3xl mb-2">
                   Clear and transparent policies
                 </p>
                 <p class="text-brand-bg/80 text-base mb-8">
@@ -1388,15 +1390,16 @@
                 <div class="flex flex-col sm:flex-row items-center gap-4">
                   <RouterLink
                     to="/terms"
-                    class="w-full sm:w-auto px-8 py-4 rounded-full border-2 border-brand-bg text-brand-bg font-semibold hover:bg-brand-bg hover:text-brand-black transition-all duration-300 text-center"
+                    class="group relative bg-brand-bg text-brand-black px-5 py-2 rounded-[4px] border-3 border-brand-black font-semibold text-xs tracking-wide shadow-[4px_4px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden hover:bg-brand-bright wiggle-hover w-full sm:w-auto justify-center inline-flex items-center"
                   >
-                    View Terms of Service
+                    <span class="z-10 relative">VIEW TERMS OF SERVICE</span>
                   </RouterLink>
                   <RouterLink
                     to="/signup"
-                    class="w-full sm:w-auto px-8 py-4 rounded-full bg-brand-bright text-brand-black font-bold tracking-tight border border-brand-black shadow-[4px_4px_0px_0px_#2F7A72] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#2F7A72] transition-all duration-300 text-center"
+                    class="group relative bg-brand-bright text-brand-black px-5 py-2 rounded-[4px] border-3 border-brand-black font-semibold text-xs tracking-wide shadow-[4px_4px_0px_0px_#C92216] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#C92216] hover-beam overflow-hidden neo-button w-full sm:w-auto justify-center inline-flex items-center gap-2"
                   >
-                    Get Started
+                    <span class="relative z-10">GET STARTED</span>
+                    <span class="font-script text-lg relative z-10">→</span>
                   </RouterLink>
                 </div>
               </div>
@@ -1407,60 +1410,65 @@
     </main>
 
     <!-- Footer -->
-    <footer class="w-full py-12 border-t border-brand-black/10 relative z-20">
+    <footer class="w-full py-8 border-t-3 border-brand-black/20 relative z-20 bg-brand-bg">
       <div class="max-w-screen-2xl mx-auto px-6 md:px-12">
         <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+          <!-- Logo & Copyright -->
           <div class="flex items-center gap-4">
-            <div
-              class="w-8 h-8 bg-brand-black rounded-full flex items-center justify-center border border-brand-black"
-            >
-              <span class="font-display font-bold text-sm text-brand-bright">S.</span>
-            </div>
-            <span class="text-brand-black/60 text-sm"
-              >&copy; 2026 Stay on Brand. All rights reserved.</span
+            <RouterLink :to="homeLink" class="flex items-center gap-2 group">
+              <div
+                class="w-9 h-9 bg-brand-black rounded-full flex items-center justify-center border-3 border-brand-black transform group-hover:rotate-6 transition-transform shadow-[2px_2px_0px_0px_#2F7A72]"
+              >
+                <span class="font-display font-bold text-sm text-brand-bright">S.</span>
+              </div>
+            </RouterLink>
+            <span class="font-script text-base text-brand-black/60"
+              >&copy; {{ new Date().getFullYear() }} Stay on Brand</span
             >
           </div>
 
-          <div class="flex items-center gap-6 text-sm">
-            <RouterLink
-              to="/privacy"
-              class="text-brand-black/60 hover:text-brand-black transition-colors duration-300 font-medium"
-              >Privacy</RouterLink
-            >
-            <RouterLink
-              to="/terms"
-              class="text-brand-black/60 hover:text-brand-black transition-colors duration-300 font-medium"
-              >Terms</RouterLink
-            >
+          <!-- Quick Links -->
+          <div class="flex items-center gap-6 text-sm text-brand-black/60">
             <RouterLink
               to="/refund-policy"
-              class="text-brand-red hover:text-brand-red/80 transition-colors duration-300 font-semibold"
+              class="text-brand-red font-semibold hover:text-brand-red/80 transition-colors"
               >Refund</RouterLink
             >
-            <a
-              href="mailto:legal@stayonbrand.in"
-              class="text-brand-black/60 hover:text-brand-black transition-colors duration-300 font-medium"
-              >Contact</a
+            <RouterLink to="/terms" class="hover:text-brand-black transition-colors hand-underline"
+              >Terms</RouterLink
             >
+            <RouterLink to="/help" class="hover:text-brand-black transition-colors hand-underline"
+              >Help</RouterLink
+            >
+          </div>
+
+          <!-- Status Badge -->
+          <div
+            class="bg-brand-bright border-3 border-brand-black px-4 py-2 rounded-[4px] shadow-[2px_2px_0px_0px_#1A1A1A] transform rotate-[0.5deg] flex items-center gap-2"
+          >
+            <span class="relative flex h-2.5 w-2.5">
+              <span
+                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-teal opacity-75"
+              ></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-teal"></span>
+            </span>
+            <span class="text-xs font-bold text-brand-black">All systems operational</span>
           </div>
         </div>
       </div>
     </footer>
 
-    <!-- Floating Decorative Elements -->
-    <div class="fixed bottom-10 right-10 hidden lg:block animate-float z-10 pointer-events-none">
+    <!-- Floating Decorative Element -->
+    <div class="fixed bottom-8 right-8 hidden lg:block animate-float z-10 pointer-events-none">
       <div
-        class="w-12 h-12 bg-brand-red rounded-full border border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A] flex items-center justify-center"
+        class="w-14 h-14 bg-brand-bright rounded-xl border-3 border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A] flex items-center justify-center transform rotate-[5deg]"
       >
         <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
+          class="w-6 h-6 text-brand-black"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
           stroke-width="2"
-          class="text-brand-bg"
         >
           <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
         </svg>
@@ -1470,9 +1478,7 @@
 </template>
 
 <style scoped>
-  /* Use global styles from main.css for animations */
-  /* Additional scoped styles */
-
+  /* Scoped styles for this page */
   .noodle-path {
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
@@ -1485,26 +1491,26 @@
     }
   }
 
-  /* Custom scrollbar for navigation */
-  .scrollbar-thin::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  .scrollbar-thin::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .scrollbar-thin::-webkit-scrollbar-thumb {
-    background: #c92216;
-    border-radius: 2px;
-  }
-
-  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-    background: #a31c12;
-  }
-
   /* Smooth Scrolling */
   html {
     scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar for table of contents */
+  .hide-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(26, 26, 26, 0.2);
+    border-radius: 2px;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(26, 26, 26, 0.4);
   }
 </style>

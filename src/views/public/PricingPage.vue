@@ -340,13 +340,13 @@
 
           <!-- Billing Toggle -->
           <div
-            class="bg-white p-1.5 rounded-full border border-brand-black/10 shadow-[4px_4px_0px_0px_#1A1A1A] inline-flex items-center relative gap-1 scroll-animate fade-up delay-500"
+            class="bg-white p-1.5 rounded-full border-2 border-brand-black shadow-[4px_4px_0px_0px_#1A1A1A] inline-flex items-center relative gap-1 scroll-animate fade-up delay-500"
           >
             <button
               :class="[
                 'relative px-6 py-2 rounded-full text-xs font-bold tracking-wide transition-all z-10',
                 !isYearlyBilling
-                  ? 'text-brand-black bg-brand-bright shadow-sm border border-brand-black/10'
+                  ? 'text-brand-black bg-brand-bright border border-brand-black'
                   : 'text-brand-black/50 hover:text-brand-black hover:bg-brand-black/5'
               ]"
               @click="isYearlyBilling = false"
@@ -357,7 +357,7 @@
               :class="[
                 'relative px-6 py-2 rounded-full text-xs font-bold tracking-wide transition-all z-10',
                 isYearlyBilling
-                  ? 'text-brand-black bg-brand-bright shadow-sm border border-brand-black/10'
+                  ? 'text-brand-black bg-brand-bright border border-brand-black'
                   : 'text-brand-black/50 hover:text-brand-black hover:bg-brand-black/5'
               ]"
               @click="isYearlyBilling = true"
@@ -370,168 +370,166 @@
         <!-- Pricing Cards Section -->
         <section class="relative px-4 pb-20 md:px-12 lg:px-20 z-10">
           <div
-            class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-12 max-w-7xl mx-auto items-stretch"
+            class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10 max-w-7xl mx-auto items-stretch"
           >
             <!-- Card 1: Starter -->
             <div
-              class="group relative flex flex-col h-full bg-brand-card text-brand-bg rounded-3xl p-8 border border-white/5 hover:-translate-y-2 transition-all duration-500 overflow-hidden shadow-[8px_8px_0px_0px_#2F7A72] hover:shadow-[4px_4px_0px_0px_#2F7A72] scroll-animate fade-up delay-100"
+              class="group relative flex flex-col h-full bg-white text-brand-black rounded-3xl p-8 border-2 border-brand-black hover:-translate-y-2 transition-all duration-300 overflow-hidden shadow-[6px_6px_0px_0px_#1A1A1A] hover:shadow-[4px_4px_0px_0px_#1A1A1A] scroll-animate fade-up delay-100"
             >
               <!-- Floating Number -->
               <div
-                class="absolute top-6 right-6 font-mono text-xs text-white/20 group-hover:text-brand-teal/50 transition-colors"
+                class="absolute top-6 right-6 font-mono text-xs text-brand-black/20 group-hover:text-brand-teal/50 transition-colors"
               >
                 01
               </div>
 
-              <!-- Glow on hover -->
-              <div
-                class="absolute -top-20 -right-20 w-40 h-40 bg-brand-teal/0 group-hover:bg-brand-teal/10 blur-[60px] rounded-full pointer-events-none transition-all duration-500"
-              ></div>
-
               <div class="mb-8 relative z-10">
-                <h3
-                  class="text-xs font-bold tracking-[0.2em] uppercase text-brand-gray mb-4 group-hover:text-brand-teal transition-colors"
+                <div
+                  class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-bg border-2 border-brand-black/10 mb-4"
                 >
-                  Starter
-                </h3>
+                  <span class="w-2 h-2 rounded-full bg-brand-gray"></span>
+                  <span class="text-xs font-bold tracking-wider uppercase text-brand-gray"
+                    >Starter</span
+                  >
+                </div>
                 <div class="flex items-baseline gap-1">
-                  <span
-                    class="text-5xl font-display font-bold tracking-tighter group-hover:text-brand-bright transition-colors"
+                  <span class="text-5xl font-display font-bold tracking-tighter text-brand-black"
                     >Free</span
                   >
                 </div>
-                <div class="h-6 mt-2"></div>
+                <p class="text-sm text-brand-black/50 mt-2">Perfect for getting started</p>
               </div>
 
               <ul class="flex flex-col gap-4 mb-8 flex-grow relative z-10">
-                <li
-                  class="flex items-center gap-3 text-sm text-white/70 group-hover:text-white/90 transition-colors"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="text-brand-gray shrink-0 group-hover:text-brand-teal transition-colors"
+                <li class="flex items-center gap-3 text-sm text-brand-black/70">
+                  <div
+                    class="w-5 h-5 rounded-md bg-brand-bg border border-brand-black/10 flex items-center justify-center flex-shrink-0"
                   >
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                    <path d="m9 11 3 3L22 4" />
-                  </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="text-brand-gray"
+                    >
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                  </div>
                   5 color checks per day
                 </li>
-                <li
-                  class="flex items-center gap-3 text-sm text-white/70 group-hover:text-white/90 transition-colors"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="text-brand-gray shrink-0 group-hover:text-brand-teal transition-colors"
+                <li class="flex items-center gap-3 text-sm text-brand-black/70">
+                  <div
+                    class="w-5 h-5 rounded-md bg-brand-bg border border-brand-black/10 flex items-center justify-center flex-shrink-0"
                   >
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                    <path d="m9 11 3 3L22 4" />
-                  </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="text-brand-gray"
+                    >
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                  </div>
                   Max 2 Colors per check
                 </li>
-                <li
-                  class="flex items-center gap-3 text-sm text-white/70 group-hover:text-white/90 transition-colors"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="text-brand-gray shrink-0 group-hover:text-brand-teal transition-colors"
+                <li class="flex items-center gap-3 text-sm text-brand-black/70">
+                  <div
+                    class="w-5 h-5 rounded-md bg-brand-bg border border-brand-black/10 flex items-center justify-center flex-shrink-0"
                   >
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                    <path d="m9 11 3 3L22 4" />
-                  </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="text-brand-gray"
+                    >
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                  </div>
                   Basic WCAG compliance
                 </li>
-                <li
-                  class="flex items-center gap-3 text-sm text-white/70 group-hover:text-white/90 transition-colors"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="text-brand-gray shrink-0 group-hover:text-brand-teal transition-colors"
+                <li class="flex items-center gap-3 text-sm text-brand-black/70">
+                  <div
+                    class="w-5 h-5 rounded-md bg-brand-bg border border-brand-black/10 flex items-center justify-center flex-shrink-0"
                   >
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                    <path d="m9 11 3 3L22 4" />
-                  </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="text-brand-gray"
+                    >
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                  </div>
                   1 brand palette
                 </li>
               </ul>
 
               <RouterLink
                 to="/signup"
-                class="w-full py-3 rounded-xl border border-white/10 text-center text-sm font-semibold hover:bg-white/5 transition-colors relative z-10 group-hover:border-brand-teal/30"
+                class="w-full py-3 rounded-xl border-2 border-brand-black text-center text-sm font-bold hover:bg-brand-bright transition-colors relative z-10 shadow-[3px_3px_0px_0px_#1A1A1A] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
               >
-                Get Started
+                Get Started Free
               </RouterLink>
             </div>
 
             <!-- Card 2: Pro (Featured) -->
             <div
-              class="group relative flex flex-col bg-brand-black text-brand-bg rounded-3xl p-8 border border-brand-teal/30 hover:-translate-y-2 transition-all duration-500 overflow-hidden shadow-[8px_8px_0px_0px_#79dcaf] hover:shadow-[4px_4px_0px_0px_#79dcaf] scroll-animate fade-up delay-200"
+              class="group relative flex flex-col bg-white text-brand-black rounded-3xl p-8 border-2 border-brand-teal hover:-translate-y-2 transition-all duration-300 overflow-hidden shadow-[6px_6px_0px_0px_#2F7A72] hover:shadow-[4px_4px_0px_0px_#2F7A72] scroll-animate fade-up delay-200"
             >
               <!-- Popular Badge -->
               <div
-                class="absolute -top-0 left-1/2 -translate-x-1/2 bg-brand-bright text-brand-black text-[10px] font-bold tracking-wider px-4 py-1 rounded-b-lg uppercase"
+                class="absolute -top-0 left-1/2 -translate-x-1/2 bg-brand-bright text-brand-black text-[10px] font-bold tracking-wider px-4 py-1 rounded-b-lg uppercase border-x-2 border-b-2 border-brand-black"
               >
                 Most Popular
               </div>
 
-              <!-- Glow Effect -->
-              <div
-                class="absolute -top-20 -right-20 w-40 h-40 bg-brand-teal/20 blur-[60px] rounded-full pointer-events-none"
-              ></div>
-
               <div class="absolute top-6 right-6 font-mono text-xs text-brand-teal">02</div>
 
               <div class="mb-8 mt-4">
-                <h3 class="text-xs font-bold tracking-[0.2em] uppercase text-brand-teal mb-4">
-                  Professional
-                </h3>
-                <div class="flex items-baseline gap-1">
-                  <span class="text-2xl font-light text-brand-gray">$</span>
-                  <span
-                    class="text-6xl font-display font-bold tracking-tighter text-brand-bright"
-                    >{{
-                      isYearlyBilling
-                        ? pricingPlans.professional.yearly
-                        : pricingPlans.professional.monthly
-                    }}</span
+                <div
+                  class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-teal/10 border border-brand-teal/20 mb-4"
+                >
+                  <span class="w-2 h-2 rounded-full bg-brand-teal animate-pulse"></span>
+                  <span class="text-xs font-bold tracking-wider uppercase text-brand-teal"
+                    >Professional</span
                   >
                 </div>
-                <div class="text-xs text-white/50 mt-1">
+                <div class="flex items-baseline gap-1">
+                  <span class="text-xl font-light text-brand-black/40">$</span>
+                  <span class="text-6xl font-display font-bold tracking-tighter text-brand-black">{{
+                    isYearlyBilling
+                      ? pricingPlans.professional.yearly
+                      : pricingPlans.professional.monthly
+                  }}</span>
+                </div>
+                <div class="text-xs text-brand-black/50 mt-1 flex items-center gap-2">
                   {{ isYearlyBilling ? '/year' : '/month' }}
                   <span
                     v-if="isYearlyBilling"
-                    class="ml-2 text-[10px] font-bold text-brand-bright bg-brand-teal/20 px-2 py-0.5 rounded-full tracking-tight animate-pulse"
+                    class="text-[10px] font-bold text-brand-teal bg-brand-teal/10 px-2 py-0.5 rounded-full tracking-tight"
                   >
                     SAVE 20%
                   </span>
@@ -539,101 +537,113 @@
               </div>
 
               <ul class="flex flex-col gap-4 mb-8 flex-grow">
-                <li class="flex items-center gap-3 text-sm text-white font-medium">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="text-brand-bright shrink-0"
+                <li class="flex items-center gap-3 text-sm text-brand-black font-medium">
+                  <div
+                    class="w-5 h-5 rounded-md bg-brand-bright border border-brand-black flex items-center justify-center flex-shrink-0"
                   >
-                    <path
-                      d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
-                    />
-                  </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      class="text-brand-black"
+                    >
+                      <path
+                        d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
+                      />
+                    </svg>
+                  </div>
                   Unlimited color checks
                 </li>
-                <li class="flex items-center gap-3 text-sm text-white/80">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="text-brand-teal shrink-0"
+                <li class="flex items-center gap-3 text-sm text-brand-black/70">
+                  <div
+                    class="w-5 h-5 rounded-md bg-brand-teal/10 border border-brand-teal/20 flex items-center justify-center flex-shrink-0"
                   >
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                    <path d="m9 11 3 3L22 4" />
-                  </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="text-brand-teal"
+                    >
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                  </div>
                   Max 3 colors per check
                 </li>
-                <li class="flex items-center gap-3 text-sm text-white/80">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="text-brand-teal shrink-0"
+                <li class="flex items-center gap-3 text-sm text-brand-black/70">
+                  <div
+                    class="w-5 h-5 rounded-md bg-brand-teal/10 border border-brand-teal/20 flex items-center justify-center flex-shrink-0"
                   >
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                    <path d="m9 11 3 3L22 4" />
-                  </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="text-brand-teal"
+                    >
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                  </div>
                   Full WCAG 2.1 AA + AAA
                 </li>
-                <li class="flex items-center gap-3 text-sm text-white/80">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="text-brand-teal shrink-0"
+                <li class="flex items-center gap-3 text-sm text-brand-black/70">
+                  <div
+                    class="w-5 h-5 rounded-md bg-brand-teal/10 border border-brand-teal/20 flex items-center justify-center flex-shrink-0"
                   >
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                    <path d="m9 11 3 3L22 4" />
-                  </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="text-brand-teal"
+                    >
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                  </div>
                   10 brand palettes
                 </li>
-                <li class="flex items-center gap-3 text-sm text-white/80">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="text-brand-teal shrink-0"
+                <li class="flex items-center gap-3 text-sm text-brand-black/70">
+                  <div
+                    class="w-5 h-5 rounded-md bg-brand-teal/10 border border-brand-teal/20 flex items-center justify-center flex-shrink-0"
                   >
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                    <path d="m9 11 3 3L22 4" />
-                  </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="text-brand-teal"
+                    >
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                  </div>
                   2 Image validations per day
                 </li>
               </ul>
 
               <button
-                class="w-full py-3.5 rounded-xl bg-brand-teal text-white text-center text-sm font-bold tracking-wide hover:bg-brand-bright hover:text-brand-black transition-colors shadow-[0_0_20px_-5px_rgba(47,122,114,0.5)] hover:shadow-[0_0_30px_-5px_rgba(121,220,175,0.6)] cursor-pointer"
+                class="w-full py-3.5 rounded-xl bg-brand-teal text-white text-center text-sm font-bold tracking-wide hover:bg-brand-black transition-colors border-2 border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none cursor-pointer"
                 @click="handleSubscribeClick('professional')"
               >
                 Subscribe Now
@@ -642,39 +652,34 @@
 
             <!-- Card 3: Business -->
             <div
-              class="group relative flex flex-col h-full bg-brand-card text-brand-bg rounded-3xl p-8 border border-white/5 hover:-translate-y-2 transition-all duration-500 overflow-hidden shadow-[8px_8px_0px_0px_#C92216] hover:shadow-[4px_4px_0px_0px_#C92216] scroll-animate fade-up delay-300"
+              class="group relative flex flex-col h-full bg-white text-brand-black rounded-3xl p-8 border-2 border-brand-black hover:-translate-y-2 transition-all duration-300 overflow-hidden shadow-[6px_6px_0px_0px_#7a8cff] hover:shadow-[4px_4px_0px_0px_#7a8cff] scroll-animate fade-up delay-300"
             >
               <div
-                class="absolute top-6 right-6 font-mono text-xs text-white/20 group-hover:text-brand-purple/50 transition-colors"
+                class="absolute top-6 right-6 font-mono text-xs text-brand-black/20 group-hover:text-brand-purple/50 transition-colors"
               >
                 03
               </div>
 
-              <!-- Glow on hover -->
-              <div
-                class="absolute -top-20 -right-20 w-40 h-40 bg-brand-purple/0 group-hover:bg-brand-purple/10 blur-[60px] rounded-full pointer-events-none transition-all duration-500"
-              ></div>
-
               <div class="mb-8 relative z-10">
-                <h3
-                  class="text-xs font-bold tracking-[0.2em] uppercase text-brand-purple mb-4 group-hover:text-brand-purple transition-colors"
+                <div
+                  class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-purple/10 border border-brand-purple/20 mb-4"
                 >
-                  Business
-                </h3>
-                <div class="flex items-baseline gap-1">
-                  <span class="text-2xl font-light text-brand-gray">$</span>
-                  <span
-                    class="text-6xl font-display font-bold tracking-tighter text-brand-purple group-hover:text-brand-purple transition-colors"
-                    >{{
-                      isYearlyBilling ? pricingPlans.business.yearly : pricingPlans.business.monthly
-                    }}</span
+                  <span class="w-2 h-2 rounded-full bg-brand-purple"></span>
+                  <span class="text-xs font-bold tracking-wider uppercase text-brand-purple"
+                    >Business</span
                   >
                 </div>
-                <div class="text-xs text-white/50 mt-1">
+                <div class="flex items-baseline gap-1">
+                  <span class="text-xl font-light text-brand-black/40">$</span>
+                  <span class="text-6xl font-display font-bold tracking-tighter text-brand-black">{{
+                    isYearlyBilling ? pricingPlans.business.yearly : pricingPlans.business.monthly
+                  }}</span>
+                </div>
+                <div class="text-xs text-brand-black/50 mt-1 flex items-center gap-2">
                   {{ isYearlyBilling ? '/year' : '/month' }}
                   <span
                     v-if="isYearlyBilling"
-                    class="ml-2 text-[10px] font-bold text-brand-bright bg-brand-purple/20 px-2 py-0.5 rounded-full tracking-tight"
+                    class="text-[10px] font-bold text-brand-purple bg-brand-purple/10 px-2 py-0.5 rounded-full tracking-tight"
                   >
                     SAVE 20%
                   </span>
@@ -682,102 +687,118 @@
               </div>
 
               <ul class="flex flex-col gap-4 mb-8 flex-grow relative z-10">
-                <li class="flex items-center gap-3 text-sm text-white font-medium">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="text-brand-purple shrink-0"
+                <li class="flex items-center gap-3 text-sm text-brand-black font-medium">
+                  <div
+                    class="w-5 h-5 rounded-md bg-brand-purple/20 border border-brand-purple/30 flex items-center justify-center flex-shrink-0"
                   >
-                    <path
-                      d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"
-                    />
-                    <path d="m9 12 2 2 4-4" />
-                  </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="text-brand-purple"
+                    >
+                      <path
+                        d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"
+                      />
+                      <path d="m9 12 2 2 4-4" />
+                    </svg>
+                  </div>
                   Everything in Pro
                 </li>
-                <li class="flex items-center gap-3 text-sm text-white/70">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="text-brand-gray shrink-0 group-hover:text-brand-purple transition-colors"
+                <li class="flex items-center gap-3 text-sm text-brand-black/70">
+                  <div
+                    class="w-5 h-5 rounded-md bg-brand-bg border border-brand-black/10 flex items-center justify-center flex-shrink-0"
                   >
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                    <path d="m9 11 3 3L22 4" />
-                  </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="text-brand-purple"
+                    >
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                  </div>
                   Unlimited palettes
                 </li>
-                <li class="flex items-center gap-3 text-sm text-white/70">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="text-brand-gray shrink-0 group-hover:text-brand-purple transition-colors"
+                <li class="flex items-center gap-3 text-sm text-brand-black/70">
+                  <div
+                    class="w-5 h-5 rounded-md bg-brand-bg border border-brand-black/10 flex items-center justify-center flex-shrink-0"
                   >
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                    <path d="m9 11 3 3L22 4" />
-                  </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="text-brand-purple"
+                    >
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                  </div>
                   Max 5 colors per check
                 </li>
-                <li class="flex items-center gap-3 text-sm text-white/70">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="text-brand-gray shrink-0 group-hover:text-brand-purple transition-colors"
+                <li class="flex items-center gap-3 text-sm text-brand-black/70">
+                  <div
+                    class="w-5 h-5 rounded-md bg-brand-bg border border-brand-black/10 flex items-center justify-center flex-shrink-0"
                   >
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                    <path d="m9 11 3 3L22 4" />
-                  </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="text-brand-purple"
+                    >
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                  </div>
                   Unlimited Image Validation
                 </li>
-                <li class="flex items-center gap-3 text-sm text-white/70">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="text-brand-gray shrink-0 group-hover:text-brand-purple transition-colors"
+                <li class="flex items-center gap-3 text-sm text-brand-black/70">
+                  <div
+                    class="w-5 h-5 rounded-md bg-brand-bg border border-brand-black/10 flex items-center justify-center flex-shrink-0"
                   >
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                    <path d="m9 11 3 3L22 4" />
-                  </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="text-brand-purple"
+                    >
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                  </div>
                   White-label reports
                 </li>
               </ul>
 
               <button
-                class="w-full py-3 rounded-xl border border-white/10 text-center text-sm font-semibold hover:bg-white/5 transition-colors relative z-10 group-hover:border-brand-purple/30 cursor-pointer"
+                class="w-full py-3 rounded-xl border-2 border-brand-black text-center text-sm font-bold hover:bg-brand-purple hover:text-white hover:border-brand-purple transition-colors relative z-10 shadow-[3px_3px_0px_0px_#1A1A1A] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none cursor-pointer"
                 @click="handleSubscribeClick('business')"
               >
                 Subscribe Now
@@ -1040,16 +1061,15 @@
             class="max-w-7xl mx-auto overflow-x-auto no-scrollbar pb-12 scroll-animate fade-up delay-200"
           >
             <div
-              class="min-w-[800px] grid grid-cols-4 text-sm bg-white/40 backdrop-blur-sm rounded-3xl border border-brand-black/5 shadow-[6px_6px_0px_0px_#1A1A1A] overflow-hidden"
+              class="min-w-[800px] grid grid-cols-4 text-sm bg-white rounded-3xl border-2 border-brand-black shadow-[6px_6px_0px_0px_#1A1A1A] overflow-hidden"
             >
               <!-- Header Row -->
               <!-- Yearly Toggle Cell -->
               <div
-                class="p-6 md:p-8 flex flex-col justify-end items-start border-r border-b border-brand-black/5"
+                class="p-6 md:p-8 flex flex-col justify-end items-start border-r-2 border-b-2 border-brand-black bg-brand-bg"
               >
                 <div class="flex items-center gap-3 mb-2">
-                  <span
-                    class="text-[10px] font-bold tracking-[0.2em] uppercase text-brand-black/60 italic"
+                  <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-brand-black/60"
                     >Yearly</span
                   >
                   <label class="relative inline-flex items-center cursor-pointer">
@@ -1068,9 +1088,9 @@
 
               <!-- Starter Header -->
               <div
-                class="p-6 md:p-8 flex flex-col items-center gap-4 border-r border-b border-brand-black/5 bg-brand-bg/50"
+                class="p-6 md:p-8 flex flex-col items-center gap-4 border-r-2 border-b-2 border-brand-black"
               >
-                <div class="text-xs font-bold tracking-[0.2em] uppercase text-brand-gray italic">
+                <div class="text-xs font-bold tracking-[0.2em] uppercase text-brand-gray">
                   Starter
                 </div>
                 <div
@@ -1080,7 +1100,7 @@
                 </div>
                 <RouterLink
                   to="/signup"
-                  class="w-full py-2.5 rounded-lg bg-brand-black text-brand-bg text-xs font-bold hover:opacity-80 transition-opacity text-center"
+                  class="w-full py-2.5 rounded-lg bg-brand-black text-brand-bg text-xs font-bold hover:bg-brand-teal transition-colors text-center border-2 border-brand-black"
                 >
                   START FREE
                 </RouterLink>
@@ -1088,12 +1108,12 @@
 
               <!-- Pro Header (Highlighted) -->
               <div
-                class="relative p-6 md:p-8 flex flex-col items-center gap-4 border-r border-b border-brand-black/5 bg-brand-black/5"
+                class="relative p-6 md:p-8 flex flex-col items-center gap-4 border-r-2 border-b-2 border-brand-black bg-brand-teal/5"
               >
                 <!-- Top Highlight -->
                 <div class="absolute top-0 left-0 w-full h-1 bg-brand-teal"></div>
 
-                <div class="text-xs font-bold tracking-[0.2em] uppercase text-brand-teal italic">
+                <div class="text-xs font-bold tracking-[0.2em] uppercase text-brand-teal">
                   Professional
                 </div>
                 <div
@@ -1106,7 +1126,7 @@
                   }}
                 </div>
                 <button
-                  class="w-full py-2.5 rounded-lg bg-brand-teal text-white text-xs font-bold hover:bg-brand-bright hover:text-brand-black transition-colors shadow-lg shadow-brand-teal/20 text-center cursor-pointer"
+                  class="w-full py-2.5 rounded-lg bg-brand-teal text-white text-xs font-bold hover:bg-brand-black transition-colors text-center cursor-pointer border-2 border-brand-black"
                   @click="handleSubscribeClick('professional')"
                 >
                   SUBSCRIBE NOW
@@ -1115,9 +1135,9 @@
 
               <!-- Business Header -->
               <div
-                class="p-6 md:p-8 flex flex-col items-center gap-4 border-b border-brand-black/5 bg-brand-bg/50"
+                class="p-6 md:p-8 flex flex-col items-center gap-4 border-b-2 border-brand-black"
               >
-                <div class="text-xs font-bold tracking-[0.2em] uppercase text-brand-purple italic">
+                <div class="text-xs font-bold tracking-[0.2em] uppercase text-brand-purple">
                   Business
                 </div>
                 <div
@@ -1128,7 +1148,7 @@
                   }}
                 </div>
                 <button
-                  class="w-full py-2.5 rounded-lg border border-brand-black/10 bg-white text-xs font-bold hover:bg-brand-black hover:text-brand-bg transition-colors text-center cursor-pointer"
+                  class="w-full py-2.5 rounded-lg border-2 border-brand-black bg-white text-xs font-bold hover:bg-brand-purple hover:text-white hover:border-brand-purple transition-colors text-center cursor-pointer"
                   @click="handleSubscribeClick('business')"
                 >
                   SUBSCRIBE NOW
@@ -1140,8 +1160,8 @@
                 <!-- Feature Name -->
                 <div
                   :class="[
-                    'p-5 pl-8 border-r border-brand-black/5 font-semibold text-brand-black/80 flex items-center',
-                    index < comparisonFeatures.length - 1 ? 'border-b' : ''
+                    'p-5 pl-8 border-r-2 border-brand-black font-semibold text-brand-black/80 flex items-center',
+                    index < comparisonFeatures.length - 1 ? 'border-b-2' : ''
                   ]"
                 >
                   {{ feature.name }}
@@ -1150,8 +1170,8 @@
                 <!-- Starter Value -->
                 <div
                   :class="[
-                    'p-5 border-r border-brand-black/5 text-center flex justify-center items-center',
-                    index < comparisonFeatures.length - 1 ? 'border-b' : '',
+                    'p-5 border-r-2 border-brand-black text-center flex justify-center items-center',
+                    index < comparisonFeatures.length - 1 ? 'border-b-2' : '',
                     feature.starter === false
                       ? 'text-brand-black/30'
                       : 'text-brand-black/60 font-medium'
@@ -1177,8 +1197,8 @@
                 <!-- Pro Value (Highlighted) -->
                 <div
                   :class="[
-                    'p-5 border-r border-brand-black/5 text-center flex justify-center items-center bg-brand-black/5',
-                    index < comparisonFeatures.length - 1 ? 'border-b' : '',
+                    'p-5 border-r-2 border-brand-black text-center flex justify-center items-center bg-brand-teal/5',
+                    index < comparisonFeatures.length - 1 ? 'border-b-2' : '',
                     feature.pro === false ? 'text-brand-black/30' : 'font-bold text-brand-black'
                   ]"
                 >
@@ -1209,7 +1229,7 @@
                 <div
                   :class="[
                     'p-5 text-center flex justify-center items-center',
-                    index < comparisonFeatures.length - 1 ? 'border-b border-brand-black/5' : '',
+                    index < comparisonFeatures.length - 1 ? 'border-b-2 border-brand-black' : '',
                     feature.business === true
                       ? 'text-brand-purple'
                       : feature.business === false
@@ -1271,13 +1291,8 @@
         <!-- FAQ Teaser Section -->
         <section class="w-full px-4 pb-20 md:px-12 lg:px-20 z-10 relative">
           <div
-            class="max-w-4xl mx-auto text-center bg-brand-black rounded-3xl p-12 md:p-16 relative overflow-hidden shadow-[8px_8px_0px_0px_#2F7A72] scroll-animate fade-up"
+            class="max-w-4xl mx-auto text-center bg-brand-black rounded-3xl p-12 md:p-16 relative overflow-hidden border-2 border-brand-black shadow-[6px_6px_0px_0px_#2F7A72] scroll-animate fade-up"
           >
-            <!-- Background glow -->
-            <div
-              class="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-[60%] bg-brand-teal/10 blur-[80px] rounded-full pointer-events-none"
-            ></div>
-
             <h2
               class="text-3xl md:text-5xl font-display font-bold text-brand-bg tracking-tight mb-6 relative z-10"
             >
@@ -1289,7 +1304,7 @@
             <div class="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
               <RouterLink
                 to="/help"
-                class="group flex items-center justify-center gap-2 bg-brand-bg text-brand-black px-8 py-3 rounded-full font-semibold text-sm border border-brand-black shadow-[4px_4px_0px_0px_#79dcaf] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#79dcaf] transition-all"
+                class="group flex items-center justify-center gap-2 bg-brand-bg text-brand-black px-8 py-3 rounded-xl font-bold text-sm border-2 border-brand-black shadow-[3px_3px_0px_0px_#79dcaf] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -1310,7 +1325,7 @@
               </RouterLink>
               <a
                 href="mailto:support@stayonbrand.com"
-                class="group flex items-center justify-center gap-2 bg-transparent text-brand-bg px-8 py-3 rounded-full font-semibold text-sm border border-brand-bg/30 hover:border-brand-bright hover:text-brand-bright transition-all"
+                class="group flex items-center justify-center gap-2 bg-brand-teal text-brand-bg px-8 py-3 rounded-xl font-bold text-sm border-2 border-brand-teal hover:bg-brand-bright hover:text-brand-black hover:border-brand-black transition-all"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

@@ -2,45 +2,36 @@ const KEYCARD_PORT = import.meta.env.VITE_KEYCARD_PORT || '3002'
 const KEYCARD_API_URL = `http://localhost:${KEYCARD_PORT}/api/v1`
 
 export interface UserData {
+  user_uuid: string
   email: string
-  sob_id: string // userUuid from keycard
-  dodo_customer_id?: string // dodoCustomerId from keycard
-  current_tier?: string // user tier
+  dodo_customer_id?: string | null
+  active_tier?: string
+  active_length?: string
+  tier_expires_at?: string
+  subscription_status?: string
+  created_at?: string
 }
 
-// Tier mapping configuration
-class TierService {
-  private tierMapping: Record<string, string> = {}
-
-  constructor() {
-    this.loadTierMapping()
-  }
-
-  private loadTierMapping() {
-    try {
-      const env = import.meta.env.VITE_ENV || 'test'
-      const mappingKey = env === 'prod' ? 'VITE_PROD_TIER_MAPPING' : 'VITE_TEST_TIER_MAPPING'
-      const mapping = import.meta.env[mappingKey]
-
-      if (mapping) {
-        this.tierMapping = JSON.parse(mapping)
-      }
-    } catch (error) {
-      console.warn('Failed to load tier mapping:', error)
-      this.tierMapping = { default: 'free' }
-    }
-  }
-
-  getTier(sobId: string): string {
-    return this.tierMapping[sobId] || this.tierMapping['default'] || 'free'
-  }
-
-  getAllTiers(): Record<string, string> {
-    return { ...this.tierMapping }
-  }
+export interface Payment {
+  id: string
+  dodoPaymentId: string
+  status: string
+  amountCents: number
+  currency: string
+  tier: string
+  paidAt: string
+  createdAt: string
 }
 
-export const tierService = new TierService()
+export interface PaymentsResponse {
+  payments: Payment[]
+  pagination: {
+    total: number
+    limit: number
+    offset: number
+    hasMore: boolean
+  }
+}
 
 export class UserService {
   private getAuthToken(): string {
@@ -95,10 +86,30 @@ export class UserService {
       user = await this.createUser(email)
     }
 
-    // Add tier information
-    user.current_tier = tierService.getTier(user.sob_id)
-
     return user
+  }
+
+  async getPayments(email: string): Promise<PaymentsResponse> {
+    try {
+      const response = await fetch(
+        `${KEYCARD_API_URL}/user/${encodeURIComponent(email)}/payments`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${this.getAuthToken()}`
+          }
+        }
+      )
+
+      if (!response.ok) {
+        throw new Error(`Failed to get payments: ${response.statusText}`)
+      }
+
+      return await response.json()
+    } catch (error) {
+      console.error('Error getting payments:', error)
+      return { payments: [], pagination: { total: 0, limit: 10, offset: 0, hasMore: false } }
+    }
   }
 }
 

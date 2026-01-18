@@ -5,7 +5,13 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig(({ mode }) => ({
   plugins: [
-    vue(),
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: tag => tag === 'iconify-icon'
+        }
+      }
+    }),
     tailwindcss(),
     {
       name: 'csp-injector',

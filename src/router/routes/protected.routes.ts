@@ -50,5 +50,25 @@ export const protectedRoutes: RouteRecordRaw[] = [
       title: 'Billing & Subscription',
       requiresAuth: true
     }
+  },
+  {
+    path: '/pricing',
+    name: 'PricingDashboard',
+    component: () => import('@/views/dashboard/PricingPage.vue'),
+    meta: {
+      layout: 'dashboard',
+      title: 'Pricing',
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/color-report',
+    name: 'ColorReportDashboard',
+    component: () => import('@/views/dashboard/ColorReportPage.vue'),
+    meta: {
+      layout: 'dashboard',
+      title: 'Color Report',
+      requiresAuth: true
+    }
   }
 ]

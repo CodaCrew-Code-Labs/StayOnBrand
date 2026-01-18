@@ -23,14 +23,17 @@
     () =>
       route.name === 'Home' ||
       route.name === 'Pricing' ||
+      route.name === 'ColorStudio' ||
       route.name === 'Terms' ||
       route.name === 'Privacy' ||
+      route.name === 'CookiePolicy' ||
       route.name === 'RefundPolicy' ||
       route.name === 'LifetimeDealDisclosure' ||
       route.name === 'AcceptableUsePolicy' ||
       route.name === 'TermsAndConditions' ||
       route.name === 'ConfirmSubscription' ||
-      route.name === 'StoryList'
+      route.name === 'StoryList' ||
+      route.name === 'ColorReport'
   )
 </script>
 
