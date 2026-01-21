@@ -3,6 +3,7 @@
   import { RouterLink, useRouter } from 'vue-router'
   import { AuthService } from '@/services/auth'
   import { useAuthStore } from '@/stores/auth.store'
+  import { LOGO_VIEWBOX, LOGO_PATH, LOGO_TRANSFORM } from '@/constants/logo'
 
   const router = useRouter()
   const authStore = useAuthStore()
@@ -90,13 +91,13 @@
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('in-view')
+          entry.target.classList.add('animate')
           observer.unobserve(entry.target)
         }
       })
     }, observerOptions)
 
-    document.querySelectorAll('.reveal-element, .dash-draw').forEach(el => {
+    document.querySelectorAll('.scroll-animate, .dash-draw').forEach(el => {
       observer.observe(el)
     })
   }
@@ -134,25 +135,25 @@
       icon: 'inbox',
       title: 'Check Spam Folder',
       description: 'Sometimes our emails like to hide in Junk or Promotions tabs.',
-      color: 'bg-brand-teal/20'
+      color: 'bg-brand-teal'
     },
     {
       icon: 'timer',
       title: 'Wait 5 Minutes',
       description: 'Email delivery can occasionally be delayed by your provider.',
-      color: 'bg-brand-bright/20'
+      color: 'bg-brand-bright'
     },
     {
       icon: 'lifebuoy',
       title: 'Contact Support',
       description: 'Still nothing? Our team is ready to help you manually.',
-      color: 'bg-brand-red/20'
+      color: 'bg-brand-red'
     },
     {
       icon: 'globe',
       title: 'SSO Login',
       description: "If you used Google or Apple to sign up, you don't have a password.",
-      color: 'bg-brand-teal/30'
+      color: 'bg-brand-teal'
     }
   ]
 
@@ -161,9 +162,43 @@
 </script>
 
 <template>
-  <div
-    class="min-h-screen flex flex-col relative selection:bg-brand-teal selection:text-white bg-brand-bg text-brand-black overflow-x-hidden"
-  >
+  <div class="bg-brand-bg text-brand-black relative flex flex-col font-sans min-h-screen">
+    <!-- Background Grid -->
+    <div class="absolute inset-0 pointer-events-none opacity-[0.12] bg-grid z-0"></div>
+
+    <!-- Notebook lines background effect -->
+    <div class="absolute inset-0 pointer-events-none notebook-lines opacity-30 z-0"></div>
+
+    <!-- Hand-drawn decorative SVGs -->
+    <svg
+      class="absolute top-20 left-10 w-16 h-16 pointer-events-none z-0 opacity-20"
+      viewBox="0 0 100 100"
+    >
+      <circle
+        cx="50"
+        cy="50"
+        r="45"
+        fill="none"
+        stroke="#2F7A72"
+        stroke-width="2"
+        stroke-dasharray="8 4"
+        class="draw-in"
+      />
+    </svg>
+    <svg
+      class="absolute top-40 right-20 w-12 h-12 pointer-events-none z-0 opacity-15"
+      viewBox="0 0 100 100"
+    >
+      <path
+        d="M10 50 Q 50 10 90 50 Q 50 90 10 50"
+        fill="none"
+        stroke="#C92216"
+        stroke-width="2"
+        class="draw-in"
+        style="animation-delay: 0.5s"
+      />
+    </svg>
+
     <!-- Modern Toast Notification -->
     <Transition name="toast">
       <div
@@ -172,20 +207,20 @@
         @click="dismissToast"
       >
         <div
-          class="toast-content flex items-center gap-3 px-5 py-3.5 rounded-2xl shadow-2xl backdrop-blur-xl border cursor-pointer"
+          class="toast-content flex items-center gap-3 px-5 py-3.5 border-3 border-brand-black cursor-pointer paper-bg"
           :class="{
-            'bg-red-500/80 border-red-400/60 text-white': toast.type === 'error',
-            'bg-green-500/80 border-green-400/60 text-white': toast.type === 'success',
-            'bg-yellow-500/80 border-yellow-400/60 text-white': toast.type === 'warning'
+            'shadow-[4px_4px_0px_0px_#C92216]': toast.type === 'error',
+            'shadow-[4px_4px_0px_0px_#2F7A72]': toast.type === 'success',
+            'shadow-[4px_4px_0px_0px_#1A1A1A]': toast.type === 'warning'
           }"
         >
           <!-- Icon -->
           <div
-            class="toast-icon flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center"
+            class="toast-icon flex-shrink-0 w-8 h-8 rounded-lg border-2 border-brand-black flex items-center justify-center"
             :class="{
-              'bg-red-600/40': toast.type === 'error',
-              'bg-green-600/40': toast.type === 'success',
-              'bg-yellow-600/40': toast.type === 'warning'
+              'bg-brand-red': toast.type === 'error',
+              'bg-brand-teal': toast.type === 'success',
+              'bg-brand-bright': toast.type === 'warning'
             }"
           >
             <!-- Error Icon -->
@@ -221,7 +256,7 @@
             <!-- Warning Icon -->
             <svg
               v-if="toast.type === 'warning'"
-              class="w-4 h-4 text-white"
+              class="w-4 h-4 text-brand-black"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -235,91 +270,66 @@
             </svg>
           </div>
           <!-- Message -->
-          <span class="toast-message text-sm font-medium">{{ toast.message }}</span>
-          <!-- Progress bar -->
-          <div
-            class="toast-progress absolute bottom-0 left-0 h-0.5 rounded-full"
-            :class="{
-              'bg-red-300': toast.type === 'error',
-              'bg-green-300': toast.type === 'success',
-              'bg-yellow-300': toast.type === 'warning'
-            }"
-          ></div>
+          <span class="toast-message text-sm font-bold text-brand-black">{{ toast.message }}</span>
         </div>
       </div>
     </Transition>
-    <!-- Background Grid -->
-    <div class="fixed inset-0 pointer-events-none z-0">
-      <div class="absolute inset-0 bg-grid opacity-30"></div>
-      <!-- Vertical Container Lines -->
-      <div class="max-w-7xl mx-auto w-full h-full border-x border-brand-black/5 relative">
-        <div class="absolute left-1/4 top-0 bottom-0 w-px bg-brand-black/5 hidden lg:block"></div>
-        <div class="absolute right-1/4 top-0 bottom-0 w-px bg-brand-black/5 hidden lg:block"></div>
-      </div>
-    </div>
-
-    <!-- Connecting Noodles (SVG Layer) -->
-    <svg
-      class="fixed top-0 left-0 w-full h-full pointer-events-none z-0 overflow-visible"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <!-- Line from Headline to Form -->
-      <path
-        d="M 30% 200 C 20% 250, 10% 400, 25% 450"
-        fill="none"
-        stroke="#2F7A72"
-        stroke-width="2"
-        class="opacity-40 dash-draw reveal-element hidden lg:block"
-      />
-      <!-- Line from Form to Cards -->
-      <path
-        d="M 40% 500 C 50% 500, 60% 300, 75% 350"
-        fill="none"
-        stroke="#79dcaf"
-        stroke-width="2"
-        stroke-dasharray="8,8"
-        class="opacity-40 dash-draw reveal-element hidden lg:block"
-        style="transition-delay: 0.3s"
-      />
-    </svg>
 
     <!-- Navigation -->
-    <header class="fixed top-0 w-full z-50 px-6 pt-6 transition-all duration-300">
-      <nav
-        class="max-w-7xl mx-auto flex justify-between items-center bg-white/80 backdrop-blur-md border border-brand-black rounded-full px-6 py-3 shadow-hard-sm"
-        :class="{ 'reveal-visible': isVisible }"
+    <nav
+      class="relative z-50 w-full max-w-screen-2xl mx-auto px-6 md:px-12 py-6 flex items-center justify-between scroll-animate fade-down"
+    >
+      <!-- Logo -->
+      <RouterLink
+        :to="authStore.isAuthenticated ? '/dashboard' : '/'"
+        class="group cursor-pointer relative"
       >
-        <RouterLink
-          :to="authStore.isAuthenticated ? '/dashboard' : '/'"
-          class="flex items-center gap-2 group cursor-pointer"
+        <!-- Sonar Effect -->
+        <div
+          class="absolute inset-0 bg-brand-bright rounded-full opacity-0 group-hover:animate-sonar"
+        ></div>
+        <!-- Main Logo -->
+        <div
+          class="relative w-12 h-12 bg-brand-black rounded-full flex items-center justify-center text-brand-bg transition-all duration-300 hover:scale-105 border-2 border-brand-black overflow-hidden shadow-[2px_2px_0px_0px_rgba(47,122,114,0.4)] group-hover:shadow-[3px_3px_0px_0px_rgba(47,122,114,0.5)]"
         >
-          <div
-            class="w-8 h-8 flex items-center justify-center bg-brand-teal border border-brand-black rounded-full shadow-hard-sm"
-          >
-            <span class="font-display font-bold text-sm text-white">S.</span>
-          </div>
-          <span class="font-bold tracking-tight text-lg">Stay on Brand</span>
-        </RouterLink>
-
-        <RouterLink
-          to="/login"
-          class="hidden md:flex items-center gap-2 text-sm font-bold border border-brand-black bg-white text-brand-black px-4 py-2 rounded-full hover:bg-brand-black hover:text-brand-bg transition-all duration-300"
-        >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg :viewBox="LOGO_VIEWBOX" class="w-7 h-7 transition-colors" fill="currentColor">
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M10 19l-7-7m0 0l7-7m-7 7h18"
+              :d="LOGO_PATH"
+              class="text-brand-bright group-hover:text-brand-bg transition-colors"
+              :transform="LOGO_TRANSFORM"
             />
           </svg>
-          <span>Back to Login</span>
-        </RouterLink>
-      </nav>
-    </header>
+        </div>
+      </RouterLink>
+
+      <!-- Center Badge -->
+      <div class="hidden md:flex absolute left-1/2 -translate-x-1/2">
+        <div
+          class="bg-brand-bright border-3 border-brand-black px-4 py-2 rounded-[4px] shadow-[4px_4px_0px_0px_#1A1A1A] transform rotate-[0.5deg]"
+        >
+          <span class="font-script text-lg text-brand-black">Password Recovery</span>
+        </div>
+      </div>
+
+      <!-- Right Nav Items -->
+      <RouterLink
+        to="/login"
+        class="group relative bg-brand-bg text-brand-black px-5 py-2 rounded-[4px] border-3 border-brand-black font-semibold text-xs tracking-wide shadow-[4px_4px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none hover-beam overflow-hidden hover:bg-brand-bright flex items-center gap-2 wiggle-hover"
+      >
+        <svg class="w-4 h-4 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 19l-7-7m0 0l7-7m-7 7h18"
+          />
+        </svg>
+        <span class="z-10 relative">BACK TO LOGIN</span>
+      </RouterLink>
+    </nav>
 
     <!-- Main Content -->
-    <main class="relative min-h-screen w-full flex flex-col pt-32 pb-20 overflow-hidden">
+    <main class="relative min-h-screen w-full flex flex-col pt-12 pb-20 overflow-hidden">
       <!-- Hero Section -->
       <section
         class="relative z-10 w-full max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
@@ -327,14 +337,14 @@
         <!-- Left Column: Copy & Form -->
         <div class="flex flex-col items-start text-left relative">
           <!-- Badge -->
-          <div class="reveal-element mb-8 relative">
+          <div class="scroll-animate fade-up mb-8 relative">
             <div
-              class="absolute -left-12 top-1 w-8 h-8 rounded-full border border-brand-black flex items-center justify-center text-xs font-bold bg-white shadow-hard-sm z-20 hidden xl:flex"
+              class="absolute -left-12 top-1 w-8 h-8 rounded-full border-3 border-brand-black flex items-center justify-center text-xs font-bold bg-white shadow-[3px_3px_0px_0px_#2F7A72] z-20 hidden xl:flex transform rotate-[-3deg]"
             >
-              01
+              <span class="font-script text-base">01</span>
             </div>
             <div
-              class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-bright border border-brand-black shadow-hard-sm"
+              class="inline-flex items-center gap-2 px-4 py-1.5 rounded-[4px] bg-brand-bright border-3 border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A] transform rotate-[-0.5deg]"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -349,21 +359,69 @@
           </div>
 
           <!-- Heading -->
-          <h1
-            class="reveal-element delay-100 text-6xl md:text-7xl lg:text-8xl font-display font-bold leading-[0.95] text-brand-black mb-8 relative tracking-tight"
-          >
-            Forgot your
-            <br />
-            <span class="relative inline-block mt-2 transform -rotate-1">
-              <span
-                class="absolute inset-0 bg-brand-teal border border-brand-black shadow-hard transform rotate-1 rounded-sm"
-              ></span>
-              <span class="relative px-3 z-10 text-white">password ?</span>
-            </span>
-          </h1>
+          <div class="leading-none flex flex-col relative items-start">
+            <div class="relative scroll-animate fade-up delay-100">
+              <!-- Hand-drawn circle decoration -->
+              <div
+                class="absolute -left-4 md:-left-16 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full border-3 border-brand-black bg-brand-bg flex items-center justify-center shadow-[3px_3px_0px_0px_#2F7A72] transform rotate-[-3deg] animate-float"
+              >
+                <svg
+                  class="w-5 h-5 text-brand-teal"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                  />
+                </svg>
+              </div>
+              <h1
+                class="md:text-7xl lg:text-8xl uppercase text-brand-black leading-[0.9] select-none text-5xl font-semibold tracking-tight font-display"
+              >
+                Forgot your
+              </h1>
+            </div>
+            <div class="relative scroll-animate fade-up delay-200 mt-2">
+              <h1
+                class="md:text-7xl lg:text-8xl uppercase text-brand-red leading-[0.9] select-none text-5xl font-semibold tracking-tight font-display"
+              >
+                password?
+              </h1>
+              <!-- Hand-drawn underline -->
+              <svg
+                class="absolute -bottom-2 left-0 w-full h-4 md:h-6"
+                viewBox="0 0 200 12"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M0 8 Q 50 2 100 8 T 200 6"
+                  stroke="#79dcaf"
+                  stroke-width="3"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <!-- Floating badge -->
+              <div
+                class="absolute -right-2 md:-right-14 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full border-3 border-brand-black bg-brand-bright flex items-center justify-center shadow-[3px_3px_0px_0px_#C92216] transform rotate-[3deg] animate-float-delayed"
+              >
+                <svg
+                  class="w-5 h-5 text-brand-black"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                </svg>
+              </div>
+            </div>
+          </div>
 
           <p
-            class="reveal-element delay-200 text-lg md:text-xl text-brand-black/70 font-medium max-w-lg leading-relaxed mb-10"
+            class="scroll-animate fade-up delay-300 mt-10 text-brand-gray max-w-lg text-base md:text-lg font-light leading-relaxed"
           >
             Don't worry, it happens. Enter the email address associated with your account and we'll
             send you a magic link to regain access.
@@ -372,37 +430,25 @@
           <!-- Input Form -->
           <div
             v-if="!isSubmitted"
-            class="reveal-element delay-300 w-full max-w-md bg-white border border-brand-black p-2 rounded-xl shadow-hard relative group"
+            class="scroll-animate fade-up delay-400 w-full max-w-md card-hybrid paper-bg p-4 mt-10 transform rotate-slight-left tape-decoration overflow-visible"
           >
             <form
-              class="flex flex-col sm:flex-row gap-2 relative z-10"
+              class="flex flex-col sm:flex-row gap-3 relative z-10"
               @submit.prevent="handleSubmit"
             >
               <div class="flex-grow relative">
-                <div
-                  class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-black/40"
-                >
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="1.5"
-                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
-                  </svg>
-                </div>
                 <input
                   v-model="email"
                   type="email"
                   placeholder="name@example.com"
-                  class="w-full h-full pl-10 pr-4 py-3 bg-brand-black/5 rounded-lg border-none focus:ring-2 focus:ring-brand-teal/30 focus:bg-white transition-all text-brand-black placeholder:text-brand-black/40 font-medium"
+                  class="input-hybrid w-full h-full px-4 py-3 text-brand-black placeholder:text-brand-black/40 font-medium"
                   required
                 />
               </div>
               <button
                 type="submit"
                 :disabled="isLoading"
-                class="bg-brand-black text-white px-6 py-3 rounded-lg font-bold tracking-wide hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 whitespace-nowrap overflow-hidden relative disabled:opacity-50 disabled:cursor-not-allowed"
+                class="group relative bg-brand-teal text-white px-6 py-3 rounded-[4px] border-3 border-brand-black font-bold tracking-wide shadow-[4px_4px_0px_0px_#1A1A1A] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#1A1A1A] flex items-center justify-center gap-2 whitespace-nowrap overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed neo-button"
               >
                 <span v-if="isLoading" class="flex items-center gap-2">
                   <div class="loading-spinner">
@@ -433,14 +479,6 @@
                     />
                   </svg>
                 </template>
-                <!-- Beam Animation -->
-                <div
-                  class="absolute inset-0 w-full h-full pointer-events-none overflow-hidden rounded-lg"
-                >
-                  <div
-                    class="absolute top-0 left-[-100%] w-1/2 h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 animate-beam-button"
-                  ></div>
-                </div>
               </button>
             </form>
           </div>
@@ -448,10 +486,11 @@
           <!-- Success Message -->
           <div
             v-else
-            class="reveal-element w-full max-w-md bg-brand-bright/20 border border-brand-black rounded-xl p-6 text-center shadow-hard-sm"
+            class="scroll-animate fade-up w-full max-w-md card-hybrid paper-bg p-6 text-center mt-10 transform rotate-slight-right"
+            style="box-shadow: 4px 4px 0px 0px #2f7a72"
           >
             <div
-              class="w-16 h-16 mx-auto mb-4 rounded-full bg-brand-bright border border-brand-black flex items-center justify-center shadow-hard-sm"
+              class="w-16 h-16 mx-auto mb-4 rounded-full bg-brand-bright border-3 border-brand-black flex items-center justify-center shadow-[3px_3px_0px_0px_#1A1A1A]"
             >
               <svg
                 class="w-8 h-8 text-brand-black"
@@ -468,7 +507,7 @@
               </svg>
             </div>
             <h3 class="text-xl font-bold text-brand-black mb-2">Check your inbox!</h3>
-            <p class="text-brand-black/60 text-sm">
+            <p class="text-brand-gray text-sm font-script">
               We've sent a password reset link to
               <span class="font-semibold text-brand-teal">{{ email }}</span>
             </p>
@@ -477,111 +516,125 @@
 
         <!-- Right Column: Illustrations -->
         <div
-          class="relative w-full h-[400px] lg:h-[500px] flex items-center justify-center lg:justify-end reveal-element delay-300"
+          class="relative w-full flex flex-col items-center lg:items-end scroll-animate fade-up delay-300"
         >
           <!-- 02 Badge -->
           <div
-            class="absolute right-0 top-0 w-8 h-8 rounded-full border border-brand-black flex items-center justify-center text-xs font-bold bg-white shadow-hard-sm z-20 animate-bounce hidden xl:flex"
+            class="absolute right-4 lg:right-0 top-0 w-8 h-8 rounded-full border-3 border-brand-black flex items-center justify-center text-xs font-bold bg-white shadow-[3px_3px_0px_0px_#C92216] z-20 animate-bounce hidden xl:flex transform rotate-[3deg]"
           >
-            02
+            <span class="font-script text-base">02</span>
           </div>
 
-          <!-- Red Card (Back) -->
-          <div
-            class="illustration-card absolute top-10 right-0 w-56 lg:w-64 h-52 lg:h-60 bg-brand-red border-2 border-brand-black rounded-2xl transform rotate-6 shadow-hard flex flex-col items-center justify-center p-4 z-0"
-          >
+          <!-- Cards Container - Overlapping -->
+          <div class="relative h-[320px] lg:h-[360px] w-64 lg:w-72">
+            <!-- Red Card (Back) -->
             <div
-              class="w-16 lg:w-20 h-16 lg:h-20 bg-white border-2 border-brand-black rounded-full overflow-hidden mb-3 relative flex items-center justify-center"
+              class="illustration-card absolute top-0 right-0 w-56 lg:w-64 h-52 lg:h-60 card-hybrid transform rotate-[6deg] flex flex-col items-center justify-center p-4 z-0"
+              style="background: #c92216; box-shadow: 4px 4px 0px 0px #1a1a1a"
             >
-              <svg
-                class="w-8 lg:w-10 h-8 lg:h-10 text-brand-black"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+              <div
+                class="w-16 lg:w-20 h-16 lg:h-20 bg-white border-3 border-brand-black rounded-full overflow-hidden mb-3 relative flex items-center justify-center shadow-[2px_2px_0px_0px_#1A1A1A]"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.5"
-                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                />
-              </svg>
-            </div>
-            <h3 class="font-bold text-white">Encrypted</h3>
-            <div
-              class="mt-2 bg-white border border-brand-black px-3 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider"
-            >
-              End-to-End
-            </div>
-          </div>
-
-          <!-- Bright Card (Front) -->
-          <div
-            class="illustration-card absolute top-24 lg:top-32 right-16 sm:right-24 lg:right-32 w-56 lg:w-64 h-56 lg:h-64 bg-brand-bright border-2 border-brand-black rounded-2xl transform -rotate-3 shadow-hard flex flex-col items-center justify-center p-4 z-10 group cursor-default"
-          >
-            <!-- Sonar effect behind icon -->
-            <div
-              class="absolute top-[25%] left-[50%] -translate-x-1/2 w-20 h-20 bg-white rounded-full animate-sonar-slow opacity-50"
-            ></div>
-
-            <div
-              class="w-20 lg:w-24 h-20 lg:h-24 bg-white border-2 border-brand-black rounded-full overflow-hidden mb-3 relative z-10 flex items-center justify-center"
-            >
-              <svg
-                class="w-10 lg:w-12 h-10 lg:h-12 text-brand-black"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+                <svg
+                  class="w-8 lg:w-10 h-8 lg:h-10 text-brand-black"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                  />
+                </svg>
+              </div>
+              <h3 class="font-bold text-white text-lg">Encrypted</h3>
+              <div
+                class="mt-2 bg-white border-2 border-brand-black px-3 py-1 rounded-[4px] text-[10px] font-bold uppercase tracking-wider shadow-[2px_2px_0px_0px_#1A1A1A]"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.5"
-                  d="M3 19v-8.93a2 2 0 01.89-1.664l7-4.666a2 2 0 012.22 0l7 4.666A2 2 0 0121 10.07V19M3 19a2 2 0 002 2h14a2 2 0 002-2M3 19l6.75-4.5M21 19l-6.75-4.5M3 10l6.75 4.5M21 10l-6.75 4.5m0 0l-1.14.76a2 2 0 01-2.22 0l-1.14-.76"
-                />
-              </svg>
+                End-to-End
+              </div>
             </div>
-            <h3 class="font-bold text-lg text-brand-black">Check Inbox</h3>
+
+            <!-- Bright Card (Front) - Overlapping -->
             <div
-              class="mt-2 bg-white border border-brand-black px-4 py-1.5 rounded-md text-xs font-bold uppercase tracking-wider group-hover:bg-brand-black group-hover:text-white transition-colors"
+              class="illustration-card absolute top-16 lg:top-20 left-0 w-56 lg:w-64 h-56 lg:h-64 card-hybrid transform rotate-[-3deg] flex flex-col items-center justify-center p-4 z-10 group cursor-default paper-bg"
             >
-              Instructions Sent
+              <!-- Sonar effect behind icon -->
+              <div
+                class="absolute top-[25%] left-[50%] -translate-x-1/2 w-20 h-20 bg-brand-teal rounded-full animate-sonar-slow opacity-50"
+              ></div>
+
+              <div
+                class="w-20 lg:w-24 h-20 lg:h-24 bg-white border-3 border-brand-black rounded-full overflow-hidden mb-3 relative z-10 flex items-center justify-center shadow-[3px_3px_0px_0px_#2F7A72]"
+              >
+                <svg
+                  class="w-10 lg:w-12 h-10 lg:h-12 text-brand-black"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M3 19v-8.93a2 2 0 01.89-1.664l7-4.666a2 2 0 012.22 0l7 4.666A2 2 0 0121 10.07V19M3 19a2 2 0 002 2h14a2 2 0 002-2M3 19l6.75-4.5M21 19l-6.75-4.5M3 10l6.75 4.5M21 10l-6.75 4.5m0 0l-1.14.76a2 2 0 01-2.22 0l-1.14-.76"
+                  />
+                </svg>
+              </div>
+              <h3 class="font-bold text-lg text-brand-black">Check Inbox</h3>
+              <div
+                class="mt-2 bg-brand-bright border-2 border-brand-black px-4 py-1.5 rounded-[4px] text-xs font-bold uppercase tracking-wider group-hover:bg-brand-black group-hover:text-white transition-colors shadow-[2px_2px_0px_0px_#1A1A1A]"
+              >
+                Instructions Sent
+              </div>
             </div>
           </div>
 
-          <!-- Toast Notification -->
+          <!-- Toast Notification Card - Below the cards -->
           <div
-            class="absolute -bottom-4 right-6 lg:right-10 bg-brand-black text-white px-5 py-3 rounded-xl border border-white/20 shadow-xl flex items-center gap-3 animate-float z-20 max-w-xs"
+            class="card-hybrid px-5 py-3 flex items-center gap-3 animate-float z-20 mt-20 lg:mt-24"
+            style="background: #1a1a1a; box-shadow: 4px 4px 0px 0px #2f7a72"
           >
             <div
-              class="w-6 h-6 rounded-full bg-brand-bright text-brand-black flex items-center justify-center shrink-0"
+              class="w-6 h-6 rounded-full bg-brand-bright text-brand-black flex items-center justify-center shrink-0 border-2 border-brand-black"
             >
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  stroke-width="3"
+                  stroke-width="2.5"
                   d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
             </div>
-            <p class="text-xs font-bold leading-tight">Link expires in 60 minutes for security.</p>
+            <p class="text-xs font-bold leading-tight text-brand-bg">
+              Link expires in 60 minutes for security.
+            </p>
           </div>
         </div>
       </section>
 
       <!-- Marquee Section (Troubleshooting) -->
-      <section class="mt-32 w-full relative z-10 flex flex-col gap-8 reveal-element">
+      <section class="mt-32 w-full relative z-10 flex flex-col gap-8 scroll-animate fade-up">
         <div class="text-center relative max-w-7xl mx-auto w-full px-6">
           <!-- 03 Badge -->
           <div
-            class="absolute left-1/2 -top-16 -translate-x-1/2 w-8 h-8 rounded-full border border-brand-black flex items-center justify-center text-xs font-bold bg-brand-teal text-white shadow-hard-sm z-20 hidden md:flex"
+            class="absolute left-1/2 -top-16 -translate-x-1/2 w-8 h-8 rounded-full border-3 border-brand-black flex items-center justify-center text-xs font-bold bg-brand-teal text-white shadow-[3px_3px_0px_0px_#1A1A1A] z-20 hidden md:flex transform rotate-[-2deg]"
           >
-            03
+            <span class="font-script text-base">03</span>
           </div>
 
-          <h2 class="text-3xl font-display font-bold text-brand-black mb-2">Troubleshooting</h2>
-          <div class="h-1 w-20 bg-brand-black mx-auto rounded-full"></div>
+          <span
+            class="font-script text-lg text-brand-red transform rotate-[-1deg] inline-block mb-2"
+            >#HelpfulTips</span
+          >
+          <h2
+            class="text-3xl font-display font-bold text-brand-black mb-2 hand-underline hand-underline-teal inline-block"
+          >
+            Troubleshooting
+          </h2>
         </div>
 
         <!-- Marquee Container -->
@@ -600,17 +653,18 @@
             <div
               v-for="(tip, index) in allTips"
               :key="index"
-              class="flashlight-card relative group w-[280px] lg:w-[300px] bg-white border border-brand-black rounded-xl p-6 flex flex-col gap-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.05)] hover:shadow-hard transition-shadow overflow-hidden shrink-0"
+              class="flashlight-card relative group w-[280px] lg:w-[300px] card-hybrid paper-bg p-6 flex flex-col gap-4 transition-all duration-300 hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_#2F7A72] shrink-0 transform"
+              :class="index % 2 === 0 ? 'rotate-slight-left' : 'rotate-slight-right'"
             >
-              <div class="flashlight-border absolute inset-0 pointer-events-none rounded-xl"></div>
               <div
-                class="w-12 h-12 rounded-lg border border-brand-black flex items-center justify-center"
+                class="w-12 h-12 rounded-lg border-3 border-brand-black flex items-center justify-center shadow-[2px_2px_0px_0px_#1A1A1A]"
                 :class="tip.color"
               >
                 <!-- Inbox Icon -->
                 <svg
                   v-if="tip.icon === 'inbox'"
-                  class="w-6 h-6 text-brand-teal"
+                  class="w-6 h-6"
+                  :class="tip.color === 'bg-brand-bright' ? 'text-brand-black' : 'text-white'"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -625,7 +679,8 @@
                 <!-- Timer Icon -->
                 <svg
                   v-else-if="tip.icon === 'timer'"
-                  class="w-6 h-6 text-brand-bright"
+                  class="w-6 h-6"
+                  :class="tip.color === 'bg-brand-bright' ? 'text-brand-black' : 'text-white'"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -640,7 +695,8 @@
                 <!-- Lifebuoy Icon -->
                 <svg
                   v-else-if="tip.icon === 'lifebuoy'"
-                  class="w-6 h-6 text-brand-red"
+                  class="w-6 h-6"
+                  :class="tip.color === 'bg-brand-bright' ? 'text-brand-black' : 'text-white'"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -655,7 +711,8 @@
                 <!-- Globe Icon -->
                 <svg
                   v-else-if="tip.icon === 'globe'"
-                  class="w-6 h-6 text-brand-teal"
+                  class="w-6 h-6"
+                  :class="tip.color === 'bg-brand-bright' ? 'text-brand-black' : 'text-white'"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -670,7 +727,7 @@
               </div>
               <div>
                 <h3 class="font-bold text-lg text-brand-black mb-1">{{ tip.title }}</h3>
-                <p class="text-sm text-brand-black/60 leading-relaxed font-medium">
+                <p class="text-sm text-brand-gray leading-relaxed font-script">
                   {{ tip.description }}
                 </p>
               </div>
@@ -681,95 +738,111 @@
     </main>
 
     <!-- Footer -->
-    <footer class="w-full border-t border-brand-black/10 bg-white relative z-10 py-12 px-6">
-      <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-        <div class="flex items-center gap-2">
-          <div class="w-2 h-2 rounded-full bg-brand-teal animate-pulse"></div>
-          <span class="text-xs font-semibold text-brand-black/50">System Operational</span>
+    <footer
+      class="relative z-10 w-full border-t-3 border-brand-black bg-brand-bg py-8 px-6 md:px-12"
+    >
+      <div
+        class="max-w-screen-2xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6"
+      >
+        <div class="flex items-center gap-4">
+          <RouterLink
+            :to="authStore.isAuthenticated ? '/dashboard' : '/'"
+            class="group cursor-pointer relative"
+          >
+            <!-- Sonar Effect -->
+            <div
+              class="absolute inset-0 bg-brand-bright rounded-full opacity-0 group-hover:animate-sonar"
+            ></div>
+            <!-- Main Logo -->
+            <div
+              class="relative w-10 h-10 bg-brand-black rounded-full flex items-center justify-center text-brand-bg transition-all duration-300 hover:scale-105 border-2 border-brand-black overflow-hidden shadow-[2px_2px_0px_0px_rgba(47,122,114,0.4)] group-hover:shadow-[3px_3px_0px_0px_rgba(47,122,114,0.5)]"
+            >
+              <svg :viewBox="LOGO_VIEWBOX" class="w-6 h-6 transition-colors" fill="currentColor">
+                <path
+                  :d="LOGO_PATH"
+                  class="text-brand-bright group-hover:text-brand-bg transition-colors"
+                  :transform="LOGO_TRANSFORM"
+                />
+              </svg>
+            </div>
+          </RouterLink>
+          <span class="font-script text-base text-brand-black/60"
+            >&copy; {{ new Date().getFullYear() }} Stay on Brand</span
+          >
         </div>
 
         <div class="flex gap-8">
           <RouterLink
             to="/help"
-            class="text-sm font-medium text-brand-black/60 hover:text-brand-black transition-colors"
+            class="text-sm font-medium text-brand-black/60 hover:text-brand-black transition-colors hand-underline"
           >
             Support Center
           </RouterLink>
           <RouterLink
             to="/login"
-            class="text-sm font-medium text-brand-black/60 hover:text-brand-black transition-colors"
+            class="text-sm font-medium text-brand-teal font-semibold hover:text-brand-teal/80 transition-colors"
           >
             Login Help
           </RouterLink>
           <RouterLink
             to="/privacy"
-            class="text-sm font-medium text-brand-black/60 hover:text-brand-black transition-colors"
+            class="text-sm font-medium text-brand-black/60 hover:text-brand-black transition-colors hand-underline"
           >
             Privacy
           </RouterLink>
         </div>
+
+        <!-- Status Badge -->
+        <div
+          class="bg-brand-bright border-3 border-brand-black px-4 py-2 rounded-[4px] shadow-[2px_2px_0px_0px_#1A1A1A] transform rotate-[0.5deg] flex items-center gap-2"
+        >
+          <span class="relative flex h-2.5 w-2.5">
+            <span
+              class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-teal opacity-75"
+            ></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-teal"></span>
+          </span>
+          <span class="text-xs font-bold text-brand-black">System Operational</span>
+        </div>
       </div>
     </footer>
+
+    <!-- Floating Decorative Element -->
+    <div class="fixed bottom-8 right-8 hidden lg:block animate-float z-10 pointer-events-none">
+      <div
+        class="w-14 h-14 bg-brand-bright rounded-xl border-3 border-brand-black shadow-[3px_3px_0px_0px_#1A1A1A] flex items-center justify-center transform rotate-[5deg]"
+      >
+        <svg
+          class="w-6 h-6 text-brand-black"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+          />
+        </svg>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
-  /* Background Grid */
-  .bg-grid {
-    background-image:
-      linear-gradient(to right, rgba(26, 26, 26, 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(26, 26, 26, 0.05) 1px, transparent 1px);
-    background-size: 40px 40px;
-  }
-
-  /* Hard Shadow Utilities */
-  .shadow-hard {
-    box-shadow: 4px 4px 0px 0px #1a1a1a;
-  }
-
-  .shadow-hard-sm {
-    box-shadow: 2px 2px 0px 0px #1a1a1a;
-  }
-
-  /* Reveal animations */
-  .reveal-element {
-    opacity: 0;
-    transform: translateY(20px);
-    filter: blur(10px);
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .reveal-element.in-view {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
-
-  .delay-100 {
-    transition-delay: 100ms;
-  }
-  .delay-200 {
-    transition-delay: 200ms;
-  }
-  .delay-300 {
-    transition-delay: 300ms;
-  }
-
-  /* Noodle/Dash Draw Animation */
-  .dash-draw {
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    animation: draw 2.5s ease-out forwards;
-  }
-
-  .dash-draw.in-view {
-    animation-play-state: running;
-  }
-
-  @keyframes draw {
-    to {
-      stroke-dashoffset: 0;
+  /* Sonar animation for logo */
+  @keyframes sonar {
+    0% {
+      transform: scale(1);
+      opacity: 0.5;
     }
+    100% {
+      transform: scale(2.5);
+      opacity: 0;
+    }
+  }
+
+  .group-hover\:animate-sonar {
+    animation: sonar 1.5s ease-out infinite;
   }
 
   /* Marquee animation */
@@ -784,25 +857,6 @@
 
   .animate-marquee {
     animation: marquee 30s linear infinite;
-  }
-
-  /* Button beam animation */
-  @keyframes beam-button {
-    0% {
-      left: -100%;
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      left: 200%;
-      opacity: 0;
-    }
-  }
-
-  .animate-beam-button {
-    animation: beam-button 2s linear infinite;
   }
 
   /* Flashlight Effect */
@@ -834,42 +888,6 @@
     opacity: 1;
   }
 
-  .flashlight-border::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: radial-gradient(
-      300px circle at var(--mouse-x) var(--mouse-y),
-      rgba(26, 26, 26, 0.8),
-      transparent 40%
-    );
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    z-index: 10;
-    opacity: 0;
-    transition: opacity 0.5s;
-    pointer-events: none;
-  }
-
-  .flashlight-card:hover .flashlight-border::after {
-    opacity: 1;
-  }
-
-  /* Reveal visible class */
-  .reveal-visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
   /* Illustration Card Swap Animation */
   .illustration-card {
     transition:
@@ -884,9 +902,7 @@
   .illustration-card:hover {
     z-index: 30 !important;
     transform: scale(1.08) rotate(0deg) translateY(-10px) !important;
-    box-shadow:
-      8px 8px 0px 0px #1a1a1a,
-      0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    box-shadow: 8px 8px 0px 0px #1a1a1a !important;
     filter: brightness(1.05);
   }
 
@@ -914,6 +930,7 @@
     position: relative;
     overflow: hidden;
     transform-origin: top center;
+    border-radius: 4px;
   }
 
   .toast-icon {
@@ -941,19 +958,6 @@
     100% {
       opacity: 1;
       transform: translateX(0);
-    }
-  }
-
-  .toast-progress {
-    animation: progress-shrink 4s linear forwards;
-  }
-
-  @keyframes progress-shrink {
-    0% {
-      width: 100%;
-    }
-    100% {
-      width: 0%;
     }
   }
 
@@ -1077,5 +1081,23 @@
       opacity: 1;
       transform: translateY(-2px);
     }
+  }
+
+  /* Custom scrollbar */
+  .hide-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(26, 26, 26, 0.2);
+    border-radius: 2px;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(26, 26, 26, 0.4);
   }
 </style>

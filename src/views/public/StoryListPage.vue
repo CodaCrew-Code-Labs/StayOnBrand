@@ -227,17 +227,17 @@
               <span
                 class="inline-block animate-blur-in hover-contrast-flash"
                 style="animation-delay: 0.1s"
-                >Every</span
+                >Let's</span
               >
               <span
                 class="inline-block animate-blur-in hover-contrast-flash"
                 style="animation-delay: 0.2s"
-                >great</span
+                >Make</span
               >
               <span
                 class="inline-block animate-blur-in hover-contrast-flash"
                 style="animation-delay: 0.3s"
-                >brand</span
+                >Your</span
               >
             </h1>
             <!-- Contrast ratio indicator on hover -->
@@ -266,9 +266,8 @@
             <h1
               class="text-4xl sm:text-5xl md:text-8xl lg:text-9xl xl:text-[10rem] uppercase leading-[0.85] select-none tracking-wide font-bangers text-brand-red animate-fade-up screen-reader-text"
             >
-              starts with
+              Brand
             </h1>
-            <!-- Screen reader scan line -->
             <div class="absolute inset-0 overflow-hidden pointer-events-none">
               <div class="reader-scan-line"></div>
             </div>
@@ -284,33 +283,33 @@
           <!-- Line 3: "iconic colors" - Color vision simulation -->
           <div class="relative mt-2 group/line3" style="animation-delay: 0.6s">
             <h1
-              class="text-3xl sm:text-4xl md:text-7xl lg:text-8xl xl:text-9xl uppercase text-brand-black leading-[0.85] select-none tracking-tighter font-archivo color-vision-text"
+              class="text-4xl sm:text-5xl md:text-8xl lg:text-9xl xl:text-[10rem] uppercase text-brand-black leading-[0.85] select-none tracking-wide font-bangers color-vision-text"
             >
               <span class="inline-block animate-wave color-letter" style="animation-delay: 0.7s"
-                >i</span
+                >u</span
               ><span class="inline-block animate-wave color-letter" style="animation-delay: 0.75s"
-                >c</span
-              ><span class="inline-block animate-wave color-letter" style="animation-delay: 0.8s"
-                >o</span
-              ><span class="inline-block animate-wave color-letter" style="animation-delay: 0.85s"
                 >n</span
-              ><span class="inline-block animate-wave color-letter" style="animation-delay: 0.9s"
+              ><span class="inline-block animate-wave color-letter" style="animation-delay: 0.8s"
+                >m</span
+              ><span class="inline-block animate-wave color-letter" style="animation-delay: 0.85s"
                 >i</span
-              ><span class="inline-block animate-wave color-letter" style="animation-delay: 0.95s"
-                >c</span
-              ><span class="inline-block">&nbsp;</span
-              ><span class="inline-block animate-wave color-letter" style="animation-delay: 1.05s"
-                >c</span
-              ><span class="inline-block animate-wave color-letter" style="animation-delay: 1.1s"
-                >o</span
-              ><span class="inline-block animate-wave color-letter" style="animation-delay: 1.15s"
-                >l</span
-              ><span class="inline-block animate-wave color-letter" style="animation-delay: 1.2s"
-                >o</span
-              ><span class="inline-block animate-wave color-letter" style="animation-delay: 1.25s"
-                >r</span
-              ><span class="inline-block animate-wave color-letter" style="animation-delay: 1.3s"
+              ><span class="inline-block animate-wave color-letter" style="animation-delay: 0.9s"
                 >s</span
+              ><span class="inline-block animate-wave color-letter" style="animation-delay: 0.95s"
+                >t</span
+              >
+              <span class="inline-block animate-wave color-letter" style="animation-delay: 1.05s"
+                >a</span
+              ><span class="inline-block animate-wave color-letter" style="animation-delay: 1.1s"
+                >k</span
+              ><span class="inline-block animate-wave color-letter" style="animation-delay: 1.15s"
+                >a</span
+              ><span class="inline-block animate-wave color-letter" style="animation-delay: 1.2s"
+                >b</span
+              ><span class="inline-block animate-wave color-letter" style="animation-delay: 1.25s"
+                >l</span
+              ><span class="inline-block animate-wave color-letter" style="animation-delay: 1.3s"
+                >e</span
               >
             </h1>
             <div
@@ -333,9 +332,9 @@
           <!-- Line 4: "that are accessible to everyone" - Bebas Neue (tall, thin) -->
           <div class="relative mt-4 md:mt-6 overflow-hidden pl-0 sm:pl-10 md:pl-14">
             <h3
-              class="uppercase text-brand-teal leading-[0.85] select-none text-xl sm:text-2xl md:text-5xl lg:text-6xl xl:text-7xl tracking-wider font-bebas animate-typewriter"
+              class="uppercase text-brand-teal leading-[0.85] select-none text-xl sm:text-2xl md:text-4xl lg:text-4xl xl:text-5xl tracking-wider font-bebas animate-typewriter"
             >
-              that are accessible to everyone
+              Smart color selection + Bulletproof social consistency
             </h3>
             <div
               class="absolute top-1/2 -translate-y-1/2 left-0 bg-brand-bg text-brand-black w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-full hidden sm:flex items-center justify-center font-medium text-[10px] sm:text-xs border border-brand-black shadow-[2px_2px_0px_0px_#1A1A1A] animate-float-slow"
@@ -344,28 +343,22 @@
             </div>
           </div>
 
-          <!-- A11y Learn More Button -->
-          <a
-            href="https://medium.com/@mhdrahman/wcag-for-saas-owners-the-complete-guide-to-web-accessibility-compliance-in-2026-8eb794a9bcfa"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="a11y-btn group mt-6 md:mt-8 inline-flex items-center gap-2 px-5 py-2.5 md:px-6 md:py-3 rounded-full font-bold text-xs md:text-sm uppercase tracking-wider"
+          <p
+            class="mt-6 md:mt-8 text-base sm:text-lg md:text-xl text-brand-black/70 font-bangers tracking-wide leading-relaxed max-w-2xl animate-fade-up"
+            style="animation-delay: 1.8s; animation-fill-mode: backwards"
           >
-            <span class="relative z-10">Learn more about A11y</span>
-            <svg
-              class="w-3.5 h-3.5 md:w-4 md:h-4 relative z-10"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            <span class="bg-brand-bright/50 px-1.5 py-0.5 rounded font-semibold"
+              >Build your palette</span
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-              />
-            </svg>
-          </a>
+            effortlessly.
+            <span class="bg-brand-red/50 px-1.5 py-0.5 rounded font-semibold"
+              >Validate social posts</span
+            >
+            instantly.
+            <span class="bg-brand-bright/50 px-1.5 py-0.5 rounded font-semibold"
+              >On-brand, guaranteed</span
+            >, every time.
+          </p>
         </div>
 
         <!-- === LEFT SIDE FLOATING ICONS (Scattered) === -->
@@ -701,132 +694,133 @@
             </p>
           </div>
 
-          <!-- Email Form -->
+          <!-- Email Form (Neo-Brutalism Style) -->
           <div v-else class="relative">
-            <p
-              class="text-brand-black/70 text-xl md:text-2xl mb-6 tracking-wider font-bebas uppercase"
-            >
-              Be the first to know when we launch
-            </p>
-
-            <!-- Animated Input Container -->
             <div
-              class="relative group"
-              :class="{
-                'transform scale-[1.01]': isFocused
-              }"
+              class="card-hybrid paper-bg p-6 sm:p-8 rotate-slight-left tape-decoration relative overflow-visible"
             >
-              <!-- Input Container -->
-              <div
-                class="relative flex flex-col sm:flex-row gap-3 sm:gap-0 bg-brand-bg border-2 border-brand-black rounded-2xl sm:rounded-full p-2 transition-all duration-200 input-container"
-                :class="{
-                  'border-brand-teal shadow-[3px_3px_0px_0px_#2F7A72]': isFocused,
-                  'shadow-[4px_4px_0px_0px_#1A1A1A]': !isFocused
-                }"
-              >
-                <!-- Email Icon -->
-                <div class="hidden sm:flex items-center pl-4">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="transition-all duration-300"
-                    :class="isFocused ? 'text-brand-teal scale-110' : 'text-brand-black/50'"
-                  >
-                    <rect width="20" height="16" x="2" y="4" rx="2" />
-                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                  </svg>
-                </div>
+              <!-- Decorative Number -->
+              <div class="absolute top-4 right-4 font-script text-3xl text-brand-black/10">04</div>
 
-                <!-- Email Input -->
-                <input
-                  v-model="email"
-                  type="email"
-                  placeholder="your@email.com"
-                  class="flex-1 bg-transparent border-none outline-none px-4 py-3 text-brand-black placeholder-brand-black/40 font-medium text-base sm:text-lg tracking-wide"
-                  @focus="isFocused = true"
-                  @blur="isFocused = false"
-                  @keyup.enter="handleSubmit"
-                />
-
-                <!-- Submit Button -->
-                <button
-                  :disabled="isSubmitting"
-                  class="btn-submit relative bg-brand-black text-brand-bg px-6 py-3 rounded-full font-semibold text-sm uppercase tracking-wider transition-all duration-200 hover:bg-brand-teal disabled:opacity-70 disabled:cursor-not-allowed overflow-hidden whitespace-nowrap active:scale-95 active:shadow-none"
-                  @click="handleSubmit"
-                >
-                  <span v-if="isSubmitting" class="flex items-center gap-2">
+              <!-- Form -->
+              <div class="space-y-4">
+                <!-- Input + Button Row -->
+                <div class="flex flex-col sm:flex-row gap-3">
+                  <!-- Email Input -->
+                  <div class="relative flex-1">
+                    <input
+                      v-model="email"
+                      type="email"
+                      placeholder="name@company.com"
+                      class="input-hybrid w-full pr-10"
+                      @focus="isFocused = true"
+                      @blur="isFocused = false"
+                      @keyup.enter="handleSubmit"
+                    />
                     <svg
-                      class="animate-spin h-4 w-4"
-                      xmlns="http://www.w3.org/2000/svg"
+                      class="absolute right-3 top-1/2 -translate-y-1/2 w-[18px] h-[18px] transition-colors duration-200"
+                      :class="isFocused ? 'text-brand-teal' : 'text-brand-black/40'"
                       fill="none"
+                      stroke="currentColor"
                       viewBox="0 0 24 24"
                     >
-                      <circle
-                        class="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        stroke-width="4"
-                      ></circle>
                       <path
-                        class="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      ></path>
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      />
                     </svg>
-                    Joining...
-                  </span>
-                  <span v-else class="relative z-10">Join the Story</span>
-                </button>
+                  </div>
+
+                  <!-- Submit Button -->
+                  <button
+                    :disabled="isSubmitting"
+                    class="btn-hybrid btn-hybrid-primary whitespace-nowrap"
+                    :class="{ 'opacity-70': isSubmitting }"
+                    @click="handleSubmit"
+                  >
+                    <span v-if="isSubmitting" class="flex items-center gap-2">
+                      <svg
+                        class="w-5 h-5 animate-spin"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                        />
+                      </svg>
+                      Joining...
+                    </span>
+                    <template v-else>
+                      Join the Story
+                      <svg
+                        class="w-[18px] h-[18px]"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M14 5l7 7m0 0l-7 7m7-7H3"
+                        />
+                      </svg>
+                    </template>
+                  </button>
+                </div>
+
+                <!-- Trust Indicators as Badges -->
+                <div class="flex flex-wrap items-center justify-center gap-3">
+                  <div class="badge-hybrid badge-hybrid-outline">
+                    <svg
+                      class="w-3.5 h-3.5 text-brand-teal"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                      />
+                    </svg>
+                    <span class="text-xs font-bold">No spam</span>
+                  </div>
+                  <div class="badge-hybrid badge-hybrid-outline">
+                    <svg
+                      class="w-3.5 h-3.5 text-brand-teal"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                      />
+                    </svg>
+                    <span class="text-xs font-bold">Unsubscribe anytime</span>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <!-- Trust Indicators -->
-            <div
-              class="mt-6 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-brand-black/50 text-xs"
-            >
-              <span class="flex items-center gap-1.5">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
-                  <path d="m9 12 2 2 4-4" />
-                </svg>
-                No spam, ever
-              </span>
-              <span class="flex items-center gap-1.5">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                </svg>
-                Unsubscribe anytime
-              </span>
+            <!-- Decorative floating elements -->
+            <div class="absolute -left-6 top-8 hidden xl:block animate-float">
+              <div class="w-6 h-6 rounded-full border-2 border-dashed border-brand-teal/30"></div>
+            </div>
+            <div class="absolute -right-4 bottom-8 hidden xl:block animate-float-delayed">
+              <div
+                class="w-5 h-5 bg-brand-bright/20 rotate-45 border-2 border-brand-bright/40"
+              ></div>
             </div>
           </div>
         </div>

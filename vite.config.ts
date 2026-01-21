@@ -20,8 +20,8 @@ export default defineConfig(({ mode }) => ({
         handler(html) {
           const csp =
             mode === 'development'
-              ? "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://d94qwxh6czci4.cloudfront.net https://static-demo.airwallex.com https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com; worker-src 'self' blob:; object-src 'none'; base-uri 'self';"
-              : "script-src 'self' https://d94qwxh6czci4.cloudfront.net https://static-demo.airwallex.com https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com; worker-src 'self' blob:; object-src 'none'; base-uri 'self';"
+              ? "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://d94qwxh6czci4.cloudfront.net https://static-demo.airwallex.com https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://api.iconify.design; worker-src 'self' blob:; object-src 'none'; base-uri 'self';"
+              : "script-src 'self' https://d94qwxh6czci4.cloudfront.net https://static-demo.airwallex.com https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://api.iconify.design; worker-src 'self' blob:; object-src 'none'; base-uri 'self';"
           return html.replace(
             '<meta name="viewport"',
             `<meta http-equiv="Content-Security-Policy" content="${csp}" />\n    <meta http-equiv="Permissions-Policy" content="bluetooth=(), camera=(), microphone=(), geolocation=(), usb=()" />\n    <meta name="viewport"`

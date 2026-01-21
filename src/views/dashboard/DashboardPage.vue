@@ -19,7 +19,7 @@
         </div>
         <div class="hidden md:flex gap-3">
           <button class="btn-hybrid btn-hybrid-primary rotate-slight-right">
-            <iconify-icon icon="solar:add-circle-linear" width="16"></iconify-icon>
+            <Icon icon="solar:add-circle-linear" :width="16" />
             New Brand
           </button>
         </div>
@@ -38,11 +38,7 @@
               <div
                 class="w-12 h-12 bg-brand-teal flex items-center justify-center flex-shrink-0 border-2 border-brand-black shadow-[2px_2px_0px_0px_rgba(0,0,0,0.12)] rounded"
               >
-                <iconify-icon
-                  icon="solar:palette-bold"
-                  width="24"
-                  class="text-white"
-                ></iconify-icon>
+                <Icon icon="solar:palette-bold" :width="24" class="text-white" />
               </div>
               <div class="flex-1">
                 <p class="text-brand-teal font-script text-lg mb-0.5">popular brands</p>
@@ -52,7 +48,7 @@
               </div>
               <div class="flex gap-2">
                 <button class="icon-btn-hybrid wiggle-hover" @click="shuffleBrands">
-                  <iconify-icon icon="solar:refresh-linear" width="18"></iconify-icon>
+                  <Icon icon="solar:refresh-linear" :width="18" />
                 </button>
                 <button class="icon-btn-hybrid" @click="scrollBrands('left')">
                   <svg
@@ -110,7 +106,7 @@
                       class="w-10 h-10 flex items-center justify-center border-2 border-brand-black/20 shadow-sm rounded"
                       :class="brand.iconBg"
                     >
-                      <iconify-icon :icon="brand.icon" width="22"></iconify-icon>
+                      <Icon :icon="brand.icon" :width="22" />
                     </div>
                     <span class="font-display font-bold text-sm tracking-tight truncate flex-1">
                       {{ brand.name }}
@@ -150,7 +146,7 @@
                               color: getContrastColor(brand.colors[brandColorIndex[index] || 0])
                             }"
                           >
-                            <iconify-icon icon="mdi:diamond" width="10"></iconify-icon>
+                            <Icon icon="mdi:diamond" :width="10" />
                             {{ brand.colors[brandColorIndex[index] || 0] }}
                           </span>
                         </div>
@@ -164,20 +160,20 @@
                       class="w-8 h-8 bg-white hover:bg-brand-black/10 flex items-center justify-center transition-all hover:scale-105 border border-brand-black/20 rounded"
                       @click.stop="prevColor(index, brand.colors.length)"
                     >
-                      <iconify-icon icon="solar:arrow-left-linear" width="14"></iconify-icon>
+                      <Icon icon="solar:arrow-left-linear" :width="14" />
                     </button>
                     <button
                       class="flex-1 h-8 bg-white hover:bg-brand-black/10 flex items-center justify-center gap-1.5 transition-all text-xs font-bold hover:scale-[1.02] border border-brand-black/20 rounded"
                       @click.stop="selectBrand(brand)"
                     >
-                      <iconify-icon icon="solar:add-circle-bold" width="14"></iconify-icon>
+                      <Icon icon="solar:add-circle-bold" :width="14" />
                       Add All
                     </button>
                     <button
                       class="w-8 h-8 bg-white hover:bg-brand-black/10 flex items-center justify-center transition-all hover:scale-105 border border-brand-black/20 rounded"
                       @click.stop="nextColor(index, brand.colors.length)"
                     >
-                      <iconify-icon icon="solar:arrow-right-linear" width="14"></iconify-icon>
+                      <Icon icon="solar:arrow-right-linear" :width="14" />
                     </button>
                   </div>
 
@@ -236,11 +232,7 @@
                   <div
                     class="w-10 h-10 bg-brand-bright flex items-center justify-center flex-shrink-0 border-2 border-brand-black shadow-[2px_2px_0px_0px_rgba(0,0,0,0.12)] rounded animate-float"
                   >
-                    <iconify-icon
-                      icon="solar:pipette-bold"
-                      width="20"
-                      class="text-brand-black"
-                    ></iconify-icon>
+                    <Icon icon="solar:pipette-bold" :width="20" class="text-brand-black" />
                   </div>
                   <div class="flex-1">
                     <h2 class="text-lg font-display font-bold tracking-tight">Color Picker</h2>
@@ -249,7 +241,7 @@
                     </p>
                   </div>
                   <button class="icon-btn-hybrid bg-brand-bright!" @click="addColorFromPicker">
-                    <iconify-icon icon="solar:pipette-bold" width="18"></iconify-icon>
+                    <Icon icon="solar:pipette-bold" :width="18" />
                   </button>
                 </div>
 
@@ -308,11 +300,7 @@
                     <p class="font-mono text-base font-bold">{{ selectedColor.toUpperCase() }}</p>
                   </div>
                   <button class="icon-btn-hybrid" @click="copyColor(selectedColor)">
-                    <iconify-icon
-                      icon="solar:copy-linear"
-                      width="18"
-                      class="text-brand-black"
-                    ></iconify-icon>
+                    <Icon icon="solar:copy-linear" :width="18" class="text-brand-black" />
                   </button>
                 </div>
 
@@ -352,11 +340,7 @@
                   <div
                     class="w-10 h-10 bg-brand-teal flex items-center justify-center shrink-0 border-2 border-brand-black shadow-[2px_2px_0px_0px_rgba(0,0,0,0.12)] rounded wiggle-hover"
                   >
-                    <iconify-icon
-                      icon="solar:pallete-2-bold"
-                      width="20"
-                      class="text-white"
-                    ></iconify-icon>
+                    <Icon icon="solar:pallete-2-bold" :width="20" class="text-white" />
                   </div>
                   <div class="flex-1">
                     <h2 class="text-lg font-display font-bold tracking-tight">
@@ -372,7 +356,7 @@
                     style="box-shadow: 2px 2px 0px 0px #c92216"
                     @click="clearMyColors"
                   >
-                    <iconify-icon icon="solar:trash-bin-trash-bold" width="14"></iconify-icon>
+                    <Icon icon="solar:trash-bin-trash-bold" :width="14" />
                     Clear
                   </button>
                 </div>
@@ -402,7 +386,7 @@
                       class="absolute -top-2 -right-2 w-6 h-6 bg-brand-red text-white opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center shadow-sm hover:scale-110 border border-brand-black/30 rounded"
                       @click.stop="removeColor(index)"
                     >
-                      <iconify-icon icon="solar:close-circle-bold" width="14"></iconify-icon>
+                      <Icon icon="solar:close-circle-bold" :width="14" />
                     </button>
                   </div>
 
@@ -415,11 +399,11 @@
                     <div
                       class="w-10 h-10 border border-brand-black/15 flex items-center justify-center group-hover:border-brand-teal group-hover:bg-brand-teal/10 transition-all rounded"
                     >
-                      <iconify-icon
+                      <Icon
                         icon="solar:add-circle-bold"
-                        width="24"
+                        :width="24"
                         class="text-brand-black/40 group-hover:text-brand-teal group-hover:scale-110 transition-all"
-                      ></iconify-icon>
+                      />
                     </div>
                     <span
                       class="font-script text-base text-brand-black/40 mt-2 group-hover:text-brand-teal"
@@ -434,11 +418,7 @@
                     <div
                       class="w-10 h-10 border border-brand-black/10 flex items-center justify-center rounded"
                     >
-                      <iconify-icon
-                        icon="solar:check-circle-bold"
-                        width="24"
-                        class="text-brand-teal"
-                      ></iconify-icon>
+                      <Icon icon="solar:check-circle-bold" :width="24" class="text-brand-teal" />
                     </div>
                     <span class="font-script text-base text-brand-black/40 mt-2 text-center"
                       >Palette Full</span
@@ -455,11 +435,11 @@
                     <div
                       class="w-10 h-10 border border-brand-teal/20 flex items-center justify-center group-hover:border-brand-teal group-hover:bg-brand-teal/10 transition-all rounded"
                     >
-                      <iconify-icon
+                      <Icon
                         icon="solar:lock-keyhole-bold"
-                        width="24"
+                        :width="24"
                         class="text-brand-teal/60 group-hover:text-brand-teal group-hover:scale-110 transition-all"
-                      ></iconify-icon>
+                      />
                     </div>
                     <span
                       class="font-script text-base text-brand-teal/60 mt-2 group-hover:text-brand-teal text-center"
@@ -489,11 +469,11 @@
               <div
                 class="relative z-10 w-12 h-12 bg-brand-bright/20 border-3 border-white/30 flex items-center justify-center group-hover:animate-bounce rounded"
               >
-                <iconify-icon
+                <Icon
                   icon="solar:magic-stick-3-bold"
-                  width="24"
+                  :width="24"
                   class="group-hover:rotate-12 transition-transform"
-                ></iconify-icon>
+                />
               </div>
               <span class="relative z-10">Start Analysis</span>
               <svg
@@ -528,11 +508,7 @@
                 class="w-10 h-10 bg-brand-bright flex items-center justify-center shrink-0 border-2 border-brand-black shadow-[2px_2px_0px_0px_rgba(0,0,0,0.12)] rounded relative"
               >
                 <div class="absolute inset-0 bg-brand-bright/40 rounded animate-sonar-slow"></div>
-                <iconify-icon
-                  icon="solar:fire-bold"
-                  width="20"
-                  class="text-brand-black relative z-10"
-                ></iconify-icon>
+                <Icon icon="solar:fire-bold" :width="20" class="text-brand-black relative z-10" />
               </div>
               <div class="flex-1">
                 <h2 class="text-lg font-display font-bold tracking-tight">Most Picked Colors</h2>
@@ -595,11 +571,11 @@
                 class="w-10 h-10 bg-brand-bright flex items-center justify-center shrink-0 border-2 border-brand-black shadow-[2px_2px_0px_0px_rgba(0,0,0,0.12)] rounded relative"
               >
                 <div class="absolute inset-0 bg-brand-bright/40 rounded animate-sonar-slow"></div>
-                <iconify-icon
+                <Icon
                   icon="solar:bookmark-bold"
-                  width="20"
+                  :width="20"
                   class="text-brand-black relative z-10"
-                ></iconify-icon>
+                />
               </div>
               <div class="flex-1">
                 <h2 class="text-lg font-display font-bold tracking-tight">
@@ -613,7 +589,7 @@
                 </div>
               </div>
               <button class="icon-btn-hybrid bg-brand-bright!">
-                <iconify-icon icon="solar:add-circle-bold" width="18"></iconify-icon>
+                <Icon icon="solar:add-circle-bold" :width="18" />
               </button>
             </div>
 
@@ -646,21 +622,21 @@
                       <div
                         class="w-9 h-9 bg-white/20 backdrop-blur-sm border-2 border-white/30 flex items-center justify-center rounded"
                       >
-                        <iconify-icon :icon="brand.icon" width="20"></iconify-icon>
+                        <Icon :icon="brand.icon" :width="20" />
                       </div>
                       <span class="text-xs font-bold mt-1.5">{{ brand.name }}</span>
                     </div>
                     <button
                       class="w-7 h-7 bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-all border-2 border-white/20 rounded"
                     >
-                      <iconify-icon icon="solar:heart-bold" width="14"></iconify-icon>
+                      <Icon icon="solar:heart-bold" :width="14" />
                     </button>
                   </div>
                   <button
                     class="px-3 py-1.5 bg-white/20 backdrop-blur-sm border-2 border-white/30 hover:bg-white/30 transition-all text-xs font-bold flex items-center justify-center gap-2 relative z-10 rounded"
                     @click.stop="selectBrand(brand)"
                   >
-                    <iconify-icon icon="solar:add-circle-bold" width="14"></iconify-icon>
+                    <Icon icon="solar:add-circle-bold" :width="14" />
                     <span>Add to Palette</span>
                   </button>
                 </div>
@@ -700,6 +676,7 @@
   import { useRouter } from 'vue-router'
   import { useAuthStore } from '@/stores/auth.store'
   import { useToast } from '@/composables/useToast'
+  import { Icon } from '@iconify/vue'
 
   const router = useRouter()
   const authStore = useAuthStore()
@@ -832,7 +809,7 @@
   ])
 
   // My saved colors
-  const myColors = ref<string[]>(['#1DB954', '#E50914', '#003087'])
+  const myColors = ref<string[]>([])
 
   // Saved brands - light tinted backgrounds
   const savedBrands = ref([

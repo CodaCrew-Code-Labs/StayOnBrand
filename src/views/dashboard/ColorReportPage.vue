@@ -3,6 +3,7 @@
   import { useRoute, useRouter } from 'vue-router'
   import { useAuthStore } from '@/stores/auth.store'
   import { useToast } from '@/composables/useToast'
+  import { Icon } from '@iconify/vue'
 
   const route = useRoute()
   const router = useRouter()
@@ -393,7 +394,7 @@
       <div class="mb-8 flex items-end justify-between scroll-animate fade-up">
         <div class="relative">
           <button class="btn-hybrid-sm mb-4" @click="goBackToStudio">
-            <iconify-icon icon="solar:arrow-left-linear" width="16"></iconify-icon>
+            <Icon icon="solar:arrow-left-linear" :width="16" />
             Back to Studio
           </button>
           <div class="inline-block">
@@ -401,15 +402,11 @@
               class="text-3xl md:text-4xl font-display font-bold text-brand-black tracking-tight section-header-hybrid flex items-center gap-3"
             >
               <template v-if="brandNotFound">
-                <iconify-icon
-                  icon="solar:question-circle-bold"
-                  width="36"
-                  class="text-brand-red"
-                ></iconify-icon>
+                <Icon icon="solar:question-circle-bold" :width="36" class="text-brand-red" />
                 Brand Not Found
               </template>
               <template v-else-if="colorSource.icon">
-                <iconify-icon :icon="colorSource.icon" width="36"></iconify-icon>
+                <Icon :icon="colorSource.icon" :width="36" />
                 {{ colorSource.name }}
               </template>
               <template v-else> Color Report </template>
@@ -431,7 +428,7 @@
         </div>
         <div v-if="!brandNotFound" class="hidden md:flex gap-3">
           <button class="btn-hybrid btn-hybrid-primary" @click="goBackToStudio">
-            <iconify-icon icon="solar:palette-linear" width="18"></iconify-icon>
+            <Icon icon="solar:palette-linear" :width="18" />
             New Analysis
           </button>
         </div>
@@ -445,11 +442,7 @@
             class="absolute inset-0 rounded-full border-4 border-brand-teal border-t-transparent animate-spin"
           ></div>
           <div class="absolute inset-0 flex items-center justify-center">
-            <iconify-icon
-              icon="solar:magic-stick-3-bold"
-              width="32"
-              class="text-brand-teal"
-            ></iconify-icon>
+            <Icon icon="solar:magic-stick-3-bold" :width="32" class="text-brand-teal" />
           </div>
         </div>
         <h2 class="text-xl font-display font-bold mb-2">Analyzing Colors</h2>
@@ -473,11 +466,7 @@
             <div
               class="w-20 h-20 rounded border-3 border-brand-black bg-brand-red/10 flex items-center justify-center mb-6 shadow-[3px_3px_0px_0px_#C92216]"
             >
-              <iconify-icon
-                icon="solar:sad-circle-bold"
-                width="48"
-                class="text-brand-red"
-              ></iconify-icon>
+              <Icon icon="solar:sad-circle-bold" :width="48" class="text-brand-red" />
             </div>
             <h2
               class="text-2xl md:text-3xl font-display font-bold text-brand-black mb-3 section-header-hybrid inline-block"
@@ -490,7 +479,7 @@
             </p>
             <div class="flex flex-wrap items-center justify-center gap-3">
               <button class="btn-hybrid btn-hybrid-primary" @click="goBackToStudio">
-                <iconify-icon icon="solar:palette-linear" width="18"></iconify-icon>
+                <Icon icon="solar:palette-linear" :width="18" />
                 Create Custom Palette
               </button>
               <RouterLink to="/color-studio" class="btn-hybrid"> Go to Color Studio </RouterLink>
@@ -506,11 +495,7 @@
             <div
               class="w-12 h-12 rounded border-3 border-brand-black bg-brand-teal flex items-center justify-center shrink-0 shadow-[3px_3px_0px_0px_#1A1A1A]"
             >
-              <iconify-icon
-                icon="solar:buildings-bold"
-                width="24"
-                class="text-white"
-              ></iconify-icon>
+              <Icon icon="solar:buildings-bold" :width="24" class="text-white" />
             </div>
             <div class="flex-1">
               <p class="text-brand-black/50 font-script text-lg mb-1">Available Brands</p>
@@ -534,7 +519,7 @@
                 class="w-12 h-12 rounded border-2 border-brand-black/20 flex items-center justify-center group-hover:scale-110 transition-transform"
                 :style="{ backgroundColor: brand.primaryColor + '20' }"
               >
-                <iconify-icon v-if="brand.icon" :icon="brand.icon" width="28"></iconify-icon>
+                <Icon v-if="brand.icon" :icon="brand.icon" :width="28" />
                 <div
                   v-else
                   class="w-6 h-6 rounded-full"
@@ -556,7 +541,7 @@
 
           <hr class="divider-dashed" />
           <div class="flex items-center gap-2 text-brand-black/50 font-script">
-            <iconify-icon icon="solar:info-circle-linear" width="14"></iconify-icon>
+            <Icon icon="solar:info-circle-linear" :width="14" />
             <span>Click on any brand to view its color analysis</span>
           </div>
         </section>
@@ -592,11 +577,7 @@
             <div
               class="w-14 h-14 rounded border-3 border-brand-black bg-brand-black flex items-center justify-center shrink-0 shadow-[3px_3px_0px_0px_#2F7A72] icon-pop"
             >
-              <iconify-icon
-                icon="solar:palette-bold"
-                width="28"
-                class="text-brand-bright"
-              ></iconify-icon>
+              <Icon icon="solar:palette-bold" :width="28" class="text-brand-bright" />
             </div>
             <div class="flex-1">
               <p class="text-brand-black/50 font-script text-lg mb-1 label-slide-in">
@@ -652,11 +633,7 @@
                     <div
                       class="w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg copy-icon-bounce"
                     >
-                      <iconify-icon
-                        icon="solar:copy-bold"
-                        width="20"
-                        class="text-brand-black"
-                      ></iconify-icon>
+                      <Icon icon="solar:copy-bold" :width="20" class="text-brand-black" />
                     </div>
                   </div>
 
@@ -696,21 +673,13 @@
             <div
               class="flex items-center gap-2 px-4 py-2 bg-brand-bg rounded-full border border-brand-black/10"
             >
-              <iconify-icon
-                icon="solar:cursor-bold"
-                width="16"
-                class="text-brand-teal"
-              ></iconify-icon>
+              <Icon icon="solar:cursor-bold" :width="16" class="text-brand-teal" />
               <span class="text-xs font-medium text-brand-black/60">Click to copy hex code</span>
             </div>
             <div
               class="flex items-center gap-2 px-4 py-2 bg-brand-bg rounded-full border border-brand-black/10"
             >
-              <iconify-icon
-                icon="solar:pallete-2-bold"
-                width="16"
-                class="text-brand-teal"
-              ></iconify-icon>
+              <Icon icon="solar:pallete-2-bold" :width="16" class="text-brand-teal" />
               <span class="text-xs font-medium text-brand-black/60"
                 >{{ colorAnalysis.length }} colors analyzed</span
               >
@@ -736,18 +705,14 @@
                 <p class="text-sm font-mono text-brand-black/60">{{ analysis.hex }}</p>
               </div>
               <button class="icon-btn-hybrid" @click="copyColor(analysis.hex)">
-                <iconify-icon icon="solar:copy-linear" width="18"></iconify-icon>
+                <Icon icon="solar:copy-linear" :width="18" />
               </button>
             </div>
 
             <!-- Mood -->
             <div class="mb-4 p-4 bg-white rounded border-2 border-brand-black/10">
               <div class="flex items-center gap-2 mb-2">
-                <iconify-icon
-                  icon="solar:emoji-funny-circle-bold"
-                  width="18"
-                  class="text-brand-teal"
-                ></iconify-icon>
+                <Icon icon="solar:emoji-funny-circle-bold" :width="18" class="text-brand-teal" />
                 <span class="font-script text-brand-black/50">Mood</span>
               </div>
               <p class="font-display font-bold text-brand-black">{{ analysis.mood }}</p>
@@ -756,11 +721,7 @@
             <!-- Accessibility -->
             <div class="mb-4 p-4 bg-white rounded border-2 border-brand-black/10">
               <div class="flex items-center gap-2 mb-2">
-                <iconify-icon
-                  icon="solar:accessibility-bold"
-                  width="18"
-                  class="text-brand-teal"
-                ></iconify-icon>
+                <Icon icon="solar:accessibility-bold" :width="18" class="text-brand-teal" />
                 <span class="font-script text-brand-black/50">Accessibility</span>
               </div>
               <div class="flex items-center justify-between">
@@ -812,7 +773,7 @@
           <div
             class="w-16 h-16 mx-auto mb-4 rounded border-3 border-brand-black bg-brand-teal flex items-center justify-center shadow-[3px_3px_0px_0px_#1A1A1A]"
           >
-            <iconify-icon icon="solar:crown-bold" width="32" class="text-white"></iconify-icon>
+            <Icon icon="solar:crown-bold" :width="32" class="text-white" />
           </div>
           <h3
             class="text-2xl font-display font-bold text-brand-black mb-2 section-header-hybrid inline-block"
