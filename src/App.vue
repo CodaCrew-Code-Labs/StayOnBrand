@@ -15,14 +15,14 @@
     ogTitle: 'Stay on Brand',
     ogDescription:
       'Create stunning, on-brand color palettes for your designs. AI-powered color studio for designers and marketers.',
-    ogImage: '/site.png',
+    ogImage: 'https://www.stayonbrand.in/site.png',
     ogType: 'website',
     ogSiteName: 'Stay on Brand',
     twitterCard: 'summary_large_image',
     twitterTitle: 'Stay on Brand',
     twitterDescription:
       'Create stunning, on-brand color palettes for your designs. AI-powered color studio for designers and marketers.',
-    twitterImage: '/site.png'
+    twitterImage: 'https://www.stayonbrand.in/site.png'
   })
 
   const layoutComponents = {
