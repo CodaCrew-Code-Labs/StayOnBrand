@@ -222,7 +222,7 @@
               01
             </div>
             <h1
-              class="text-3xl sm:text-4xl md:text-7xl lg:text-8xl xl:text-9xl uppercase text-brand-black leading-[0.85] select-none tracking-tight font-changa flex flex-wrap justify-center gap-1 sm:gap-2 md:gap-4 contrast-check-text"
+              class="text-6xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl uppercase text-brand-black leading-[0.85] select-none tracking-tight font-changa flex flex-wrap justify-center gap-1 sm:gap-2 md:gap-4 contrast-check-text"
             >
               <span
                 class="inline-block animate-blur-in hover-contrast-flash"
@@ -264,7 +264,7 @@
           <!-- Line 2: "starts with" - Screen reader scan effect -->
           <div class="relative mt-1 group/line2" style="animation-delay: 0.4s">
             <h1
-              class="text-4xl sm:text-5xl md:text-8xl lg:text-9xl xl:text-[10rem] uppercase leading-[0.85] select-none tracking-wide font-bangers text-brand-red animate-fade-up screen-reader-text"
+              class="text-7xl sm:text-5xl md:text-8xl lg:text-9xl xl:text-[10rem] uppercase leading-[0.85] select-none tracking-wide font-bangers text-brand-red animate-fade-up screen-reader-text"
             >
               Brand
             </h1>
@@ -283,7 +283,7 @@
           <!-- Line 3: "iconic colors" - Color vision simulation -->
           <div class="relative mt-2 group/line3" style="animation-delay: 0.6s">
             <h1
-              class="text-4xl sm:text-5xl md:text-8xl lg:text-9xl xl:text-[10rem] uppercase text-brand-black leading-[0.85] select-none tracking-wide font-bangers color-vision-text"
+              class="text-7xl sm:text-5xl md:text-8xl lg:text-9xl xl:text-[10rem] uppercase text-brand-black leading-[0.85] select-none tracking-wide font-bangers color-vision-text"
             >
               <span class="inline-block animate-wave color-letter" style="animation-delay: 0.7s"
                 >u</span
