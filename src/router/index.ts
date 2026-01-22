@@ -22,4 +22,14 @@ router.beforeEach((to, _from, next) => {
 router.beforeEach(authGuard)
 router.beforeEach(guestGuard)
 
+// Track page views for Google Analytics (SPA navigation)
+router.afterEach(to => {
+  if (typeof window.gtag === 'function') {
+    window.gtag('event', 'page_view', {
+      page_path: to.fullPath,
+      page_title: document.title
+    })
+  }
+})
+
 export default router

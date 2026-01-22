@@ -8,12 +8,8 @@ import { useAuthStore } from '@/stores/auth.store'
 
 import './styles/main.css'
 
-// Google Analytics
+// Google Analytics - Standard implementation
 const GA_ID = 'G-G2RYWM6FZ2'
-const script = document.createElement('script')
-script.async = true
-script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`
-document.head.appendChild(script)
 
 declare global {
   interface Window {
@@ -22,12 +18,23 @@ declare global {
   }
 }
 
+// Initialize dataLayer and gtag function FIRST (queues commands)
 window.dataLayer = window.dataLayer || []
-window.gtag = function gtag(...args: unknown[]) {
-  window.dataLayer.push(args)
+function gtag(..._args: unknown[]) {
+  // eslint-disable-next-line prefer-rest-params
+  window.dataLayer.push(arguments)
 }
-window.gtag('js', new Date())
-window.gtag('config', GA_ID)
+window.gtag = gtag
+
+// Queue the initial commands
+gtag('js', new Date())
+gtag('config', GA_ID)
+
+// Load the script (it will process the queued commands)
+const script = document.createElement('script')
+script.async = true
+script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`
+document.head.appendChild(script)
 
 const app = createApp(App)
 
